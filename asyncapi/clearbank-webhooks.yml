@@ -1,0 +1,85 @@
+generated: '2026-07-23'
+method: searched
+source: https://clearbank.github.io/uk/docs/lookup/webhook-lookup-table/
+spec_type: Webhooks
+transport: HTTPS POST (provider -> your registered webhook endpoint)
+envelope:
+  fields:
+  - {name: Type, description: The webhook/event type identifier.}
+  - {name: Version, description: Integer schema version of the event.}
+  - {name: Payload, description: Event-specific body.}
+  - {name: Nonce, description: Numeric value to be echoed back in the signed 200 response.}
+delivery:
+  guarantee: at-least-once
+  consumer_requirement: >-
+    Verify ClearBank's signature, then respond within 5 seconds with HTTP 200
+    echoing the Nonce and signed with a valid DigitalSignature. Handlers must be
+    idempotent.
+  retry: every 15 minutes for up to 24 hours until a successful response.
+management: ClearBank Portal > Webhook Management (register endpoints; FITestEvent to test).
+events:
+- {type: AccountClosureCompleted, description: An account has been closed.}
+- {type: AccountClosureFailed, description: An account closure has failed.}
+- {type: AccountCreated, description: An account has been created.}
+- {type: Accounts.AccountCreated, description: A multi-currency account has been created.}
+- {type: Accounts.AccountUpdated, description: A multi-currency account has been updated.}
+- {type: Accounts.VirtualAccountCreated, description: A multi-currency virtual account has been created.}
+- {type: Accounts.VirtualAccountUpdated, description: A multi-currency virtual account has been updated.}
+- {type: BacsDebitContraReceived, description: A Bacs Debit Contra has been received.}
+- {type: BacsDirectCreditInboundPaymentCreatedV2, description: A Bacs Direct Credit inbound payment has been created.}
+- {type: BacsDirectCreditInboundPaymentHeldV3, description: A Bacs Direct Credit inbound payment has been held.}
+- {type: BacsDirectCreditRecalledV1, description: A Bacs Direct Credit has been recalled.}
+- {type: BacsDirectCreditReturnCreatedV4, description: A Bacs Direct Credit return has been created.}
+- {type: BacsDirectDebitInboundPaymentCreatedV2, description: A Bacs Direct Debit inbound payment has been created.}
+- {type: BacsDirectDebitIndemnityClaimReceivedEventV3, description: An indemnity claim has been received.}
+- {type: BacsDirectDebitReturnCreatedV4, description: A Bacs Direct Debit return has been created.}
+- {type: BacsMandateCancellationFailed, description: A Bacs Direct Debit Instruction cancellation has failed.}
+- {type: BacsMandateCancelledV2, description: A Bacs Direct Debit Instruction has been cancelled.}
+- {type: BacsMandateInitiatedV2, description: A Bacs Direct Debit Instruction has been initiated.}
+- {type: BacsMandateInitiationFailed, description: A Bacs Direct Debit Instruction initiation has failed.}
+- {type: BacsMandateMigratedV2, description: A Bacs Direct Debit Instruction has been migrated.}
+- {type: BacsMandateReturned, description: A Bacs Direct Debit Instruction has been returned.}
+- {type: BacsMandateReturnFailed, description: A Bacs Direct Debit Instruction return has failed.}
+- {type: BacsUnappliedCreditReceivedV3, description: A Bacs Unapplied Credit has been received.}
+- {type: BacsUnpaidDirectDebitReceivedV3, description: A Bacs Unpaid Direct Debit has been received.}
+- {type: ChequeFailedScrutiny, description: A cheque has failed scrutiny and will not be paid.}
+- {type: ChequeNotPaid, description: A cheque has been received and will not be paid.}
+- {type: ChequePaid, description: A cheque has been received and will be paid.}
+- {type: ChequeProcessCompleted, description: A cheque deposit process has been completed.}
+- {type: ChequeReconciled, description: A cheque has been received, manually processed, and will be paid.}
+- {type: Fx.Trade.Cancelled, description: An FX trade has been cancelled.}
+- {type: Fx.Trade.Executed, description: An FX trade has been executed.}
+- {type: Fx.Trade.Settled, description: An FX trade has been settled.}
+- {type: Fx.Trade.Settlement.Failed, description: Settlement of an FX trade has failed.}
+- {type: InboundHeldTransaction, description: An inbound payment has been held for screening.}
+- {type: InterestPaid, description: Interest has been paid into a cash ISA or savings account.}
+- {type: IsaSubscriptionRejected, description: An ISA subscription (payment into an ISA) has failed.}
+- {type: IsaRemainingSubscriptionAllowanceUpdated, description: An ISA allowance updated due to activity.}
+- {type: Mccy.InternalTransfers.Cancelled, description: A multi-currency internal transfer request has been cancelled.}
+- {type: Mccy.InternalTransfers.Settled, description: A multi-currency internal transfer request has been settled.}
+- {type: MCCY.Statements.AccountStatement, description: Statement for a specific account is available for download.}
+- {type: MCCY.Statements.InstitutionStatement, description: Statement for all institution accounts is available for download.}
+- {type: OuboundHeldTransaction, description: An outbound payment has been held for screening.}
+- {type: Payments.Mccy.PaymentAssessmentFailed, description: A multi-currency payment has failed assessment.}
+- {type: Payments.Mccy.TransactionCancelled, description: A multi-currency transaction has been cancelled.}
+- {type: Payments.Mccy.TransactionCreated, description: A multi-currency transaction has been created.}
+- {type: Payments.Mccy.TransactionSettled, description: A multi-currency transaction has been settled.}
+- {type: Payments.Mccy.PaymentValidationFailed, description: A multi-currency payment has failed validation.}
+- {type: Payments.CrossBorder.InboundPaymentCompleted, description: An inbound cross-border multi-currency payment has completed.}
+- {type: Payments.CrossBorder.OutboundPaymentCompleted, description: An outbound cross-border multi-currency payment has completed.}
+- {type: Payments.CrossBorder.OutboundPaymentFailed, description: An outbound cross-border multi-currency payment has failed.}
+- {type: CustomerAccounts.TransactionCompleted, description: An inbound or outbound cross-border multi-currency transaction has occurred.}
+- {type: PaymentMessageAssesmentFailed, description: A payment assessment has failed.}
+- {type: PaymentMessageValidationFailed, description: A payment validation has failed.}
+- {type: TisaTransferAccepted, description: A cash ISA transfer request has been accepted by the ceding party.}
+- {type: TisaTransferRequest, description: A cash ISA transfer request has been sent to the ceding party.}
+- {type: TisaTransferStatusUpdate, description: The status of an automated cash ISA transfer has been updated.}
+- {type: RetailCustomer.ApplicationDeclined, description: A retail customer KYC check has been declined.}
+- {type: RetailCustomer.AdditionalInfoRequired, description: Further information about a retail customer is required.}
+- {type: RetailCustomer.ApplicationSuccessful, description: A KYC check succeeded and a new retail customer was created.}
+- {type: Statements.ReadyForDownload, description: A camt.053 statement is ready for download.}
+- {type: TransactionRejected, description: A payment validation has failed / transaction rejected.}
+- {type: TransactionSettled, description: A transaction has settled.}
+- {type: VirtualAccountCreated, description: A virtual account has been created.}
+- {type: VirtualAccountCreationFailed, description: A virtual account creation has failed.}
+- {type: FITestEvent, description: Test webhook used to validate your receiver and signature verification.}

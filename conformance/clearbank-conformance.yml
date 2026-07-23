@@ -1,0 +1,46 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*.json + https://clearbank.github.io/uk/docs/
+standards:
+- id: rfc7807-problem-details
+  conforms: true
+  evidence: All error responses use the ProblemDetails schema (type/title/status/detail/instance) as application/json.
+- id: iso20022
+  conforms: true
+  evidence: >-
+    Payment and reporting surfaces are ISO 20022 based (camt.053 statements,
+    pacs/pain-style payment messages, Iso20022XmlDocument in Transaction Settled webhooks).
+- id: confirmation-of-payee
+  conforms: true
+  evidence: Outbound CoP name-verification and SRD validate endpoints implement the Pay.UK Confirmation of Payee standard.
+- id: uk-faster-payments
+  conforms: true
+  evidence: Direct participant in the UK Faster Payments Scheme (FPS initiation API).
+- id: uk-chaps-rtgs
+  conforms: true
+  evidence: Direct CHAPS RTGS participant (CHAPS institution/customer payment API v6).
+- id: uk-bacs
+  conforms: true
+  evidence: Bacs Direct Credit/Debit processing surfaced via webhook event catalog.
+- id: sepa-credit-transfer
+  conforms: true
+  evidence: SEPA Credit Transfer (SCT) orchestrator API for euro payments.
+- id: idempotency
+  conforms: true
+  evidence: Mandatory X-Request-Id idempotency key with 24-hour duplicate detection (409 on duplicate).
+- id: oauth2
+  conforms: false
+  evidence: No OAuth flows; auth is bearer token + RSA DigitalSignature.
+- id: psd2-open-banking
+  conforms: false
+  evidence: >-
+    ClearBank is not a mandated Open Banking ASPSP and does not publish OBIE
+    Read/Write (AISP/PISP/CBPII) or Open Data APIs.
+- id: fapi
+  conforms: false
+  evidence: No FAPI security profile declared.
+regulatory:
+  authorizations:
+  - {authority: PRA, role: Prudential Regulation Authority, frn: '754568'}
+  - {authority: FCA, role: Financial Conduct Authority}
+  - {authority: ECB, role: European Central Bank (ClearBank Europe N.V.)}

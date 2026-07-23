@@ -1,0 +1,51 @@
+# ClearBank
+
+> ClearBank is a UK clearing and Banking-as-a-Service bank (founded 2015, first new UK clearing bank in 250+ years), authorised by the PRA and regulated by the FCA and PRA (FRN 754568). It is a direct participant in Faster Payments, CHAPS and Bacs and exposes Agency, Embedded and Transaction Banking through a single token-authenticated, RSA-signed JSON REST API — the ClearBank Financial Institutions API. Authentication is a bearer API token plus a DigitalSignature (RSA-SHA256) header over the request body, with a mandatory X-Request-Id idempotency key (24h duplicate window). Payment initiation is asynchronous (202 Accepted) with outcomes delivered over signed webhooks.
+
+## APIs
+- [GBP Accounts API](https://clearbank.github.io/uk/docs/api/): Open and manage sterling accounts, balances, transactions and reporting.
+- [Faster Payments API](https://clearbank.github.io/uk/docs/api/): Initiate and return UK Faster Payments (FPS).
+- [CHAPS API](https://clearbank.github.io/uk/docs/api/): High-value CHAPS RTGS institution and customer payments (v6).
+- [Multi-Currency Accounts API](https://clearbank.github.io/uk/docs/multi-currency/): Create and manage multi-currency (MCCY) and virtual accounts.
+- [Multi-Currency Payments API](https://clearbank.github.io/uk/docs/multi-currency/multi-currency-payments/): Orchestrate MCCY inbound/outbound payments.
+- [FX API](https://clearbank.github.io/uk/docs/api/): Spot and RFQ foreign-exchange trades.
+- [SEPA Credit Transfer API](https://clearbank.github.io/uk/docs/api/): Send/receive/recall SEPA CT euro payments.
+- [Confirmation of Payee API](https://clearbank.github.io/uk/docs/api/): Outbound CoP name verification (Pay.UK).
+- [Customer Due Diligence (KYC) API](https://clearbank.github.io/uk/docs/api/): Retail customer onboarding checks.
+- [Cross-Border Sterling API](https://clearbank.github.io/uk/docs/gbp-payments/gbp-cross-border/): Cross-border sterling payments.
+- [Retail Embedded Banking Customers API](https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/): Manage retail customers, accounts, savings and ISAs.
+
+## Specs
+- openapi/clearbank-sterling-v4.json
+- openapi/clearbank-fps-initiate-payment-v3.json
+- openapi/clearbank-chaps-v6.json
+- openapi/clearbank-cross-border-v4.json
+- openapi/clearbank-mccy-accounts-v2.json
+- openapi/clearbank-mccy-payments-v1.json
+- openapi/clearbank-fx-orchestrator-rfq.json
+- openapi/clearbank-sepa-ct-v1.json
+- openapi/clearbank-cop-outbound-v1.json
+- openapi/clearbank-know-your-customer-v1.json
+- openapi/clearbank-customers_v2_retail.json
+
+## Docs
+- [Getting started](https://clearbank.github.io/uk/docs/api/getting-started/)
+- [API overview](https://clearbank.github.io/uk/docs/api/overview/)
+- [Versioning](https://clearbank.github.io/uk/docs/api/versioning)
+- [Support life cycle / deprecation](https://clearbank.github.io/uk/docs/api/support-life-cycle)
+- [Webhook lookup table](https://clearbank.github.io/uk/docs/lookup/webhook-lookup-table/)
+- [Explore our API](https://clear.bank/explore-our-api)
+
+## Artifacts
+- authentication/clearbank-authentication.yml
+- conventions/clearbank-conventions.yml
+- errors/clearbank-problem-types.yml
+- lifecycle/clearbank-lifecycle.yml
+- sandbox/clearbank-sandbox.yml
+- asyncapi/clearbank-webhooks.yml
+- conformance/clearbank-conformance.yml
+- data-model/clearbank-data-model.yml
+- packages/clearbank-packages.yml
+
+## Status
+- [ClearBank status page](https://clearbank.statuspage.io/)

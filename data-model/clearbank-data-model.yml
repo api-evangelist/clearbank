@@ -1,0 +1,62 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*.json
+note: >-
+  Entity graph derived from the ClearBank OpenAPI specs (schema $ref links and
+  id-reference fields). ClearBank models a financial institution's estate:
+  institutions hold accounts, accounts originate/receive scheme payments, and
+  retail customers are onboarded with related parties and identity documents.
+entities:
+- name: Institution
+  description: The onboarded financial institution (the API caller's own bank/fintech).
+  relationships:
+  - {type: has_many, target: Account, via: institutionId}
+- name: Account
+  description: A sterling or multi-currency account (real or virtual) held at ClearBank.
+  id_examples: [accountId, IBAN, UK sort code + account number]
+  source: [openapi/clearbank-sterling-v4.json, openapi/clearbank-mccy-accounts-v2.json]
+  relationships:
+  - {type: belongs_to, target: Institution, via: institutionId}
+  - {type: has_many, target: Transaction, via: accountId}
+  - {type: has_many, target: VirtualAccount, via: parentAccountId}
+- name: VirtualAccount
+  description: A multi-currency virtual account nested under a real account.
+  relationships:
+  - {type: belongs_to, target: Account, via: parentAccountId}
+- name: Payment
+  description: An outbound/inbound scheme payment (FPS, CHAPS, cross-border sterling, SEPA CT, MCCY).
+  source: [openapi/clearbank-fps-initiate-payment-v3.json, openapi/clearbank-chaps-v6.json, openapi/clearbank-cross-border-v4.json, openapi/clearbank-sepa-ct-v1.json, openapi/clearbank-mccy-payments-v1.json]
+  relationships:
+  - {type: belongs_to, target: Account, via: debtor/creditor accountIdentifier}
+  - {type: has_one, target: Transaction, via: endToEndId}
+- name: Transaction
+  description: A settled/held movement on an account, surfaced via webhooks and statements.
+  relationships:
+  - {type: belongs_to, target: Account, via: accountId}
+  - {type: has_one, target: Payment, via: endToEndId}
+- name: FxTrade
+  description: A spot / RFQ foreign-exchange trade tied to multi-currency accounts.
+  source: [openapi/clearbank-fx-orchestrator-rfq.json]
+  relationships:
+  - {type: belongs_to, target: Account, via: settlement accountId}
+- name: Customer
+  description: A retail embedded-banking customer onboarded via KYC/CDD.
+  id_examples: [customerId]
+  source: [openapi/clearbank-customers_v2_retail.json, openapi/clearbank-know-your-customer-v1.json]
+  relationships:
+  - {type: has_many, target: RelatedParty, via: customerId}
+  - {type: has_many, target: IdentityDocument, via: customerId}
+  - {type: has_many, target: TaxResidency, via: customerId}
+  - {type: has_many, target: Account, via: customerId}
+- name: RelatedParty
+  description: A party related to a retail customer (e.g. joint/associated party).
+  relationships:
+  - {type: belongs_to, target: Customer, via: customerId}
+- name: IdentityDocument
+  description: An identity document attached to a customer (keyed by country of issue + type).
+  relationships:
+  - {type: belongs_to, target: Customer, via: customerId}
+- name: TaxResidency
+  description: A customer's declared country of tax residence.
+  relationships:
+  - {type: belongs_to, target: Customer, via: customerId}

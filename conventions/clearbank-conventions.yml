@@ -1,0 +1,50 @@
+generated: '2026-07-23'
+method: searched
+source: https://clearbank.github.io/uk/docs/api/getting-started/
+authentication:
+  style: bearer-token + RSA request-body signature
+  header: Authorization (Bearer), DigitalSignature (RSA-SHA256, PKCS#1 v1.5)
+  ref: authentication/clearbank-authentication.yml
+idempotency:
+  supported: true
+  header: X-Request-Id
+  scope: per-request, caller-generated, max 83 characters
+  retention: 24 hours (duplicate detection window)
+  on_missing_or_invalid: 400 Bad Request
+  on_duplicate: 409 Conflict
+  note: >-
+    X-Request-Id is mandatory and is ClearBank's idempotency key. Webhook
+    consumers must also be idempotent because webhook delivery is at-least-once.
+async_pattern:
+  description: >-
+    Payment initiation is asynchronous. Create endpoints return 202 Accepted
+    and the final outcome (settled/rejected/held) is delivered via webhooks.
+  accepted_status: 202
+  outcome_delivery: webhooks
+  ref: asyncapi/clearbank-webhooks.yml
+error_envelope:
+  format: rfc7807
+  media_type: application/json
+  schema: ProblemDetails
+  fields: [type, title, status, detail, instance, errors]
+  ref: errors/clearbank-problem-types.yml
+request_tracing:
+  correlation_header: X-Correlation-Id
+  description: Responses include X-Correlation-Id for support/troubleshooting reference.
+versioning:
+  scheme: semver + uri-path
+  example: /v4/Accounts, /payments/chaps/v6/institution-payments
+  docs: https://clearbank.github.io/uk/docs/api/versioning
+  ref: lifecycle/clearbank-lifecycle.yml
+deprecation:
+  policy: min 12 months support, reviewed every 6 months, 6 months written notice before withdrawal
+  docs: https://clearbank.github.io/uk/docs/api/support-life-cycle
+rate_limiting:
+  documented: true
+  note: >-
+    Rate limits apply and are deliberately lower in the simulation environment
+    so integrators can validate throttling behaviour. Specific thresholds are
+    not published in the public docs.
+pagination:
+  documented: false
+  note: Public specs are payment/command oriented; no cross-cutting pagination convention is published.

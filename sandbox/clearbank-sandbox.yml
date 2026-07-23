@@ -1,0 +1,39 @@
+generated: '2026-07-23'
+method: searched
+source: https://clearbank.github.io/uk/docs/api/getting-started/
+environments:
+  production:
+    api_base_url: https://institution-api.clearbank.co.uk/
+    portal: https://institution.clearbank.co.uk/
+  simulation:
+    api_base_url: https://institution-api-sim.clearbank.co.uk/
+    portal: https://institution-sim.clearbank.co.uk/
+    description: >-
+      Full simulation environment mirroring the production API for onboarding
+      and integration testing. Access requires ClearBank Portal sign-in
+      credentials issued during onboarding plus an authentication profile.
+token_provisioning:
+  path: Institution > Certificates and Tokens > Generate API Token
+  method: upload a certificate signing request (.CSR), set a token name and expiry
+  max_validity: 1 year
+  note: The token is shown only once, at creation time.
+test_endpoints:
+- method: GET
+  path: /v1/Test
+  purpose: Verify that the API token authenticates successfully.
+- method: POST
+  path: /v1/Test
+  purpose: Echoes supplied content back to verify DigitalSignature signing is correct.
+webhook_testing:
+  event: FITestEvent
+  managed_via: ClearBank Portal > Webhook Management
+  purpose: Trigger a test webhook to validate your webhook receiver and signature verification.
+rate_limits:
+  note: >-
+    Rate limits are set significantly lower in the simulation environment so
+    integrators can deliberately hit them and validate throttling behaviour.
+test_data:
+  note: >-
+    ClearBank does not publish fixed magic test account numbers or sort codes in
+    the public docs; test accounts/sort codes are provisioned per integrator in
+    the simulation Portal during onboarding.

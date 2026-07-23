@@ -1,0 +1,66 @@
+generated: '2026-07-23'
+method: searched
+source: https://github.com/clearbank
+note: >-
+  ClearBank does not distribute a packaged, general-purpose client SDK on a
+  language registry. Its first-party GitHub repos are request-signing helper
+  libraries / examples (the DigitalSignature RSA flow) plus a Postman collection
+  and a worked end-to-end example. The only registry-published client wrapper
+  (ClearBank.Net on NuGet) is a community project, not first-party.
+packages:
+- language: csharp
+  registry: github
+  name: fi-api-signtool
+  url: https://github.com/clearbank/fi-api-signtool
+  install: git clone https://github.com/clearbank/fi-api-signtool
+  official: true
+  kind: signing-helper
+  description: C# example for signing ClearBank API requests (DigitalSignature header).
+- language: python
+  registry: github
+  name: fi-api-signtool-python
+  url: https://github.com/clearbank/fi-api-signtool-python
+  install: git clone https://github.com/clearbank/fi-api-signtool-python
+  official: true
+  kind: signing-helper
+  description: Python example for signing ClearBank API requests.
+- language: java
+  registry: github
+  name: fi-api-signtool-java
+  url: https://github.com/clearbank/fi-api-signtool-java
+  install: git clone https://github.com/clearbank/fi-api-signtool-java
+  official: true
+  kind: signing-helper
+  description: Java example for signing ClearBank API requests.
+- language: csharp
+  registry: github
+  name: signtool-api
+  url: https://github.com/clearbank/signtool-api
+  install: git clone https://github.com/clearbank/signtool-api
+  official: true
+  kind: signing-helper
+  description: .NET Core web API to help sign ClearBank API payloads correctly.
+- language: csharp
+  registry: github
+  name: fi-api-101
+  url: https://github.com/clearbank/fi-api-101
+  install: git clone https://github.com/clearbank/fi-api-101
+  official: true
+  kind: example
+  description: End-to-end C# example for the ClearBank API and webhooks.
+- language: http
+  registry: github
+  name: fi-api-postman
+  url: https://github.com/clearbank/fi-api-postman
+  install: git clone https://github.com/clearbank/fi-api-postman
+  official: true
+  kind: postman-collection
+  description: Official Postman collections for invoking the ClearBank API.
+- language: csharp
+  registry: nuget
+  name: ClearBank.Net
+  url: https://www.nuget.org/packages/ClearBank.Net
+  install: dotnet add package ClearBank.Net
+  official: false
+  kind: community-client
+  description: Community (third-party) .NET client wrapper for the ClearBank API.

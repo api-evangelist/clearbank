@@ -1,0 +1,32 @@
+generated: '2026-07-23'
+method: searched
+source: live probes of clear.bank + institution-api.clearbank.co.uk hosts
+hosts:
+- host: https://www.clear.bank
+  documents:
+  - path: /.well-known/security.txt        # RFC 9116
+    status: 200
+    file: clearbank-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://institution-api.clearbank.co.uk
+  note: >-
+    The production API host requires token + RSA DigitalSignature auth; all
+    anonymous /.well-known/ probes return 403 (WAF-gated), not 404.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+- host: https://clearbank.github.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /llms.txt
+    status: 404

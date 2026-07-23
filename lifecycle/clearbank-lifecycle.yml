@@ -1,0 +1,34 @@
+generated: '2026-07-23'
+method: searched
+source: https://clearbank.github.io/uk/docs/api/versioning
+versioning:
+  scheme: semver + uri-path
+  current_major_examples:
+    sterling: v4
+    fps: v3
+    chaps: v6
+    cross-border: v4
+    mccy-accounts: v2
+    sepa-ct: v1
+    cop: v1
+  docs: https://clearbank.github.io/uk/docs/api/versioning
+  policy: >-
+    Semantic Versioning. Minor/patch bumps for optional, backwards-compatible
+    additions (new optional fields in requests, responses, or webhook payloads);
+    a new major version is provisioned for any breaking change (mandatory field
+    added, existing field removed).
+deprecation:
+  policy_url: https://clearbank.github.io/uk/docs/api/support-life-cycle
+  min_support_months: 12
+  review_cadence_months: 6
+  withdrawal_notice_months: 6
+  effective_min_lifespan_months: 18
+  sunset_header: false
+  exception: >-
+    Earlier withdrawal only for regulatory/scheme obligations or API
+    incompatibility.
+status_page: https://clearbank.statuspage.io/
+sla:
+  published: false
+  note: SLA/uptime commitments are covered under commercial onboarding agreements, not public docs.
+deprecated_operations: []

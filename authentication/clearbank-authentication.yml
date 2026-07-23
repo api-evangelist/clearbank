@@ -1,0 +1,50 @@
+generated: '2026-07-23'
+method: searched
+source: https://clearbank.github.io/uk/docs/api/getting-started/
+note: >-
+  ClearBank OpenAPI specs do not declare components.securitySchemes; the auth
+  model below is captured from the developer documentation. Every request is
+  authenticated by a bearer API token AND, for any request carrying a payload,
+  an RSA DigitalSignature over the request body. There is no OAuth surface, so
+  no scopes/ artifact is emitted.
+summary:
+  types: [http, custom-signature]
+  api_key_in: [header]
+  oauth2_flows: []
+schemes:
+- name: Authorization
+  type: http
+  scheme: bearer
+  in: header
+  header: Authorization
+  description: >-
+    Bearer API token generated in the ClearBank Portal (Institution >
+    Certificates and Tokens > Generate API Token), scoped by an uploaded
+    certificate signing request. A token is shown once at creation and has a
+    maximum validity of one year.
+- name: DigitalSignature
+  type: apiKey
+  in: header
+  header: DigitalSignature
+  description: >-
+    Required on every request that carries a body. A Base64-encoded RSA
+    signature of the SHA-256 hash of the raw request body, using the private
+    key paired with the certificate registered in the Portal.
+  algorithm: RSA
+  hash: SHA-256
+  padding: PKCS#1 v1.5
+- name: X-Request-Id
+  type: apiKey
+  in: header
+  header: X-Request-Id
+  required: true
+  description: >-
+    Caller-generated unique identifier (max 83 chars) used for idempotency /
+    duplicate detection over a 24-hour window. Missing/invalid returns 400;
+    a detected duplicate returns 409.
+webhook_verification:
+  description: >-
+    Inbound webhooks are signed by ClearBank; consumers verify the signature,
+    then must respond within 5 seconds with HTTP 200 echoing the Nonce and
+    signed with a valid DigitalSignature. Delivery is at-least-once with retries
+    every 15 minutes for up to 24 hours.

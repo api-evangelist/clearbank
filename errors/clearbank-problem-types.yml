@@ -1,0 +1,58 @@
+generated: '2026-07-23'
+method: derived
+source: openapi/*.json (4xx/5xx responses) + https://clearbank.github.io/uk/docs/api/getting-started/
+format: rfc7807
+media_type: application/json
+envelope:
+  schema: ProblemDetails
+  fields:
+  - {name: type, description: URI reference identifying the problem type (about:blank when absent).}
+  - {name: title, description: Short, human-readable summary of the problem type.}
+  - {name: status, description: HTTP status code for this occurrence.}
+  - {name: detail, description: Human-readable explanation of what went wrong.}
+  - {name: instance, description: URI reference identifying the specific occurrence.}
+  - {name: errors, description: Field-level validation errors (present on 400/422 validation failures).}
+problems:
+- status: 400
+  title: Bad Request
+  meaning: >-
+    Malformed request, failed validation, or missing/invalid X-Request-Id
+    (the mandatory idempotency key).
+  occurs_in: all APIs
+- status: 403
+  title: Forbidden
+  meaning: Caller is not permitted to act on the target account/resource.
+  occurs_in: [customers-retail, fps, cop, mccy-accounts, sterling]
+- status: 404
+  title: Not Found
+  meaning: Target account, customer, or resource does not exist.
+  occurs_in: [chaps, cross-border, fps, customers-retail, mccy-payments]
+- status: 406
+  title: Not Acceptable
+  meaning: Requested representation cannot be produced.
+  occurs_in: [mccy-payments]
+- status: 409
+  title: Conflict
+  meaning: >-
+    Duplicate request detected for a previously seen X-Request-Id within the
+    24-hour idempotency window, or a state conflict (e.g. related party already
+    exists).
+  occurs_in: [customers-retail, mccy-payments, sepa-ct]
+- status: 422
+  title: Unprocessable Entity
+  meaning: >-
+    Semantically invalid request; includes Confirmation of Payee participant
+    not found and other business-rule rejections.
+  occurs_in: [customers-retail, cop, fps, mccy-accounts, mccy-payments]
+- status: 424
+  title: Failed Dependency
+  meaning: A downstream call to a CoP participant resulted in an error.
+  occurs_in: [cop]
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server-side error.
+  occurs_in: [mccy-payments]
+- status: 503
+  title: Service Unavailable
+  meaning: The service (or a downstream scheme) is temporarily unavailable.
+  occurs_in: [mccy-payments]

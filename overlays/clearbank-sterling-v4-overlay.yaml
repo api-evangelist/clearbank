@@ -1,0 +1,15 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ClearBank Financial Institutions API
+  version: 1.0.0
+extends: openapi/clearbank-sterling-v4.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: clearbank
+    x-apievangelist-auth: bearer-token + RSA DigitalSignature (RSA-SHA256, PKCS#1 v1.5)
+    x-apievangelist-idempotency-header: X-Request-Id
+    x-apievangelist-error-format: rfc7807
+    x-apievangelist-async: 202 Accepted; outcomes via signed webhooks
+    x-apievangelist-base-url-production: https://institution-api.clearbank.co.uk
+    x-apievangelist-base-url-simulation: https://institution-api-sim.clearbank.co.uk

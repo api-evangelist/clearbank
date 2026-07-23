@@ -1,0 +1,129 @@
+aid: clearbank
+name: ClearBank
+review:
+  question: >-
+    Is ClearBank a UK Open Banking (OBIE/CMA9) ASPSP with public Open Data and
+    OBIE Read/Write APIs, or does it expose a different public API posture?
+  answer: false
+  date: '2026-07-23'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    ClearBank is a UK clearing and Banking-as-a-Service bank (ClearBank
+    Limited, FRN 754568; authorised by the PRA and regulated by the FCA and
+    PRA), founded in 2015 and granted a banking licence in December 2016 as
+    the first new UK clearing bank in over 250 years. It is NOT one of the
+    CMA9 and is NOT a mandated Open Banking ASPSP: it does not publish the
+    OBIE Open Data APIs (ATMs / Branches / Personal & Business Current
+    Accounts / Products), and it does not publish OBIE Read/Write standard
+    APIs (AISP account & transaction information, PISP payment initiation,
+    CBPII confirmation of funds). No public, unauthenticated Open Data
+    endpoint was confirmed for ClearBank — a probe of the OBIE-shaped path
+    (/open-banking/v2.3/atms) against the documented API host returned HTTP
+    403 (auth required), and no bank-hosted Open Data host is published.
+
+    ClearBank's real public developer surface is its own proprietary
+    "ClearBank Financial Institutions API" — a JSON REST API documented on a
+    public developer portal (clearbank.github.io) whose OpenAPI v3 source
+    specifications are openly downloadable from the portal's GitHub
+    repository (clearbank/clearbank.github.io, under data/endpoints/*.json).
+    The API is not open access: it is available only to FCA-regulated
+    businesses, banks, corporates, and fintechs that have been onboarded,
+    and a full simulation environment is provided for testing.
+
+    Authentication is proprietary, NOT the OBIE FAPI profile: an API token
+    is sent in the Authorization header, every request with a body is signed
+    with the caller's RSA private key (SHA-256, PKCS#1 v1.5) and supplied in
+    a DigitalSignature header, and each request carries a unique X-Request-Id
+    for 24-hour duplicate detection. There is no OAuth2/OIDC, mTLS client
+    authentication, PSD2 SCA, or eIDAS/OBIE certificate flow of the kind the
+    CMA9 Read/Write APIs mandate.
+
+    Product coverage spans GBP accounts (Sterling), Faster Payments, CHAPS
+    RTGS, Bacs, Direct Debit, cheques, Confirmation of Payee, cross-border
+    sterling, multi-currency accounts and payments, FX (spot and RFQ), SEPA
+    Credit Transfer, customer due diligence (KYC), and Embedded Banking
+    (retail/sole-trader/legal-entity customers, hub/payment/savings accounts,
+    ISAs), plus asynchronous webhooks.
+  specProvenance:
+    type: bank-proprietary
+    note: |
+      Eleven OpenAPI v3 (3.0.1 / 3.0.2) documents were harvested VERBATIM from
+      ClearBank's own developer-portal GitHub repository
+      (github.com/clearbank/clearbank.github.io, data/endpoints/*.json). These
+      are ClearBank's own API contracts, NOT the shared OBIE standard spec.
+      No OBIE-standard Open Data or Read/Write specification was harvested,
+      because ClearBank does not publish or conform to those standards.
+    harvested:
+      - openapi/clearbank-sterling-v4.json
+      - openapi/clearbank-fps-initiate-payment-v3.json
+      - openapi/clearbank-chaps-v6.json
+      - openapi/clearbank-mccy-accounts-v2.json
+      - openapi/clearbank-mccy-payments-v1.json
+      - openapi/clearbank-fx-orchestrator-rfq.json
+      - openapi/clearbank-sepa-ct-v1.json
+      - openapi/clearbank-cop-outbound-v1.json
+      - openapi/clearbank-know-your-customer-v1.json
+      - openapi/clearbank-cross-border-v4.json
+      - openapi/clearbank-customers_v2_retail.json
+  openData:
+    confirmed: false
+    baseURL: ""
+    note: |
+      No public unauthenticated OBIE Open Data endpoint is published by
+      ClearBank (it is not a CMA9 ASPSP). Probe of
+      https://institution-api.clearbank.co.uk/open-banking/v2.3/atms returned
+      HTTP 403. No fake host was invented.
+  readWrite:
+    obieConformant: false
+    note: |
+      ClearBank does not expose OBIE Read/Write AISP/PISP/CBPII APIs. Its
+      payment and account APIs are proprietary clearing/BaaS contracts.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://institution-api.clearbank.co.uk
+      documented: true
+      note: Production ClearBank Financial Institutions API.
+    - protocol: REST
+      scheme: https
+      baseURL: https://institution-api-sim.clearbank.co.uk
+      documented: true
+      note: Simulation / sandbox environment for onboarding and testing.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Asynchronous event notifications pushed to caller-registered endpoints.
+  authentication:
+    model: proprietary
+    details:
+      - API token in the Authorization header.
+      - RSA (SHA-256, PKCS#1 v1.5) request-body signature in the DigitalSignature header.
+      - Unique X-Request-Id header per request (max 83 chars) for 24h duplicate detection.
+    fapiOAuth2: false
+    mtls: false
+    psd2Sca: false
+    eidasObieCerts: false
+sources:
+  - url: https://clear.bank/explore-our-api
+    type: APIReference
+    note: Marketing overview of ClearBank's single API and product models (Agency/Embedded/Transaction Banking).
+  - url: https://clearbank.github.io/uk/docs/api/overview/
+    type: Documentation
+    note: API overview listing GBP Accounts, GBP Payments, Multi-currency/FX/SCT, Embedded Banking, Webhooks.
+  - url: https://clearbank.github.io/uk/docs/api/getting-started/
+    type: Documentation
+    note: Confirms production and simulation base URLs and the API-token + RSA DigitalSignature + X-Request-Id auth model.
+  - url: https://github.com/clearbank/clearbank.github.io
+    type: SourceCode
+    note: Developer-portal repo; OpenAPI v3 specs live under data/endpoints/*.json and were harvested verbatim.
+actions:
+  openapiHarvested: true
+  openDataConfirmed: false
+  reason: |
+    Represented ClearBank as its true type — a clearing/BaaS bank with a
+    proprietary token+RSA-signed Financial Institutions API — rather than
+    forcing it into the OBIE Open Data / Read/Write mould it does not conform
+    to. Eleven of ClearBank's own OpenAPI v3 specs were harvested verbatim
+    into openapi/; no OBIE-standard spec was fabricated or attributed to the
+    bank.

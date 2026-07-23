@@ -1,0 +1,260 @@
+aid: clearbank
+url: https://raw.githubusercontent.com/api-evangelist/clearbank/refs/heads/main/apis.yml
+name: ClearBank
+kind: company
+description: >-
+  ClearBank is a UK clearing and Banking-as-a-Service bank, founded in 2015 by
+  Nick Ogden (founder of WorldPay) and Charles McManus and granted a banking
+  licence in December 2016 as the first new UK clearing bank in more than 250
+  years. ClearBank Limited is authorised by the Prudential Regulation Authority
+  and regulated by the Financial Conduct Authority and the Prudential Regulation
+  Authority (FRN 754568), with a European subsidiary, ClearBank Europe N.V.,
+  authorised by the European Central Bank. It is privately owned, backed by Apax
+  Partners and PPF Group. Built cloud-native on Microsoft Azure, ClearBank is a
+  direct participant in the UK payment schemes (Faster Payments, CHAPS, Bacs)
+  and offers Agency Banking, Embedded Banking, and Transaction Banking to banks,
+  fintechs, and corporates through a single proprietary JSON REST API. Unlike
+  the CMA9 retail banks, ClearBank is not a mandated Open Banking ASPSP and does
+  not publish the OBIE Open Data (ATMs/Branches/Products) or OBIE Read/Write
+  (AISP/PISP/CBPII) APIs; its public developer surface is the token-authenticated,
+  RSA-signed ClearBank Financial Institutions API covering GBP accounts and
+  payments, multi-currency accounts, FX, SEPA, cross-border payments,
+  Confirmation of Payee, customer due diligence (KYC), and embedded/retail
+  banking, with a full simulation environment for onboarding.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial Services
+- Banking
+- Banking as a Service
+- Embedded Banking
+- Payments
+- Clearing
+- Faster Payments
+- CHAPS
+- Multi-Currency
+- Foreign Exchange
+- Open Banking
+- United Kingdom
+- Fintech
+created: '2026-07-23'
+modified: '2026-07-23'
+specificationVersion: '0.19'
+apis:
+- aid: clearbank:clearbank-gbp-accounts-api
+  name: ClearBank GBP Accounts API
+  description: >-
+    Open and manage sterling accounts, retrieve account details, balances,
+    transactions, Bacs data, and reporting for financial institution customers.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Accounts
+  - Sterling
+  - GBP
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-sterling-v4.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-faster-payments-api
+  name: ClearBank Faster Payments API
+  description: >-
+    Initiate and manage UK Faster Payments (FPS) and internal transfers,
+    including payment origination overview, for onboarded institutions.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Faster Payments
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-fps-initiate-payment-v3.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-chaps-api
+  name: ClearBank CHAPS API
+  description: >-
+    Initiate and manage high-value CHAPS RTGS payments, returns, and
+    bank-to-bank settlement as a direct CHAPS participant.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - CHAPS
+  - RTGS
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-chaps-v6.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-multi-currency-accounts-api
+  name: ClearBank Multi-Currency Accounts API
+  description: >-
+    Create and manage multi-currency (MCCY) accounts, retrieve balances,
+    transactions, and statements across supported currencies.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Multi-Currency
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-mccy-accounts-v2.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-multi-currency-payments-api
+  name: ClearBank Multi-Currency Payments API
+  description: >-
+    Orchestrate outbound and inbound multi-currency payments across supported
+    currencies and payment rails for embedded and agency banking customers.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Multi-Currency
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-mccy-payments-v1.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-fx-api
+  name: ClearBank FX API
+  description: >-
+    Foreign-exchange trading orchestration supporting spot and request-for-quote
+    (RFQ) currency conversion tied to multi-currency accounts.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Foreign Exchange
+  - FX
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-fx-orchestrator-rfq.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-sepa-credit-transfer-api
+  name: ClearBank SEPA Credit Transfer API
+  description: >-
+    Send and receive SEPA Credit Transfer (SCT) euro payments across the Single
+    Euro Payments Area for onboarded institutions.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - SEPA
+  - Payments
+  - Euro
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-sepa-ct-v1.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-confirmation-of-payee-api
+  name: ClearBank Confirmation of Payee API
+  description: >-
+    Outbound Confirmation of Payee (CoP) name-checking against payee account
+    details to reduce misdirected payments and APP fraud.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Confirmation of Payee
+  - Fraud Prevention
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-cop-outbound-v1.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-customer-due-diligence-api
+  name: ClearBank Customer Due Diligence (KYC) API
+  description: >-
+    Know Your Customer / Customer Due Diligence checks for onboarding and
+    verifying customers within embedded and agency banking propositions.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - KYC
+  - Customer Due Diligence
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-know-your-customer-v1.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-cross-border-api
+  name: ClearBank Cross-Border Sterling Payments API
+  description: >-
+    Cross-border sterling payment initiation and management for institutions
+    moving funds internationally through ClearBank.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Cross-Border
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-cross-border-v4.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+- aid: clearbank:clearbank-retail-customers-api
+  name: ClearBank Retail Embedded Banking Customers API
+  description: >-
+    Embedded Banking APIs to create and manage retail customers, hub and
+    payment accounts, savings, and ISAs on ClearBank's banking infrastructure.
+  humanURL: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Embedded Banking
+  - Retail
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-customers_v2_retail.json
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+common:
+- type: Website
+  url: https://www.clear.bank/
+- type: DeveloperPortal
+  url: https://clearbank.github.io/
+- type: Documentation
+  url: https://clearbank.github.io/uk/docs/api/
+- type: GettingStarted
+  url: https://clearbank.github.io/uk/docs/api/getting-started/
+- type: APIReference
+  url: https://clear.bank/explore-our-api
+- type: GitHubOrganization
+  url: https://github.com/clearbank
+- type: LinkedIn
+  url: https://www.linkedin.com/company/clearbank
+- type: Blog
+  url: https://clear.bank/newsroom
+- type: Security
+  url: https://clear.bank/security
+- type: TermsOfService
+  url: https://clear.bank/legal/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://clear.bank/data-protection-and-privacy
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

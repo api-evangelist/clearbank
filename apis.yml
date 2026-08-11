@@ -233,6 +233,8 @@ apis:
   - type: APIReference
     url: https://clearbank.github.io/uk/docs/api/overview/
 common:
+- type: MCPServer
+  url: mcp/clearbank-mcp.yml
 - type: VulnerabilityDisclosure
   url: security/clearbank-vulnerability-disclosure.yml
 - type: DomainSecurity

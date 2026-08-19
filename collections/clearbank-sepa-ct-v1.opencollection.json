@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ClearBank.Sepa.Ct.Orchestrator.Api",
+    "version": "1.0-SEPA-CT"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SCT Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "This endpoint is used to create an outbound SCT payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/sepa-ct/v1/customer-payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to create an outbound SCT payment."
+        },
+        {
+          "info": {
+            "name": "This endpoint is used to approve or reject a recall request of an inbound SCT payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/sepa-ct/v1/recall-response",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to approve or reject a recall request of an inbound SCT payment."
+        },
+        {
+          "info": {
+            "name": "This endpoint is used to request a recall for an outbound SCT payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/sepa-ct/v1/recall",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to request a recall for an outbound SCT payment."
+        },
+        {
+          "info": {
+            "name": "This endpoint is used to return an inbound SCT payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/sepa-ct/v1/payment-returns",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to return an inbound SCT payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

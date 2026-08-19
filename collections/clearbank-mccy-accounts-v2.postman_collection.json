@@ -1,0 +1,367 @@
+{
+  "item": [
+    {
+      "id": "c43c8f62-1123-4653-bdf9-9db3f243802a",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92dae62f-438e-45f1-9931-0565e82979cd",
+          "name": "This endpoint is used to create a new real multi-currency account.",
+          "request": {
+            "name": "This endpoint is used to create a new real multi-currency account.",
+            "description": {},
+            "url": {
+              "path": [
+                "mccy",
+                "v2",
+                "Accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bankIdentifierCode\": \"<string>\",\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"kind\": \"<string>\",\n  \"label\": \"<string>\",\n  \"owner\": \"<string>\",\n  \"routingCode\": \"<string>\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"productId\": \"<uuid>\",\n  \"customerId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "55031b63-6d2f-4101-802e-df8b6a7d26d6",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mccy",
+                    "v2",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bankIdentifierCode\": \"CLRBGB99\",\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"kind\": \"GeneralSegregated\",\n  \"label\": \"Mid tier asset funds\",\n  \"owner\": \"Eco Bank\",\n  \"routingCode\": \"010203\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"customerId\": \"725a5f09-595a-4db1-946a-8330d423da34\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currencies\": [\n    \"string\",\n    \"string\"\n  ],\n  \"id\": \"98efba88-c43e-41c5-9d47-0938f2fe7192\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"kind\": \"GeneralSegregated\",\n  \"label\": \"Mid tier asset funds\",\n  \"name\": \"Gen Seg Eco Bank\",\n  \"owner\": \"Eco Bank\",\n  \"status\": \"Active\",\n  \"type\": \"Customer\",\n  \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"customerId\": \"190e5d1d-7016-4efe-9988-3ebfecb21192\",\n  \"statusReason\": \"AccountSwitched\",\n  \"statusInformation\": \"Received documentation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "280a5ebe-4422-4239-b15f-e153eed36352",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mccy",
+                    "v2",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bankIdentifierCode\": \"CLRBGB99\",\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"kind\": \"GeneralSegregated\",\n  \"label\": \"Mid tier asset funds\",\n  \"owner\": \"Eco Bank\",\n  \"routingCode\": \"010203\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"customerId\": \"725a5f09-595a-4db1-946a-8330d423da34\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 3974,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8515c00-f883-4b9d-865a-0717dbd16709",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mccy",
+                    "v2",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bankIdentifierCode\": \"CLRBGB99\",\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"kind\": \"GeneralSegregated\",\n  \"label\": \"Mid tier asset funds\",\n  \"owner\": \"Eco Bank\",\n  \"routingCode\": \"010203\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"customerId\": \"725a5f09-595a-4db1-946a-8330d423da34\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 3974,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30161ba7-a882-4e65-abea-c8fe6b3315a0",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mccy",
+                    "v2",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bankIdentifierCode\": \"CLRBGB99\",\n  \"currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"kind\": \"GeneralSegregated\",\n  \"label\": \"Mid tier asset funds\",\n  \"owner\": \"Eco Bank\",\n  \"routingCode\": \"010203\",\n  \"identifiers\": [\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    },\n    {\n      \"identifier\": \"<string>\",\n      \"kind\": \"<string>\"\n    }\n  ],\n  \"productId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"customerId\": \"725a5f09-595a-4db1-946a-8330d423da34\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 3974,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "53c704cb-bcaf-424c-aa52-e4199c094613",
+    "name": "Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Accounts and Virtual Accounts\n\nContact Support:\n Name: Support\n Email: fiapisupport@clear.bank",
+      "type": "text/plain"
+    }
+  }
+}

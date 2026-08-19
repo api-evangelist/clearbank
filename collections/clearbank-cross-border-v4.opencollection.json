@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ClearBank Cross-Border Sterling FI API V4",
+    "version": "4.0GBPCrossBorder"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ExternalCrossBorderCustomerPaymentsV4",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ExternalCrossBorderCreateCustomerPayment-v7",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/cross-border-sterling/v4/payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint will send a cross-border customer payment in sterling (pacs.008)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

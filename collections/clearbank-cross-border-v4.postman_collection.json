@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "cf8abcd4-1bd4-4c3e-9412-33bccefb9db5",
+      "name": "ExternalCrossBorderCustomerPaymentsV4",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fbbcbf5-32c3-4734-8aad-49b1fbf0a930",
+          "name": "External Cross Border Create Customer Payment-v7",
+          "request": {
+            "name": "External Cross Border Create Customer Payment-v7",
+            "description": {
+              "content": "This endpoint will send a cross-border customer payment in sterling (pacs.008).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "cross-border-sterling",
+                "v4",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instructionIdentification\": \"<string>\",\n  \"endToEndIdentification\": \"<string>\",\n  \"interBankSettlementAmount\": {\n    \"amount\": \"<decimal>\",\n    \"currency\": \"<string>\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"debtorAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"debtor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"organisationIdentifier\": {\n      \"bic\": \"<string>\",\n      \"lei\": \"<string>\",\n      \"otherIdentification\": \"<string>\"\n    },\n    \"privateIdentifier\": {\n      \"otherIdentification\": \"<string>\"\n    }\n  },\n  \"creditorAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"creditor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"organisationIdentifier\": {\n      \"bic\": \"<string>\",\n      \"lei\": \"<string>\",\n      \"otherIdentification\": \"<string>\"\n    },\n    \"privateIdentifier\": {\n      \"otherIdentification\": \"<string>\"\n    }\n  },\n  \"creditorAgent\": {\n    \"bic\": \"<string>\"\n  },\n  \"purpose\": \"<string>\",\n  \"categoryPurpose\": \"<string>\",\n  \"remittanceInformation\": {\n    \"creditorReferenceInformation\": \"<string>\"\n  },\n  \"intermediaryAgent1\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"bic\": \"<string>\",\n    \"lei\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f510d10e-0612-4421-9c36-f50d8258c2ea",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cross-border-sterling",
+                    "v4",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "Bearer          ^"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"XBDR-001\",\n  \"endToEndIdentification\": \"XBE2E-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Corporation Ltd\"\n  },\n  \"creditorAccount\": {\n    \"iban\": \"DE89370400440532013000\"\n  },\n  \"creditor\": {\n    \"name\": \"Hans Mueller\"\n  },\n  \"creditorAgent\": {\n    \"bic\": \"DEUTDEDB\"\n  },\n  \"purpose\": \"TRAD\",\n  \"categoryPurpose\": \"TRAD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"e026c62b-215e-b279-fe72-41ad92d117a7\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "143bcfe4-db6e-46f7-87ac-01814322c8c0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cross-border-sterling",
+                    "v4",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"XBDR-001\",\n  \"endToEndIdentification\": \"XBE2E-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Corporation Ltd\"\n  },\n  \"creditorAccount\": {\n    \"iban\": \"DE89370400440532013000\"\n  },\n  \"creditor\": {\n    \"name\": \"Hans Mueller\"\n  },\n  \"creditorAgent\": {\n    \"bic\": \"DEUTDEDB\"\n  },\n  \"purpose\": \"TRAD\",\n  \"categoryPurpose\": \"TRAD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"errors\": \"\",\n  \"instance\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "756ff5eb-c747-479c-8bd5-c4f53680f140",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cross-border-sterling",
+                    "v4",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"XBDR-001\",\n  \"endToEndIdentification\": \"XBE2E-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Corporation Ltd\"\n  },\n  \"creditorAccount\": {\n    \"iban\": \"DE89370400440532013000\"\n  },\n  \"creditor\": {\n    \"name\": \"Hans Mueller\"\n  },\n  \"creditorAgent\": {\n    \"bic\": \"DEUTDEDB\"\n  },\n  \"purpose\": \"TRAD\",\n  \"categoryPurpose\": \"TRAD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cee7f49d-fb21-4698-ad67-42efeefd188d",
+    "name": "ClearBank Cross-Border Sterling FI API V4",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,713 @@
+{
+  "item": [
+    {
+      "id": "f6d0094d-0410-407d-8b41-2d7b7520f1d6",
+      "name": "FpsPayments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64c398b6-31f5-4372-8918-ece24bf00383",
+          "name": "Initiate a payment using the faster payments scheme. This endpoint is FTR compliant.",
+          "request": {
+            "name": "Initiate a payment using the faster payments scheme. This endpoint is FTR compliant.",
+            "description": {
+              "content": "This endpoint works on a partial acceptance basis - meaning that you can submit 10 payments and only 6 of them may be accepted for processing.\r\n            \r\nEach payment instruction is validated against the scheme specific rules as well as the ISO20022 specification.\r\n            \r\nCurrently, only payments through GBP are supported. We have listed possible currencies for future proofing of the API.\r\n            \r\nThe remittance information must be scheme compatible. Values exceeding the length limits of the scheme will be truncated. Missing remittance information will be replaced by a blank string.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "payments",
+                "fps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentInstructions\": [\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": \"<double>\",\n            \"currency\": \"<string>\"\n          },\n          \"creditor\": {\n            \"name\": \"<string>\",\n            \"legalEntityIndentifier\": \"<string>\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"<string>\",\n            \"instructionIdentification\": \"<string>\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": \"<double>\",\n            \"currency\": \"<string>\"\n          },\n          \"creditor\": {\n            \"name\": \"<string>\",\n            \"legalEntityIndentifier\": \"<string>\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"<string>\",\n            \"instructionIdentification\": \"<string>\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"<string>\",\n        \"legalEntityIdentifier\": \"<string>\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"<string>\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"<string>\",\n      \"paymentTypeCode\": \"<string>\"\n    },\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": \"<double>\",\n            \"currency\": \"<string>\"\n          },\n          \"creditor\": {\n            \"name\": \"<string>\",\n            \"legalEntityIndentifier\": \"<string>\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"<string>\",\n            \"instructionIdentification\": \"<string>\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": \"<double>\",\n            \"currency\": \"<string>\"\n          },\n          \"creditor\": {\n            \"name\": \"<string>\",\n            \"legalEntityIndentifier\": \"<string>\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"<string>\",\n            \"instructionIdentification\": \"<string>\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"<string>\",\n        \"legalEntityIdentifier\": \"<string>\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"<string>\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"<string>\",\n      \"paymentTypeCode\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f00b6074-10bb-43c1-8c5c-1887fcfa861b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentInstructions\": [\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    },\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactions\": [\n    {\n      \"endToEndIdentification\": \"E2E12345\",\n      \"response\": \"Accepted\"\n    },\n    {\n      \"endToEndIdentification\": \"E2E12345\",\n      \"response\": \"Accepted\"\n    }\n  ],\n  \"halLinks\": [\n    {\n      \"href\": \"string\",\n      \"name\": \"string\",\n      \"templated\": true\n    },\n    {\n      \"href\": \"string\",\n      \"name\": \"string\",\n      \"templated\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "860263cb-09cf-412e-aea0-48bf26a39849",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentInstructions\": [\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    },\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactions\": [\n    {\n      \"endToEndIdentification\": \"E2E12345\",\n      \"response\": \"InsufficientFunds\"\n    },\n    {\n      \"endToEndIdentification\": \"E2E12345\",\n      \"response\": \"InsufficientFunds\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50c97f2a-9a5b-4b2b-96c7-713c5c9ba126",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentInstructions\": [\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    },\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d74dcc6d-dce4-4e0b-8409-df1f03ef7add",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentInstructions\": [\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    },\n    {\n      \"creditTransfers\": [\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        },\n        {\n          \"amount\": {\n            \"instructedAmount\": 100,\n            \"currency\": \"GBP\"\n          },\n          \"creditor\": {\n            \"name\": \"Aisha Khan\",\n            \"legalEntityIndentifier\": \"9485839XYZ\"\n          },\n          \"creditorAccount\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"paymentIdentification\": {\n            \"endToEndIdentification\": \"E2E12345\",\n            \"instructionIdentification\": \"PAYMENT12345\"\n          },\n          \"remittanceInformation\": {\n            \"structured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unstructured\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"enforceSendToScheme\": \"<boolean>\"\n        }\n      ],\n      \"debtor\": {\n        \"address\": \"UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL\",\n        \"legalEntityIdentifier\": \"9485839XYZ\"\n      },\n      \"debtorAccount\": {\n        \"identification\": {\n          \"iban\": \"GB29NWBK60161331926819\",\n          \"other\": {\n            \"identification\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"schemeName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"issuer\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"paymentInstructionIdentification\": \"INSTRUCTION12345\",\n      \"paymentTypeCode\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"field1\": [\n      \"Error message 1\"\n    ],\n    \"field2\": [\n      \"Error message 2\"\n    ]\n  },\n  \"type\": \"https://example.com/probs/error-code\",\n  \"title\": \"Error title\",\n  \"status\": 400,\n  \"detail\": \"The request is invalid. See errors for details.\",\n  \"instance\": \"/errors/12345\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37a7b3ce-dcec-4043-a91d-4e649bb4cbac",
+          "name": "Return an inbound Faster Payment. This endpoint can be used to return Faster Payments - including Faster Payments Originating Overseas - that cleared less than 90 days ago.",
+          "request": {
+            "name": "Return an inbound Faster Payment. This endpoint can be used to return Faster Payments - including Faster Payments Originating Overseas - that cleared less than 90 days ago.",
+            "description": {
+              "content": "This endpoint is the recommended method for returning Faster Payments that cannot be completed for any reason.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "payments",
+                "fps",
+                "return"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c961e00-cdfe-4a08-b50e-a1b2b1dc6077",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3e2d6f1-dcef-46b5-848a-94c0bf4ebddd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"https://example.com/probs/error-code\",\n  \"title\": \"Error title\",\n  \"status\": 400,\n  \"detail\": \"The request is invalid. See errors for details.\",\n  \"instance\": \"/errors/12345\",\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a471cde-c5b5-4106-a2de-8a4b58e32d44",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7055f0c4-c31e-4b6b-9496-9d02f4b94c6c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06f15582-abec-4485-b791-d6512a704007",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "payments",
+                    "fps",
+                    "return"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentReturnInstruction\": {\n    \"TransactionId\": \"<uuid>\",\n    \"ReasonForReturn\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"https://example.com/probs/error-code\",\n  \"title\": \"Error title\",\n  \"status\": 400,\n  \"detail\": \"The request is invalid. See errors for details.\",\n  \"instance\": \"/errors/12345\",\n  \"key_0\": {},\n  \"key_1\": {},\n  \"key_2\": {},\n  \"key_3\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4d5fcbc7-2953-43cd-b5d5-82f56ee778dd",
+    "name": "FI Initiation API 3.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "FI Initiation API",
+      "type": "text/plain"
+    }
+  }
+}

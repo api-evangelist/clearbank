@@ -1,0 +1,964 @@
+{
+  "item": [
+    {
+      "id": "bf4785b1-eea2-4c81-a7a9-0f9fa30b6cc8",
+      "name": "SCT Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45d24e13-97d2-4725-817e-d077ed2ec087",
+          "name": "This endpoint is used to create an outbound SCT payment.",
+          "request": {
+            "name": "This endpoint is used to create an outbound SCT payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                "sepa-ct",
+                "v1",
+                "customer-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<double>\",\n  \"creditor\": {\n    \"accountIban\": \"<string>\",\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"country\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"countrySubdivision\": \"<string>\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"<string>\"\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"<dateTime>\",\n          \"placeOfBirth\": \"<string>\"\n        },\n        \"other\": \"<string>\"\n      }\n    }\n  },\n  \"currency\": \"<string>\",\n  \"debtor\": {\n    \"accountIban\": \"<string>\",\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"country\": \"<string>\",\n      \"townName\": \"<string>\",\n      \"streetName\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"countrySubdivision\": \"<string>\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"<string>\",\n        \"lei\": \"<string>\",\n        \"other\": {\n          \"identificationNumber\": \"<string>\",\n          \"schemeNameCode\": \"<string>\",\n          \"schemeNameProprietary\": \"<string>\",\n          \"issuer\": \"<string>\"\n        }\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"<dateTime>\",\n          \"placeOfBirth\": \"<string>\"\n        },\n        \"other\": \"<string>\"\n      }\n    }\n  },\n  \"endToEndId\": \"<string>\",\n  \"remittanceInformationUnstructured\": \"<string>\",\n  \"creditorAgent\": {\n    \"bic\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f2f9e844-563f-4427-9d59-c2861d37a310",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"2.99\",\n  \"creditor\": {\n    \"accountIban\": \"DE75512108001245126199\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\"\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"currency\": \"EUR\",\n  \"debtor\": {\n    \"accountIban\": \"NL73ABNA0529451824\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\",\n        \"lei\": \"724500EAW1MTCM9M1X68\",\n        \"other\": {\n          \"identificationNumber\": \"123456789\",\n          \"schemeNameCode\": \"BANK\",\n          \"schemeNameProprietary\": \"SchemeName\",\n          \"issuer\": \"IssuerName\"\n        }\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"endToEndId\": \"End2EndId\",\n  \"remittanceInformationUnstructured\": \"My remittance information.\",\n  \"creditorAgent\": {\n    \"bic\": \"BUKBNL20\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"1bfb7a86-7d9b-45ff-9d5c-34048efc4c8a\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "692667fe-d83d-4149-ae89-4c1c466520b4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"2.99\",\n  \"creditor\": {\n    \"accountIban\": \"DE75512108001245126199\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\"\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"currency\": \"EUR\",\n  \"debtor\": {\n    \"accountIban\": \"NL73ABNA0529451824\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\",\n        \"lei\": \"724500EAW1MTCM9M1X68\",\n        \"other\": {\n          \"identificationNumber\": \"123456789\",\n          \"schemeNameCode\": \"BANK\",\n          \"schemeNameProprietary\": \"SchemeName\",\n          \"issuer\": \"IssuerName\"\n        }\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"endToEndId\": \"End2EndId\",\n  \"remittanceInformationUnstructured\": \"My remittance information.\",\n  \"creditorAgent\": {\n    \"bic\": \"BUKBNL20\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 9156,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db0e1d0b-406f-4e28-b23d-41c662dd57d1",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"2.99\",\n  \"creditor\": {\n    \"accountIban\": \"DE75512108001245126199\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\"\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"currency\": \"EUR\",\n  \"debtor\": {\n    \"accountIban\": \"NL73ABNA0529451824\",\n    \"name\": \"John Doe\",\n    \"postalAddress\": {\n      \"country\": \"GB\",\n      \"townName\": \"London\",\n      \"streetName\": \"My Street\",\n      \"buildingNumber\": \"<string>\",\n      \"postCode\": \"XX99 9XX\",\n      \"countrySubdivision\": \"London\"\n    },\n    \"identification\": {\n      \"organisationIdentification\": {\n        \"bic\": \"BUKBNL20\",\n        \"lei\": \"724500EAW1MTCM9M1X68\",\n        \"other\": {\n          \"identificationNumber\": \"123456789\",\n          \"schemeNameCode\": \"BANK\",\n          \"schemeNameProprietary\": \"SchemeName\",\n          \"issuer\": \"IssuerName\"\n        }\n      },\n      \"privateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"2004-05-15\",\n          \"placeOfBirth\": \"Birth Town\"\n        },\n        \"other\": \"Other identification.\"\n      }\n    }\n  },\n  \"endToEndId\": \"End2EndId\",\n  \"remittanceInformationUnstructured\": \"My remittance information.\",\n  \"creditorAgent\": {\n    \"bic\": \"BUKBNL20\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c42d338-94cd-4434-b167-8080b59aa141",
+          "name": "This endpoint is used to approve or reject a recall request of an inbound SCT payment.",
+          "request": {
+            "name": "This endpoint is used to approve or reject a recall request of an inbound SCT payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                "sepa-ct",
+                "v1",
+                "recall-response"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallResponseAccepted\": \"<boolean>\",\n  \"rejectCode\": \"<string>\",\n  \"additionalInfo\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d334a6a-d527-4a73-a021-d77dfca4b636",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "recall-response"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallResponseAccepted\": \"<boolean>\",\n  \"rejectCode\": \"CUST\",\n  \"additionalInfo\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ba1adeb-5276-4432-84e3-8904eb670ef7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "recall-response"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallResponseAccepted\": \"<boolean>\",\n  \"rejectCode\": \"CUST\",\n  \"additionalInfo\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "140407a7-b091-4b3b-9a8e-bebd7bc75f46",
+          "name": "This endpoint is used to request a recall for an outbound SCT payment.",
+          "request": {
+            "name": "This endpoint is used to request a recall for an outbound SCT payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                "sepa-ct",
+                "v1",
+                "recall"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallCode\": \"<string>\",\n  \"additionalInfo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f423c89-cc60-4f5c-b5cd-e429e4fbe6af",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "recall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallCode\": \"CUST\",\n  \"additionalInfo\": \"Some additional information.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "087089fb-37d6-4523-8121-dbe00ad42418",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "recall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallCode\": \"CUST\",\n  \"additionalInfo\": \"Some additional information.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7d96cf9-8d49-4788-828a-a5a6f596e154",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "recall"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"recallCode\": \"CUST\",\n  \"additionalInfo\": \"Some additional information.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "994e7864-3b1e-46e5-9f57-a976a87483af",
+          "name": "This endpoint is used to return an inbound SCT payment.",
+          "request": {
+            "name": "This endpoint is used to return an inbound SCT payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                "sepa-ct",
+                "v1",
+                "payment-returns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c7836ff5-62b1-44b8-a92b-efefe7fa5a14",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "payment-returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac3995a1-8f89-48c4-9551-715f96096972",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "payment-returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "449b8942-ae15-4ba7-9fb6-fb0eed174df5",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "sepa-ct",
+                    "v1",
+                    "payment-returns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5190,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bced1624-e3b8-4ee7-9b03-a8e960323cdd",
+    "name": "ClearBank.Sepa.Ct.Orchestrator.Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

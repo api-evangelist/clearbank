@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FI Initiation API 3.0",
+    "version": "3.0.FPS-payment"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "FpsPayments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate a payment using the faster payments scheme. This endpoint is FTR compliant.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/payments/fps",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint works on a partial acceptance basis - meaning that you can submit 10 payments and only 6 of them may be accepted for processing.\r\n            \r\nEach payment instruction is validated against the scheme specific rules as well as the ISO20022 specification.\r\n            \r\nCurrently, only payments through GBP are supported. We have listed possible currencies for future proofing of the API.\r\n            \r\nThe remittance information must be scheme compatible. Values exceeding the length "
+        },
+        {
+          "info": {
+            "name": "Return an inbound Faster Payment. This endpoint can be used to return Faster Payments - including Faster Payments Originating Overseas - that cleared less than 90 days ago.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v3/payments/fps/return",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is the recommended method for returning Faster Payments that cannot be completed for any reason."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,453 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ClearBank Retail Customer V2 APIs",
+    "version": "2.0-customers-retail"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves a customer by their customer ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              }
+            ]
+          },
+          "docs": "Retrieves a customer by their customer ID."
+        },
+        {
+          "info": {
+            "name": "Retrieves the related party data of a customer by their customer ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/related-parties",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the original customer."
+              }
+            ]
+          },
+          "docs": "Retrieves the related party data of a customer by their customer ID."
+        },
+        {
+          "info": {
+            "name": "Adds a new related party to an existing customer. Note that relationships must be unique: if a relationship already exists that links the same two customers with the same relationship type, your request will be rejected.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/related-parties",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the original customer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new related party to an existing customer. Note that relationships must be unique: if a relationship already exists that links the same two customers with the same relationship type, your request will be rejected."
+        },
+        {
+          "info": {
+            "name": "Updates a customer's current address while maintaining their previous addresses history.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/current-addresses",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a customer's current address while maintaining their previous addresses history."
+        },
+        {
+          "info": {
+            "name": "Removes a related party link between two customers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/related-parties/:relatedCustomerId/:relatedPartyType",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              },
+              {
+                "name": "relatedCustomerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the related customer to unlink."
+              },
+              {
+                "name": "relatedPartyType",
+                "value": "",
+                "type": "path",
+                "description": "The type of related party. Used to disambiguate where a party is related in more than one way."
+              }
+            ]
+          },
+          "docs": "Removes a related party link between two customers."
+        },
+        {
+          "info": {
+            "name": "Adds or updates a customer's identity document. Returns 200 OK when updating an existing ID, or 201 Created when adding a new ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/identity-documents/:idCountryOfIssue-:idType",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              },
+              {
+                "name": "idCountryOfIssue",
+                "value": "",
+                "type": "path",
+                "description": "Country of issue."
+              },
+              {
+                "name": "idType",
+                "value": "",
+                "type": "path",
+                "description": "Type of identity document."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or updates a customer's identity document. Returns 200 OK when updating an existing ID, or 201 Created when adding a new ID."
+        },
+        {
+          "info": {
+            "name": "Removes a customer's identity document.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/identity-documents/:idCountryOfIssue-:idType",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              },
+              {
+                "name": "idCountryOfIssue",
+                "value": "",
+                "type": "path",
+                "description": "Country of issue."
+              },
+              {
+                "name": "idType",
+                "value": "",
+                "type": "path",
+                "description": "Type of identity document."
+              }
+            ]
+          },
+          "docs": "Removes a customer's identity document."
+        },
+        {
+          "info": {
+            "name": "Adds or updates a customer's tax residency entry for the specified country. Returns 200 OK when updating an existing tax residency, or 201 Created when adding a new tax residency.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/tax-residencies/:countryOfTaxResidence",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              },
+              {
+                "name": "countryOfTaxResidence",
+                "value": "",
+                "type": "path",
+                "description": "Country of tax residence."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds or updates a customer's tax residency entry for the specified country. Returns 200 OK when updating an existing tax residency, or 201 Created when adding a new tax residency."
+        },
+        {
+          "info": {
+            "name": "Removes a customer's tax residency entry for the specified country.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/customers/v2/customers/:customerId/tax-residencies/:countryOfTaxResidence",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              },
+              {
+                "name": "countryOfTaxResidence",
+                "value": "",
+                "type": "path",
+                "description": "Country of tax residence to remove."
+              }
+            ]
+          },
+          "docs": "Removes a customer's tax residency entry for the specified country."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Retail",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Requests creation of retail customer. On a success, you will receive a customer ID which you can then use to create accounts for this customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/customers/v2/retail",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests creation of retail customer. On a success, you will receive a customer ID which you can then use to create accounts for this customer."
+        },
+        {
+          "info": {
+            "name": "Requests update of retail customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/customers/v2/retail/:customerId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the customer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests update of retail customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

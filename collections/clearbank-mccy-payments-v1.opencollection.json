@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Mccy Payment Orchestrator External Api V1",
+    "version": "1.0.Dec21"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "This endpoint is used to initiate payments.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/mccy/payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint is used to initiate payments."
+        },
+        {
+          "info": {
+            "name": "This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/mccy/payments/:batchId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "This must match the batch ID submitted in the payment request."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment."
+        },
+        {
+          "info": {
+            "name": "This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/mccy/payments/:batchId/:endToEndId",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "This must match the batch ID submitted in the payment request."
+              },
+              {
+                "name": "endToEndId",
+                "value": "",
+                "type": "path",
+                "description": "This must match the end-to-end ID submitted in the payment request."
+              }
+            ]
+          },
+          "docs": "This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

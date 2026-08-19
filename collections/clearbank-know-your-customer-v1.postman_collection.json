@@ -1,0 +1,212 @@
+{
+  "item": [
+    {
+      "id": "174671e6-e322-4878-9692-545b2d7479c2",
+      "name": "Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass, the provided details are then used to create a new retail customer.",
+      "request": {
+        "name": "Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass, the provided details are then used to create a new retail customer.",
+        "description": {
+          "content": "Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass, the provided details are then used to create a new retail customer.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "customer-due-diligence",
+            "v1",
+            "retail",
+            "onboard"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "disabled": false,
+            "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+            "key": "DigitalSignature",
+            "value": "<string>"
+          },
+          {
+            "disabled": false,
+            "description": "(Required) A unique identifier for the request.",
+            "key": "X-Request-Id",
+            "value": "<string>"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "text/plain"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customerData\": {\n    \"currentAddress\": {},\n    \"dateOfBirth\": \"<date>\",\n    \"email\": \"<email>\",\n    \"name\": {\n      \"firstName\": \"<string>\",\n      \"surname\": \"<string>\",\n      \"middleName\": \"<string>\"\n    },\n    \"nationalInsuranceNumber\": \"<string>\",\n    \"nationality\": [\n      \"<ISO 3166 Alpha-3 country-code>\"\n    ],\n    \"taxResidency\": [\n      \"<ISO 3166 Alpha-3 country-code>\"\n    ],\n    \"mobile\": \"<string>\",\n    \"idvEmailsEnabled\": true\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "4458a96c-ce01-4d3e-af80-730cda0fff57",
+          "name": "Accepted",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "customer-due-diligence",
+                "v1",
+                "retail",
+                "onboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Your API token, retrieved from the web portal.",
+                "key": "Authorization",
+                "value": "string"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerData\": {\n    \"currentAddress\": {},\n    \"dateOfBirth\": \"1976-01-26\",\n    \"email\": \"example@emailprovider.co.uk\",\n    \"name\": {\n      \"firstName\": \"Adrien\",\n      \"surname\": \"Reed-Myers\",\n      \"middleName\": \"Edin\"\n    },\n    \"nationalInsuranceNumber\": \"AB112233C\",\n    \"nationality\": [\n      \"GBR\",\n      \"IRL\"\n    ],\n    \"taxResidency\": [\n      \"GBR\"\n    ],\n    \"mobile\": \"+447725666777\",\n    \"idvEmailsEnabled\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Accepted",
+          "code": 202,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"applicationId\": \"aac7c700-1ea6-5664-8804-ceeb066d3cf5\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "6df23334-a501-445d-94da-60890d1a7e5c",
+          "name": "Bad Request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "customer-due-diligence",
+                "v1",
+                "retail",
+                "onboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Your API token, retrieved from the web portal.",
+                "key": "Authorization",
+                "value": "string"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerData\": {\n    \"currentAddress\": {},\n    \"dateOfBirth\": \"1976-01-26\",\n    \"email\": \"example@emailprovider.co.uk\",\n    \"name\": {\n      \"firstName\": \"Adrien\",\n      \"surname\": \"Reed-Myers\",\n      \"middleName\": \"Edin\"\n    },\n    \"nationalInsuranceNumber\": \"AB112233C\",\n    \"nationality\": [\n      \"GBR\",\n      \"IRL\"\n    ],\n    \"taxResidency\": [\n      \"GBR\"\n    ],\n    \"mobile\": \"+447725666777\",\n    \"idvEmailsEnabled\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 3189,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bcbdd88f-4288-4ae6-bbef-5674cc0b514b",
+    "name": "Customer Due Diligence API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

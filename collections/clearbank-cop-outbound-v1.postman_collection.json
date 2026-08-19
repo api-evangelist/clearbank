@@ -1,0 +1,663 @@
+{
+  "item": [
+    {
+      "id": "d1409307-302e-4158-bb24-a2ae110166b1",
+      "name": "CoP",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4da5c560-c92e-46f1-ab8f-7616cde10649",
+          "name": "This endpoint is used to confirm the exact name registered with the payee’s account.",
+          "request": {
+            "name": "This endpoint is used to confirm the exact name registered with the payee’s account.",
+            "description": {},
+            "url": {
+              "path": [
+                "open-banking",
+                "outbound",
+                "v1",
+                "name-verification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03d81daa-d7f2-48dd-9b37-169883437f39",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "name-verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"VerificationReport\": {\n      \"Matched\": true,\n      \"MatchedBank\": \"string\",\n      \"Name\": \"string\",\n      \"ReasonCode\": \"string\",\n      \"ReasonCodeDescription\": \"string\",\n      \"ResponseWithinSla\": false,\n      \"LegalOwnerType\": \"string\",\n      \"ResponderRegistrationId\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69dc4e42-486b-460f-b3df-c31f47de28d4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "name-verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Reason\": \"string\",\n    \"ParticipantName\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192b9962-2164-4423-9da4-b2536cd8f5c5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "name-verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2afbb102-5812-4166-8bd1-e4a40fbb77b2",
+              "name": "CoP participant not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "name-verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d576a709-013b-461e-be17-d80031c7798a",
+              "name": "Call to CoP participant resulted in an error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "name-verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"LegalOwnerType\": \"<string>\",\n  \"OwnerName\": \"<string>\",\n  \"SchemeName\": \"<string>\",\n  \"SecondaryIdentification\": \"<string>\",\n  \"EndToEndIdentification\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Failed Dependency (WebDAV) (RFC 4918)",
+              "code": 424,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "ace8fd70-a986-4c19-89ee-ce921c559027",
+      "name": "SecondaryReferenceData",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e22bdbb-f14d-4f0f-90d5-21a4b317456c",
+          "name": "This endpoint is used to confirm whether a given sort code/account number combination requires Secondary Reference Data (SRD) with Confirmation of Payee (CoP) requests.",
+          "request": {
+            "name": "This endpoint is used to confirm whether a given sort code/account number combination requires Secondary Reference Data (SRD) with Confirmation of Payee (CoP) requests.",
+            "description": {},
+            "url": {
+              "path": [
+                "open-banking",
+                "outbound",
+                "v1",
+                "srd",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Identification\": \"<string>\",\n  \"SchemeName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91226601-5284-4d5e-99fe-ce8160633d15",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "srd",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"SchemeName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Data\": {\n    \"Required\": false,\n    \"BankName\": \"string\",\n    \"Identification\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a1e51ca-6bca-40e8-9ba9-9f4a0e9a8924",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "srd",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"SchemeName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Error\": {\n    \"Reason\": \"string\",\n    \"ParticipantName\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e26448a-49ae-4633-acd3-7d00ea6801e6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "open-banking",
+                    "outbound",
+                    "v1",
+                    "srd",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Identification\": \"<string>\",\n  \"SchemeName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "180e05c5-20ce-4203-8949-e1c243eff6a9",
+    "name": "ClearBank.CoP.Outbound.Api 1.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ClearBank API for CoP outbound requests",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1537 @@
+{
+  "item": [
+    {
+      "id": "dc1f4fbb-9db9-452b-9463-f0d5fab123a2",
+      "name": "Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24e3f293-b809-4ebf-a56e-097610449e3d",
+          "name": "This endpoint is used to initiate payments.",
+          "request": {
+            "name": "This endpoint is used to initiate payments.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "mccy",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currencyCode\": \"<string>\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"<string>\",\n      \"reference\": \"<string>\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"<string>\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"<string>\",\n        \"addressLine2\": \"<string>\",\n        \"postCode\": \"<string>\",\n        \"country\": \"<string>\",\n        \"addressLine3\": \"<string>\"\n      },\n      \"creditor\": {\n        \"name\": \"<string>\",\n        \"address\": {\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"postCode\": \"<string>\",\n          \"country\": \"<string>\",\n          \"addressLine3\": \"<string>\"\n        },\n        \"bic\": \"<string>\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"<date>\",\n              \"cityOfBirth\": \"<string>\",\n              \"countryOfBirth\": \"<string>\"\n            },\n            \"other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"<string>\",\n        \"contactDetails\": {\n          \"name\": \"<string>\",\n          \"emailAddress\": \"<string>\"\n        },\n        \"iban\": \"<string>\",\n        \"accountNumber\": \"<string>\",\n        \"schemeName\": {\n          \"code\": \"<string>\",\n          \"proprietary\": \"<string>\"\n        }\n      },\n      \"debtorAccountCurrency\": \"<string>\",\n      \"debtorName\": \"<string>\",\n      \"debtorBic\": \"<string>\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"<date>\",\n          \"cityOfBirth\": \"<string>\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"<string>\",\n            \"proprietary\": \"<string>\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"<string>\",\n            \"addressLine1\": \"<string>\",\n            \"addressLine2\": \"<string>\",\n            \"addressLine3\": \"<string>\",\n            \"postCode\": \"<string>\"\n          },\n          \"bic\": \"<string>\",\n          \"aba\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"<string>\",\n          \"addressDetails\": {\n            \"country\": \"<string>\",\n            \"addressLine1\": \"<string>\",\n            \"addressLine2\": \"<string>\",\n            \"addressLine3\": \"<string>\",\n            \"postCode\": \"<string>\"\n          },\n          \"bic\": \"<string>\",\n          \"aba\": \"<string>\",\n          \"clearingSystemIdCode\": \"<string>\",\n          \"memberId\": \"<string>\"\n        },\n        \"branchId\": \"<string>\"\n      },\n      \"instructionForDebtorAgent\": \"<string>\",\n      \"purpose\": {\n        \"code\": \"<string>\",\n        \"proprietary\": \"<string>\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"<string>\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"<string>\",\n        \"address\": {\n          \"country\": \"<string>\",\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"addressLine3\": \"<string>\",\n          \"postCode\": \"<string>\"\n        },\n        \"bic\": \"<string>\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"<date>\",\n              \"cityOfBirth\": \"<string>\",\n              \"countryOfBirth\": \"<string>\"\n            },\n            \"other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4ba0d5a-b0ef-4cf4-b752-031a165f617d",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isScheduled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f72bfb38-cb7e-46ea-8afd-1b2e13593a63",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b9c336a-7386-4e18-8dc6-da3f230bdfcc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "624b2d66-3d05-4f9c-a988-e7e43a68c6d6",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb0e532f-5ca2-429e-80b5-cc63f2ab4a63",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7863523e-ef50-4617-9b5a-119fd8e4bfaf",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8dff7cab-2c11-474c-8a50-0af7bfe674c8",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "219ced8c-4370-4b22-8f40-f345646721b1",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currencyCode\": \"EUR\",\n  \"transactions\": [\n    {\n      \"endToEndId\": \"pd0G4d9XCLOzpM5lBA86YNXU8KU3I0etZ5T\",\n      \"reference\": \"Human readable example text\",\n      \"accountIdentifier\": {\n        \"kind\": \"<string>\",\n        \"identifier\": \"GB22CBUK60109839856819\"\n      },\n      \"amount\": \"<number>\",\n      \"debtorAddress\": {\n        \"addressLine1\": \"Green House\",\n        \"addressLine2\": \"Purple Lane\",\n        \"postCode\": \"CB2 5AB\",\n        \"country\": \"GB\",\n        \"addressLine3\": \"Orange District\"\n      },\n      \"creditor\": {\n        \"name\": \"Newell Saunders\",\n        \"address\": {\n          \"addressLine1\": \"123A\",\n          \"addressLine2\": \"Wren Way\",\n          \"postCode\": \"NN87 2335\",\n          \"country\": \"PT\",\n          \"addressLine3\": \"Hamlinton\"\n        },\n        \"bic\": \"1A2BPT12AB3\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"<string>\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"Identification authority name\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1995-12-27\",\n              \"cityOfBirth\": \"Lisbon\",\n              \"countryOfBirth\": \"PT\"\n            },\n            \"other\": {\n              \"identification\": \"020696623\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        },\n        \"countryOfResidence\": \"PT\",\n        \"contactDetails\": {\n          \"name\": \"Ryan Christensen\",\n          \"emailAddress\": \"tokchri@business.eu\"\n        },\n        \"iban\": \"ES9242020418450222051122\",\n        \"accountNumber\": \"0222051122\",\n        \"schemeName\": {\n          \"code\": \"TRAS\",\n          \"proprietary\": \"Example other identification scheme\"\n        }\n      },\n      \"debtorAccountCurrency\": \"EUR\",\n      \"debtorName\": \"Bradley Kennedy\",\n      \"debtorBic\": \"ABCDNLAA123\",\n      \"debtorPrivateIdentification\": {\n        \"dateAndPlaceOfBirth\": {\n          \"dateOfBirth\": \"1962-02-21\",\n          \"cityOfBirth\": \"Paris\",\n          \"countryOfBirth\": \"<string>\"\n        },\n        \"other\": {\n          \"identification\": \"<string>\",\n          \"schemeName\": {\n            \"code\": \"CCPT\",\n            \"proprietary\": \"Other identification scheme name\"\n          }\n        }\n      },\n      \"intermediaryAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"12 Banking Building\",\n            \"addressLine2\": \"Bank Street\",\n            \"addressLine3\": \"Belfast\",\n            \"postCode\": \"BT1 5GS\"\n          },\n          \"bic\": \"NWBKGB2LXXX\",\n          \"aba\": \"376582168\",\n          \"name\": \"Intermediary Agent Financial Institution\"\n        }\n      },\n      \"creditorAgent\": {\n        \"FinancialInstitutionIdentification\": {\n          \"name\": \"Big FI Corp\",\n          \"addressDetails\": {\n            \"country\": \"GB\",\n            \"addressLine1\": \"11 The Square\",\n            \"addressLine2\": \"Circle District\",\n            \"addressLine3\": \"Sphere City\",\n            \"postCode\": \"SP1 8NY\"\n          },\n          \"bic\": \"CBUKGBA132S\",\n          \"aba\": \"853688941\",\n          \"clearingSystemIdCode\": \"GBDSC\",\n          \"memberId\": \"30-12-77\"\n        },\n        \"branchId\": \"Big FI Outbound Salisbury\"\n      },\n      \"instructionForDebtorAgent\": \"Example further instruction text\",\n      \"purpose\": {\n        \"code\": \"SUPP\",\n        \"proprietary\": \"Other non-codified purpose\"\n      },\n      \"remittanceInformation\": {\n        \"additionalRemittanceInformation\": \"Example unstructured information\"\n      },\n      \"ultimateCreditor\": {\n        \"name\": \"Amanda Myers\",\n        \"address\": {\n          \"country\": \"FR\",\n          \"addressLine1\": \"21 Cyan\",\n          \"addressLine2\": \"Fontainebleau\",\n          \"addressLine3\": \"Île-de-France\",\n          \"postCode\": \"77300\"\n        },\n        \"bic\": \"ABBAFRA112A\",\n        \"identification\": {\n          \"organisationIdentification\": {\n            \"Other\": {\n              \"identification\": \"BE29539003417022\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              \"issuer\": \"<string>\"\n            }\n          },\n          \"privateIdentification\": {\n            \"dateAndPlaceOfBirth\": {\n              \"dateOfBirth\": \"1975-11-22\",\n              \"cityOfBirth\": \"Copenhagen\",\n              \"countryOfBirth\": \"DK\"\n            },\n            \"other\": {\n              \"identification\": \"139748154\",\n              \"schemeName\": {\n                \"code\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"proprietary\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"batchId\": \"d7cc6fda-52a5-5ba8-a03e-303746dc2501\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d309de07-9972-42b3-a872-63d47a92211d",
+          "name": "This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+          "request": {
+            "name": "This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "mccy",
+                "payments",
+                ":batchId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) This must match the batch ID submitted in the payment request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00cee5da-eda8-4362-9509-8f0babafae97",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b81217c6-07ea-4e8c-bee7-fadd948efbe8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e67143bf-5f3c-4f67-a079-ae3a44f144ff",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d956c8d-aade-452d-a383-178aa92da4b5",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e13cc6-9e70-43ee-8fb2-81d330e39f80",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4390b31-0115-4366-bf85-80a93255c2f7",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c73a0113-8cd1-4306-aa5a-801feb6625e7",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b35acdbd-c36c-4570-a6bb-550310709314",
+          "name": "This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+          "request": {
+            "name": "This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "mccy",
+                "payments",
+                ":batchId",
+                ":endToEndId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) This must match the batch ID submitted in the payment request."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endToEndId",
+                  "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9232a68-df2a-458a-b02b-ae3bbc6fd476",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48093f74-a26d-4c35-8137-f1c2c4f12b91",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa5ae53c-f7f8-4647-bb53-db7c94fe7b15",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f54f7906-ddb4-4a83-ae29-7fb48987d81c",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49e1ae25-c080-49ce-b35d-21a98fbd3934",
+              "name": "Client Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 4507,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"key_0\": {},\n  \"key_1\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "404827e4-702e-4da8-99db-72d2c424b49e",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f9aa170a-d5cf-410d-ad4f-19ee9b542ddc",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "mccy",
+                    "payments",
+                    ":batchId",
+                    ":endToEndId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) This must match the batch ID submitted in the payment request."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endToEndId",
+                      "description": "(Required) This must match the end-to-end ID submitted in the payment request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dbe96115-e616-4372-a0c7-07ce045cea76",
+    "name": "Mccy Payment Orchestrator External Api V1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Mccy Payment Orchestrator External Api V1",
+      "type": "text/plain"
+    }
+  }
+}

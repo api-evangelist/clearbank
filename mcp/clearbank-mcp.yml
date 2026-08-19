@@ -2,106 +2,122 @@ generated: '2026-07-23'
 method: derived
 status: candidate
 source: openapi/*.json
-note: >-
-  No official ClearBank MCP server is published. The tools below are a candidate
-  surface derived one-per-operation from the OpenAPI specs; each tool inherits its
-  real inputSchema from the backing operation. All calls require token + RSA
-  DigitalSignature auth and a unique X-Request-Id idempotency key.
+note: No official ClearBank MCP server is published. The tools below are a candidate surface derived one-per-operation
+  from the OpenAPI specs; each tool inherits its real inputSchema from the backing operation. All calls
+  require token + RSA DigitalSignature auth and a unique X-Request-Id idempotency key.
 server:
   name: clearbank
   transport: http
   status: candidate
 tools:
 - name: create_chaps_institution_payments
-  description: "Create an outbound bank-to-bank payment. This endpoint is used to send CHAPS Pacs.009 payments between financial institu"
-  source_operation: "openapi/clearbank-chaps-v6.json#ExternalCreateInstitutionPayment-v6"
+  description: Create an outbound bank-to-bank payment. This endpoint is used to send CHAPS Pacs.009 payments
+    between financial institu
+  source_operation: openapi/clearbank-chaps-v6.json#ExternalCreateInstitutionPayment-v6
 - name: create_chaps_customer_payments
-  description: "Create an outbound customer payment. This endpoint is used to send CHAPS Pacs.008 payments on behalf of customers."
-  source_operation: "openapi/clearbank-chaps-v6.json#ExternalCreateCustomerPayment-v6"
+  description: Create an outbound customer payment. This endpoint is used to send CHAPS Pacs.008 payments
+    on behalf of customers.
+  source_operation: openapi/clearbank-chaps-v6.json#ExternalCreateCustomerPayment-v6
 - name: create_chaps_return_payments
-  description: "Return a CHAPS payment. All CHAPS returns must be made by the next working day. The same operating hours apply for CHAPS"
-  source_operation: "openapi/clearbank-chaps-v6.json#ExternalReturnPayment-v6"
+  description: Return a CHAPS payment. All CHAPS returns must be made by the next working day. The same
+    operating hours apply for CHAPS
+  source_operation: openapi/clearbank-chaps-v6.json#ExternalReturnPayment-v6
 - name: create_outbound_name_verification
-  description: "This endpoint is used to confirm the exact name registered with the payee’s account."
-  source_operation: "openapi/clearbank-cop-outbound-v1.json [POST /open-banking/outbound/v1/name-verification]"
+  description: This endpoint is used to confirm the exact name registered with the payee’s account.
+  source_operation: openapi/clearbank-cop-outbound-v1.json [POST /open-banking/outbound/v1/name-verification]
 - name: create_srd_validate
-  description: "This endpoint is used to confirm whether a given sort code/account number combination requires Secondary Reference Data "
-  source_operation: "openapi/clearbank-cop-outbound-v1.json [POST /open-banking/outbound/v1/srd/validate]"
+  description: 'This endpoint is used to confirm whether a given sort code/account number combination
+    requires Secondary Reference Data '
+  source_operation: openapi/clearbank-cop-outbound-v1.json [POST /open-banking/outbound/v1/srd/validate]
 - name: create_cross_border_sterling_payments
-  description: "This endpoint will send a cross-border customer payment in sterling (pacs.008)."
-  source_operation: "openapi/clearbank-cross-border-v4.json#ExternalCrossBorderCreateCustomerPayment-v7"
+  description: This endpoint will send a cross-border customer payment in sterling (pacs.008).
+  source_operation: openapi/clearbank-cross-border-v4.json#ExternalCrossBorderCreateCustomerPayment-v7
 - name: get_customers_customers
-  description: "Retrieves a customer by their customer ID."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomerGet"
+  description: Retrieves a customer by their customer ID.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomerGet
 - name: get_customers_related_parties
-  description: "Retrieves the related party data of a customer by their customer ID."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2RelatedPartiesGet"
+  description: Retrieves the related party data of a customer by their customer ID.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2RelatedPartiesGet
 - name: create_customers_related_parties
-  description: "Adds a new related party to an existing customer. Note that relationships must be unique: if a relationship already exis"
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2RelatedPartyPost"
+  description: 'Adds a new related party to an existing customer. Note that relationships must be unique:
+    if a relationship already exis'
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2RelatedPartyPost
 - name: create_customers_current_addresses
-  description: "Updates a customer's current address while maintaining their previous addresses history."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomersCurrentAddressPost"
+  description: Updates a customer's current address while maintaining their previous addresses history.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomersCurrentAddressPost
 - name: delete_customers_related_parties
-  description: "Removes a related party link between two customers."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2RelatedPartyDelete"
+  description: Removes a related party link between two customers.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2RelatedPartyDelete
 - name: set_customers_identity_documents
-  description: "Adds or updates a customer's identity document. Returns 200 OK when updating an existing ID, or 201 Created when adding "
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomerIdentityDocumentPut"
+  description: 'Adds or updates a customer''s identity document. Returns 200 OK when updating an existing
+    ID, or 201 Created when adding '
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomerIdentityDocumentPut
 - name: delete_customers_identity_documents
-  description: "Removes a customer's identity document."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomerIdentityDocumentDelete"
+  description: Removes a customer's identity document.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomerIdentityDocumentDelete
 - name: set_customers_tax_residencies
-  description: "Adds or updates a customer's tax residency entry for the specified country. Returns 200 OK when updating an existing tax"
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomerTaxResidencyPut"
+  description: Adds or updates a customer's tax residency entry for the specified country. Returns 200
+    OK when updating an existing tax
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomerTaxResidencyPut
 - name: delete_customers_tax_residencies
-  description: "Removes a customer's tax residency entry for the specified country."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2CustomerTaxResidencyDelete"
+  description: Removes a customer's tax residency entry for the specified country.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2CustomerTaxResidencyDelete
 - name: create_customers_retail
-  description: "Requests creation of retail customer. On a success, you will receive a customer ID which you can then use to create acco"
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2RetailPost"
+  description: Requests creation of retail customer. On a success, you will receive a customer ID which
+    you can then use to create acco
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2RetailPost
 - name: update_customers_retail
-  description: "Requests update of retail customer."
-  source_operation: "openapi/clearbank-customers_v2_retail.json#V2RetailPatch"
+  description: Requests update of retail customer.
+  source_operation: openapi/clearbank-customers_v2_retail.json#V2RetailPatch
 - name: create_payments_fps
-  description: "Initiate a payment using the faster payments scheme. This endpoint is FTR compliant."
-  source_operation: "openapi/clearbank-fps-initiate-payment-v3.json#Post"
+  description: Initiate a payment using the faster payments scheme. This endpoint is FTR compliant.
+  source_operation: openapi/clearbank-fps-initiate-payment-v3.json#Post
 - name: create_fps_return
-  description: "Return an inbound Faster Payment. This endpoint can be used to return Faster Payments - including Faster Payments Origin"
-  source_operation: "openapi/clearbank-fps-initiate-payment-v3.json#PostReturn"
+  description: Return an inbound Faster Payment. This endpoint can be used to return Faster Payments -
+    including Faster Payments Origin
+  source_operation: openapi/clearbank-fps-initiate-payment-v3.json#PostReturn
 - name: create_fx_order
-  description: "Creates FX Order"
-  source_operation: "openapi/clearbank-fx-orchestrator-rfq.json#Order.Create"
+  description: Creates FX Order
+  source_operation: openapi/clearbank-fx-orchestrator-rfq.json#Order.Create
 - name: create_fx_quote
-  description: "Requests a quote for a specified FX trade."
-  source_operation: "openapi/clearbank-fx-orchestrator-rfq.json#Order.Create"
+  description: Requests a quote for a specified FX trade.
+  source_operation: openapi/clearbank-fx-orchestrator-rfq.json#Order.Create
 - name: create_retail_onboard
-  description: "Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass, the provided details are then use"
-  source_operation: "openapi/clearbank-know-your-customer-v1.json [POST /customer-due-diligence/v1/retail/onboard]"
+  description: Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass,
+    the provided details are then use
+  source_operation: openapi/clearbank-know-your-customer-v1.json [POST /customer-due-diligence/v1/retail/onboard]
 - name: create_mccy_accounts
-  description: "This endpoint is used to create a new real multi-currency account."
-  source_operation: "openapi/clearbank-mccy-accounts-v2.json [POST /mccy/v2/Accounts]"
+  description: This endpoint is used to create a new real multi-currency account.
+  source_operation: openapi/clearbank-mccy-accounts-v2.json [POST /mccy/v2/Accounts]
 - name: create_mccy_payments
-  description: "This endpoint is used to initiate payments."
-  source_operation: "openapi/clearbank-mccy-payments-v1.json [POST /v1/mccy/payments]"
+  description: This endpoint is used to initiate payments.
+  source_operation: openapi/clearbank-mccy-payments-v1.json [POST /v1/mccy/payments]
 - name: delete_mccy_payments
-  description: "This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour "
-  source_operation: "openapi/clearbank-mccy-payments-v1.json [DELETE /v1/mccy/payments/{batchId}]"
+  description: 'This endpoint is used to cancel an entire batch of payments with a matching batch ID.
+    It must be sent at least one hour '
+  source_operation: openapi/clearbank-mccy-payments-v1.json [DELETE /v1/mccy/payments/{batchId}]
 - name: delete_mccy_payments
-  description: "This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be "
-  source_operation: "openapi/clearbank-mccy-payments-v1.json [DELETE /v1/mccy/payments/{batchId}/{endToEndId}]"
+  description: 'This endpoint is used to cancel a single payment within a batch, with a matching batch
+    ID and end-to-end ID. It must be '
+  source_operation: openapi/clearbank-mccy-payments-v1.json [DELETE /v1/mccy/payments/{batchId}/{endToEndId}]
 - name: create_sepa_ct_customer_payments
-  description: "This endpoint is used to create an outbound SCT payment."
-  source_operation: "openapi/clearbank-sepa-ct-v1.json#Payment.Create"
+  description: This endpoint is used to create an outbound SCT payment.
+  source_operation: openapi/clearbank-sepa-ct-v1.json#Payment.Create
 - name: create_sepa_ct_recall_response
-  description: "This endpoint is used to approve or reject a recall request of an inbound SCT payment."
-  source_operation: "openapi/clearbank-sepa-ct-v1.json#Payments.Inbound.RecallRequestResult"
+  description: This endpoint is used to approve or reject a recall request of an inbound SCT payment.
+  source_operation: openapi/clearbank-sepa-ct-v1.json#Payments.Inbound.RecallRequestResult
 - name: create_sepa_ct_recall
-  description: "This endpoint is used to request a recall for an outbound SCT payment."
-  source_operation: "openapi/clearbank-sepa-ct-v1.json#Payment.Recall"
+  description: This endpoint is used to request a recall for an outbound SCT payment.
+  source_operation: openapi/clearbank-sepa-ct-v1.json#Payment.Recall
 - name: create_sepa_ct_payment_returns
-  description: "This endpoint is used to return an inbound SCT payment."
-  source_operation: "openapi/clearbank-sepa-ct-v1.json#Payments.Inbound.ReturnOfInboundPayment"
+  description: This endpoint is used to return an inbound SCT payment.
+  source_operation: openapi/clearbank-sepa-ct-v1.json#Payments.Inbound.ReturnOfInboundPayment
 - name: create_accounts
-  description: "This endpoint is used to create a new FSCS-protected embedded banking account."
-  source_operation: "openapi/clearbank-sterling-v4.json#V4InstitutionsByInstitutionIdAccountsPost"
+  description: This endpoint is used to create a new FSCS-protected embedded banking account.
+  source_operation: openapi/clearbank-sterling-v4.json#V4InstitutionsByInstitutionIdAccountsPost
+deployment:
+  mode: none
+  verified: derived
+  tools: 31
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,825 @@
+{
+  "item": [
+    {
+      "id": "8808412e-5606-4131-a5cf-43510b86e1b9",
+      "name": "ExternalInstitutionPaymentsV6",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10ce602a-7dd1-4739-b45c-da3b1cc56a8d",
+          "name": "External Create Institution Payment-v6",
+          "request": {
+            "name": "External Create Institution Payment-v6",
+            "description": {
+              "content": "Create an outbound bank-to-bank payment. This endpoint is used to send CHAPS Pacs.009 payments between financial institutions and is only available to authorised institutions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "chaps",
+                "v6",
+                "institution-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instructionIdentification\": \"<string>\",\n  \"endToEndIdentification\": \"<string>\",\n  \"interBankSettlementAmount\": {\n    \"amount\": \"<decimal>\",\n    \"currency\": \"<string>\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"debtor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"lei\": \"<string>\"\n  },\n  \"creditorAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"creditor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"lei\": \"<string>\"\n  },\n  \"purpose\": \"<string>\",\n  \"categoryPurpose\": \"<string>\",\n  \"remittanceInformation\": {\n    \"unstructured\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df4db6aa-9b85-49d4-8895-3de6198def10",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "institution-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-INST-001\",\n  \"endToEndIdentification\": \"E2E-INST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 100000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Bank Ltd\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"creditor\": {\n    \"name\": \"Example Financial Institution\"\n  },\n  \"purpose\": \"TREA\",\n  \"categoryPurpose\": \"TREA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes",
+                  "key": "X-Correlation-Id",
+                  "value": "<string>"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"3c339c68-b989-5b4c-4cfe-19215898e75f\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4974de87-537f-48f5-b035-fa0adb2fc2f9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "institution-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-INST-001\",\n  \"endToEndIdentification\": \"E2E-INST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 100000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Bank Ltd\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"creditor\": {\n    \"name\": \"Example Financial Institution\"\n  },\n  \"purpose\": \"TREA\",\n  \"categoryPurpose\": \"TREA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"errors\": \"\",\n  \"instance\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c0650a8-694a-470d-b29d-caca7550e5d2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "institution-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-INST-001\",\n  \"endToEndIdentification\": \"E2E-INST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 100000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtor\": {\n    \"name\": \"Acme Bank Ltd\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"creditor\": {\n    \"name\": \"Example Financial Institution\"\n  },\n  \"purpose\": \"TREA\",\n  \"categoryPurpose\": \"TREA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2c081605-237a-4d71-8be3-6ec446575e6d",
+      "name": "ExternalCustomerPaymentsV6",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14152511-f153-463e-8643-8af6e71a00d6",
+          "name": "External Create Customer Payment-v6",
+          "request": {
+            "name": "External Create Customer Payment-v6",
+            "description": {
+              "content": "Create an outbound customer payment. This endpoint is used to send CHAPS Pacs.008 payments on behalf of customers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "chaps",
+                "v6",
+                "customer-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instructionIdentification\": \"<string>\",\n  \"endToEndIdentification\": \"<string>\",\n  \"interBankSettlementAmount\": {\n    \"amount\": \"<decimal>\",\n    \"currency\": \"<string>\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"debtorAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"debtor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"organisationIdentifier\": {\n      \"bic\": \"<string>\",\n      \"lei\": \"<string>\",\n      \"otherIdentification\": \"<string>\"\n    },\n    \"privateIdentifier\": {\n      \"otherIdentification\": \"<string>\"\n    }\n  },\n  \"creditorAccount\": {\n    \"iban\": \"<string>\"\n  },\n  \"creditor\": {\n    \"name\": \"<string>\",\n    \"postalAddress\": {\n      \"townName\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postCode\": \"<string>\",\n      \"buildingNumber\": \"<string>\",\n      \"buildingName\": \"<string>\",\n      \"streetName\": \"<string>\"\n    },\n    \"organisationIdentifier\": {\n      \"bic\": \"<string>\",\n      \"lei\": \"<string>\",\n      \"otherIdentification\": \"<string>\"\n    },\n    \"privateIdentifier\": {\n      \"otherIdentification\": \"<string>\"\n    }\n  },\n  \"purpose\": \"<string>\",\n  \"categoryPurpose\": \"<string>\",\n  \"remittanceInformation\": {\n    \"creditorReferenceInformation\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6419def4-9c04-4e59-a8f0-9e59200f8f41",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-CUST-001\",\n  \"endToEndIdentification\": \"E2E-CUST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 1000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Jane Smith\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"200000-55779911\"\n  },\n  \"creditor\": {\n    \"name\": \"Bob Jones\",\n    \"postalAddress\": {\n      \"townName\": \"London\",\n      \"country\": \"GB\",\n      \"postCode\": \"EC2V 8RT\"\n    }\n  },\n  \"purpose\": \"SALA\",\n  \"categoryPurpose\": \"SALA\",\n  \"remittanceInformation\": {\n    \"creditorReferenceInformation\": \"INV-2026-001\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes",
+                  "key": "X-Correlation-Id",
+                  "value": "<string>"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"3c339c68-b989-5b4c-4cfe-19215898e75f\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4e13929-1b9c-47c9-9061-5905a755dcd0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-CUST-001\",\n  \"endToEndIdentification\": \"E2E-CUST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 1000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Jane Smith\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"200000-55779911\"\n  },\n  \"creditor\": {\n    \"name\": \"Bob Jones\",\n    \"postalAddress\": {\n      \"townName\": \"London\",\n      \"country\": \"GB\",\n      \"postCode\": \"EC2V 8RT\"\n    }\n  },\n  \"purpose\": \"SALA\",\n  \"categoryPurpose\": \"SALA\",\n  \"remittanceInformation\": {\n    \"creditorReferenceInformation\": \"INV-2026-001\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"errors\": \"\",\n  \"instance\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "250d3b23-a71d-47d5-aa90-518dcccf25aa",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "customer-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instructionIdentification\": \"INSTR-CUST-001\",\n  \"endToEndIdentification\": \"E2E-CUST-001\",\n  \"interBankSettlementAmount\": {\n    \"amount\": 1000,\n    \"currency\": \"GBP\"\n  },\n  \"sourceAccount\": {\n    \"iban\": \"GB29NWBK60161331926819\"\n  },\n  \"debtorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"040004-12345678\"\n  },\n  \"debtor\": {\n    \"name\": \"Jane Smith\"\n  },\n  \"creditorAccount\": {\n    \"schemeName\": \"SortcodeAccountNumber\",\n    \"identification\": \"200000-55779911\"\n  },\n  \"creditor\": {\n    \"name\": \"Bob Jones\",\n    \"postalAddress\": {\n      \"townName\": \"London\",\n      \"country\": \"GB\",\n      \"postCode\": \"EC2V 8RT\"\n    }\n  },\n  \"purpose\": \"SALA\",\n  \"categoryPurpose\": \"SALA\",\n  \"remittanceInformation\": {\n    \"creditorReferenceInformation\": \"INV-2026-001\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "43ff9d6b-49ca-4127-ba91-f883ea827803",
+      "name": "ExternalReturnPaymentsV6",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f32108c-ee7e-4405-936d-7f4dc738cb80",
+          "name": "External Return Payment-v6",
+          "request": {
+            "name": "External Return Payment-v6",
+            "description": {
+              "content": "Return a CHAPS payment. All CHAPS returns must be made by the next working day. The same operating hours apply for CHAPS returns as for regular CHAPS payments. Note that this endpoint only supports returning CHAPS payments made after the Bank of England's RTGS Renewal Programme went live (all payments made on or after 19 June 2023).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "chaps",
+                "v6",
+                "return-payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<uuid>\",\n  \"reason\": \"<string>\",\n  \"instructionIdentification\": \"<string>\",\n  \"additionalInformation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc5be727-c36e-4039-9c50-6603b931d117",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "return-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "Bearer          -~@N4g"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"reason\": \"AC04\",\n  \"instructionIdentification\": \"RETURN-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentId\": \"3c339c68-b989-5b4c-4cfe-19215898e75f\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b82e6869-db5d-4c50-b0a2-42264b33ea17",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "return-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"reason\": \"AC04\",\n  \"instructionIdentification\": \"RETURN-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\",\n  \"errors\": \"\",\n  \"instance\": \"string\",\n  \"status\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22afde4d-bb10-4bd4-b166-bff227a281d0",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "chaps",
+                    "v6",
+                    "return-payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, retrieved from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paymentId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"reason\": \"AC04\",\n  \"instructionIdentification\": \"RETURN-001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "44114b42-fb0a-4916-823b-53b4128f44e3",
+    "name": "ClearBank CHAPS RTGS FI API V6",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

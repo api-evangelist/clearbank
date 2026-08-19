@@ -1,0 +1,357 @@
+{
+  "item": [
+    {
+      "id": "721ed4db-03d9-4fa4-be9f-425e119d9054",
+      "name": "Accounts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b33d8e21-708f-40de-b1a9-8f8c4e7cba38",
+          "name": "This endpoint is used to create a new FSCS-protected embedded banking account.",
+          "request": {
+            "name": "This endpoint is used to create a new FSCS-protected embedded banking account.",
+            "description": {
+              "content": "If you want to create a cash ISA or savings account, use the POST /v1/isas or POST /v1/savings endpoints instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v4",
+                "Accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sortCode\": \"<string>\",\n  \"productId\": \"<uuid>\",\n  \"customerId\": \"<uuid>\",\n  \"owner\": {\n    \"name\": \"<string>\"\n  },\n  \"minimumBalance\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c821181-b07c-4a00-a570-485febf48fc2",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sortCode\": \"010203\",\n  \"productId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"customerId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"owner\": {\n    \"name\": \"John Smith\"\n  },\n  \"minimumBalance\": -500.55\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"name\": \"Current Account\",\n  \"type\": \"CACC\",\n  \"currency\": [\n    \"XPF\",\n    \"MXN\"\n  ],\n  \"label\": \"John Smith\",\n  \"balances\": [\n    {\n      \"name\": \"Current Account\",\n      \"amount\": 54321.54,\n      \"currency\": \"GBP\",\n      \"status\": \"VALU\"\n    },\n    {\n      \"name\": \"Current Account\",\n      \"amount\": 54321.54,\n      \"currency\": \"GBP\",\n      \"status\": \"VALU\"\n    }\n  ],\n  \"productId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"customerId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"minimumBalance\": -500.55,\n  \"iban\": \"GB12CLBK01020312345678\",\n  \"bban\": \"CLBK01020312345678\",\n  \"upic\": \"string\",\n  \"cuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39f2a1ac-a243-44e2-84f8-205b115ba711",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sortCode\": \"010203\",\n  \"productId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"customerId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"owner\": {\n    \"name\": \"John Smith\"\n  },\n  \"minimumBalance\": -500.55\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"https://WanECzmIqfHUBBaRzYir.vzyulgbAKKT6jAGeXPCDme6D3IoXavZ5YSdAIEhFHllZuNPDTkyTtfC2rT?ndb&zmkjkqr&gmkwael=qB&\",\n  \"title\": \"string\",\n  \"status\": 125,\n  \"detail\": \"string\",\n  \"instance\": \"http://mbSXCHQ.jyeK5cFVFCq2bTG3aJt5\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eebf8e4b-a8f1-4870-bc44-0dfba6940269",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sortCode\": \"010203\",\n  \"productId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"customerId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"owner\": {\n    \"name\": \"John Smith\"\n  },\n  \"minimumBalance\": -500.55\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2cf83ec-abda-4332-9509-8a9d35fc7056",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v4",
+                    "Accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API Token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifier for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sortCode\": \"010203\",\n  \"productId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"customerId\": \"01234567-89ab-cdef-0123-456789abcdef\",\n  \"owner\": {\n    \"name\": \"John Smith\"\n  },\n  \"minimumBalance\": -500.55\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique identifier which should be referenced in any issue with any API call.",
+                  "key": "X-Correlation-Id",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a783e972-4415-4710-b131-c04d90d6fdb9",
+    "name": "ClearBank Financial Institutions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "ClearBank API endpoints for creating and managing accounts and transactions.\n\nContact Support:\n Name: API Support\n Email: fiapisupport@clear.bank",
+      "type": "text/plain"
+    }
+  }
+}

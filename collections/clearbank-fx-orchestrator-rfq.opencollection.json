@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "FX Orchestrator API",
+    "version": "1.FXRFQ"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fx Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates FX Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/9f0a128f-cf1a-4503-b126-09dd2ae1e24f/133535775647469590/fx/v1/order",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates FX Order"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CreateFxQuoteEndpoint",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Requests a quote for a specified FX trade.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/9f0a128f-cf1a-4503-b126-09dd2ae1e24f/133535775647469590/fx/v1/quote",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests a quote for a specified FX trade."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

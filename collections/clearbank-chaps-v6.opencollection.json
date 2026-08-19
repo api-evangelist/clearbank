@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ClearBank CHAPS RTGS FI API V6",
+    "version": "6.0-CHAPS"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ExternalInstitutionPaymentsV6",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ExternalCreateInstitutionPayment-v6",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/chaps/v6/institution-payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an outbound bank-to-bank payment. This endpoint is used to send CHAPS Pacs.009 payments between financial institutions and is only available to authorised institutions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExternalCustomerPaymentsV6",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ExternalCreateCustomerPayment-v6",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/chaps/v6/customer-payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an outbound customer payment. This endpoint is used to send CHAPS Pacs.008 payments on behalf of customers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ExternalReturnPaymentsV6",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ExternalReturnPayment-v6",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/payments/chaps/v6/return-payments",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "DigitalSignature",
+                "value": ""
+              },
+              {
+                "name": "X-Request-Id",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Return a CHAPS payment. All CHAPS returns must be made by the next working day. The same operating hours apply for CHAPS returns as for regular CHAPS payments. Note that this endpoint only supports returning CHAPS payments made after the Bank of England's RTGS Renewal Programme went live (all payments made on or after 19 June 2023)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

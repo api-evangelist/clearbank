@@ -1,0 +1,409 @@
+{
+  "item": [
+    {
+      "id": "2825e17a-cae3-41b7-95e9-383ad4425d02",
+      "name": "Fx Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ccc5462f-533c-4133-a060-445d78b21dd4",
+          "name": "Creates FX Order",
+          "request": {
+            "name": "Creates FX Order",
+            "description": {},
+            "url": {
+              "path": [
+                "fx",
+                "v1",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerInformation\": {\n    \"attestation\": \"<string>\",\n    \"buyAccount\": {\n      \"owner\": \"<string>\",\n      \"iban\": \"<string>\"\n    },\n    \"sellAccount\": {\n      \"owner\": \"<string>\",\n      \"iban\": \"<string>\"\n    }\n  },\n  \"tradeInformation\": {\n    \"details\": {\n      \"buyCurrency\": \"<string>\",\n      \"fixedSide\": \"<string>\",\n      \"sellCurrency\": \"<string>\",\n      \"instructedAmount\": \"<double>\"\n    },\n    \"endToEndId\": \"<string>\",\n    \"valueDate\": \"<dateTime>\",\n    \"margin\": {\n      \"account\": {\n        \"owner\": \"<string>\",\n        \"iban\": \"<string>\"\n      },\n      \"amount\": \"<double>\"\n    },\n    \"unstructuredInformation\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67680e92-fbd1-4830-8d19-681b5a62a6bc",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fx",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerInformation\": {\n    \"attestation\": \"<string>\",\n    \"buyAccount\": {\n      \"owner\": \"FX Service Ltd\",\n      \"iban\": \"GB57CLRB04040100057354\"\n    },\n    \"sellAccount\": {\n      \"owner\": \"FX Service Ltd\",\n      \"iban\": \"GB57CLRB04040100057354\"\n    }\n  },\n  \"tradeInformation\": {\n    \"details\": {\n      \"buyCurrency\": \"<string>\",\n      \"fixedSide\": \"<string>\",\n      \"sellCurrency\": \"<string>\",\n      \"instructedAmount\": \"<double>\"\n    },\n    \"endToEndId\": \"<string>\",\n    \"valueDate\": \"<dateTime>\",\n    \"margin\": {\n      \"account\": {\n        \"owner\": \"FX Service Ltd\",\n        \"iban\": \"GB57CLRB04040100057354\"\n      },\n      \"amount\": \"0.01\"\n    },\n    \"unstructuredInformation\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13021b74-e4e0-4e20-8018-6c8d46fb7f94",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fx",
+                    "v1",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerInformation\": {\n    \"attestation\": \"<string>\",\n    \"buyAccount\": {\n      \"owner\": \"FX Service Ltd\",\n      \"iban\": \"GB57CLRB04040100057354\"\n    },\n    \"sellAccount\": {\n      \"owner\": \"FX Service Ltd\",\n      \"iban\": \"GB57CLRB04040100057354\"\n    }\n  },\n  \"tradeInformation\": {\n    \"details\": {\n      \"buyCurrency\": \"<string>\",\n      \"fixedSide\": \"<string>\",\n      \"sellCurrency\": \"<string>\",\n      \"instructedAmount\": \"<double>\"\n    },\n    \"endToEndId\": \"<string>\",\n    \"valueDate\": \"<dateTime>\",\n    \"margin\": {\n      \"account\": {\n        \"owner\": \"FX Service Ltd\",\n        \"iban\": \"GB57CLRB04040100057354\"\n      },\n      \"amount\": \"0.01\"\n    },\n    \"unstructuredInformation\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 8461,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "bd1846f7-1b02-4334-85e8-6001e02e1104",
+      "name": "CreateFxQuoteEndpoint",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30152e85-838e-4fae-b9e1-b549c39402c2",
+          "name": "Requests a quote for a specified FX trade.",
+          "request": {
+            "name": "Requests a quote for a specified FX trade.",
+            "description": {},
+            "url": {
+              "path": [
+                "fx",
+                "v1",
+                "quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                "key": "DigitalSignature",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                "key": "X-Request-Id",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valueDate\": \"<dateTime>\",\n  \"instructedAmount\": \"<double>\",\n  \"fixedSide\": \"<string>\",\n  \"sellCurrency\": \"<string>\",\n  \"buyCurrency\": \"<string>\",\n  \"margin\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f53f9f07-506e-405b-86e3-6378fe2cc916",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fx",
+                    "v1",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"valueDate\": \"2024-08-24T14:15:22Z\",\n  \"instructedAmount\": \"<double>\",\n  \"fixedSide\": \"buy\",\n  \"sellCurrency\": \"EUR\",\n  \"buyCurrency\": \"USD\",\n  \"margin\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quoteId\": \"d4f23e64-276c-48b1-9b8c-5c4e1c395a82\",\n  \"valueDate\": \"2024-08-24T14:15:22Z\",\n  \"currencyPair\": \"EUR/USD\",\n  \"exchangeRate\": 6678.765830906568,\n  \"sellCurrency\": \"EUR\",\n  \"sellAmount\": 366.05419810532226,\n  \"buyCurrency\": \"USD\",\n  \"buyAmount\": 110.5729371663855,\n  \"createdAt\": \"2024-08-24T14:15:23Z\",\n  \"expiresAt\": \"2024-08-24T14:16:08Z\",\n  \"quoteRequest\": {\n    \"valueDate\": \"2024-08-24T14:15:22Z\",\n    \"instructedAmount\": \"<double>\",\n    \"fixedSide\": \"buy\",\n    \"sellCurrency\": \"EUR\",\n    \"buyCurrency\": \"USD\",\n    \"margin\": \"<double>\"\n  },\n  \"marginAmount\": 1710.2845744357664,\n  \"marginCurrency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd7bc238-e9e5-476f-9b5f-70f2bc1086ab",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fx",
+                    "v1",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Your API token, obtained from the ClearBank Portal.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Signed hash of the body of the request. The hash is signed by your private key.",
+                    "key": "DigitalSignature",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A unique identifer for the request; valid for 24 hours, max length 83.",
+                    "key": "X-Request-Id",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"valueDate\": \"2024-08-24T14:15:22Z\",\n  \"instructedAmount\": \"<double>\",\n  \"fixedSide\": \"buy\",\n  \"sellCurrency\": \"EUR\",\n  \"buyCurrency\": \"USD\",\n  \"margin\": \"<double>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 8461,\n  \"detail\": \"string\",\n  \"instance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/9f0a128f-cf1a-4503-b126-09dd2ae1e24f/133535775647469590",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f29d63f3-67e5-4f85-a3b8-99c98a8ea155",
+    "name": "FX Orchestrator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

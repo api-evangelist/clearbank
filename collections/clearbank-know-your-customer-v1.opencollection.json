@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Customer Due Diligence API",
+    "version": "1.0know-your-customer"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "POST /customer-due-diligence/v1/retail/onboard",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "{{baseUrl}}/customer-due-diligence/v1/retail/onboard",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": ""
+          },
+          {
+            "name": "DigitalSignature",
+            "value": ""
+          },
+          {
+            "name": "X-Request-Id",
+            "value": ""
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Use this endpoint to conduct KYC checks for a new retail customer. If the checks pass, the provided details are then used to create a new retail customer."
+    }
+  ],
+  "bundled": true
+}

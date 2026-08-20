@@ -23,6 +23,20 @@ description: >-
   banking, with a full simulation environment for onboarding.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
+- Financial-Services
+- Banking
+- Banking as a Service
+- Embedded Banking
+- Payments
+- Clearing
+- Faster Payments
+- CHAPS
+- Multi-Currency
+- Foreign Exchange
+- Open Banking
+- United Kingdom
+- Fintech
+tags_raw:
 - Financial Services
 - Banking
 - Banking as a Service
@@ -48,6 +62,10 @@ apis:
   humanURL: https://clearbank.github.io/uk/docs/api/
   baseURL: https://institution-api.clearbank.co.uk
   tags:
+  - Account
+  - Sterling
+  - GBP
+  tags_raw:
   - Accounts
   - Sterling
   - GBP
@@ -101,6 +119,9 @@ apis:
   humanURL: https://clearbank.github.io/uk/docs/api/
   baseURL: https://institution-api.clearbank.co.uk
   tags:
+  - Multi-Currency
+  - Account
+  tags_raw:
   - Multi-Currency
   - Accounts
   properties:

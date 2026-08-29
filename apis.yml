@@ -313,6 +313,9 @@ apis:
   - type: Documentation
     url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
 common:
+- type: CapabilityMap
+  url: capabilities/clearbank-capability-edges.yml
+  name: ClearBank Business Capability Map
 - type: MCPServer
   url: mcp/clearbank-mcp.yml
 - type: VulnerabilityDisclosure

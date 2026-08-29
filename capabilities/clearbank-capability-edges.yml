@@ -1,0 +1,97 @@
+slug: clearbank
+provider: ClearBank
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: Customer Due Diligence
+  spec_file: clearbank-customer-due-diligence-api-openapi.yml
+  capability_id: BC-1300.20
+  capability_id_l1: BC-1300
+  capability_name: KYC & Customer Due Diligence Management
+  confidence: 0.9
+  evidence: 'POST /customer-due-diligence/v1/retail/onboard ... schemas: RetailCustomerCheckRequest, RetailCustomerCheckResponse'
+  reason: The endpoint performs due-diligence checks on a retail customer at onboarding, which is squarely
+    KYC/CDD for a regulated bank.
+- tag: Customer
+  spec_file: clearbank-customer-api-openapi.yml
+  capability_id: BC-1300.40
+  capability_id_l1: BC-1300
+  capability_name: Customer Information Management
+  confidence: 0.85
+  evidence: 'GET /customers/v2/customers/{customerId}/related-parties ... V2CustomerIdentityDocumentPut  Adds
+    or updates a customer''s identity document ... schemas: KycAmlGetResponse, TaxDetailsGetResponse'
+  reason: Operations maintain banking customer master data — addresses with history, related parties,
+    identity documents, tax residencies — i.e. customer information management for a bank's customers,
+    not onboarding decisioning or generic CRM.
+- tag: ExternalCrossBorderCustomerPaymentsV4
+  spec_file: clearbank-externalcrossbordercustomerpaymentsv4-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.85
+  evidence: POST /payments/cross-border-sterling/v4/payments  ExternalCrossBorderCreateCustomerPayment-v7
+    ... IntermediaryAgentDetailsV4, CrossBorderCreditorAgentV6
+  reason: Creates cross-border sterling customer payments with intermediary/creditor agent details — international/correspondent-banking
+    payment management.
+- tag: ExternalReturnPaymentsV6
+  spec_file: clearbank-externalreturnpaymentsv6-api-openapi.yml
+  capability_id: BC-1340
+  capability_id_l1: BC-1340
+  capability_name: Payments & Card Management
+  confidence: 0.8
+  evidence: POST /payments/chaps/v6/return-payments  ExternalReturnPayment-v6 ... CreateReturnPaymentDtoV6,
+    ReturnReasonCodeV6
+  reason: Returning a CHAPS payment with a return reason code is payment operations/exception handling
+    on a payment rail; L1 payments is safe but the evidence does not cleanly name a single sub-capability.
+- tag: Payments
+  spec_file: clearbank-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.75
+  evidence: This endpoint is used to initiate payments ... used to cancel a single payment within a batch,
+    with a matching batch ID and end-to-end ID
+  reason: Multi-currency payment orchestrator initiating and cancelling payment instructions before the
+    currency cut-off — payment instruction capture and authorisation lifecycle.
+- tag: CoP
+  spec_file: clearbank-cop-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /open-banking/outbound/v1/name-verification 'This endpoint is used to confirm the exact
+    name registered with the payee's account'; schemas CoPOutboundRequest, VerificationReport
+  reason: Confirmation of Payee payee-name checking performed before sending a payment — validation within
+    payment instruction initiation. Fraud-prevention reading is plausible, so confidence held at 0.7.
+- tag: ExternalCustomerPaymentsV6
+  spec_file: clearbank-externalcustomerpaymentsv6-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /payments/chaps/v6/customer-payments  ExternalCreateCustomerPayment-v6 ... CreateCustomerPaymentDtoV6,
+    InterBankSettlementAmountDtoV6
+  reason: Submits CHAPS RTGS customer payment instructions with ISO 20022-style party and settlement fields;
+    primarily payment instruction capture/initiation, though the RTGS rail also touches clearing and settlement,
+    hence moderate confidence on the sub-capability.
+- tag: Retail
+  spec_file: clearbank-retail-api-openapi.yml
+  capability_id: BC-1300.10
+  capability_id_l1: BC-1300
+  capability_name: Customer Onboarding Management
+  confidence: 0.7
+  evidence: Requests creation of retail customer. On a success, you will receive a customer ID which you
+    can then use to create accounts for this customer.
+  reason: Creates and updates retail banking customer records (with KYC/AML and tax detail payloads) as
+    the precursor to account opening — banking customer onboarding; could alternatively be read as customer
+    information management, hence 0.7.

@@ -1,0 +1,1090 @@
+openapi: 3.2.0
+info:
+  title: ClearBank Customer V2 Retail API
+  contact:
+    name: API Support
+    url: https://clear.bank
+    email: fiapisupport@clear.bank
+  version: 2.0-customers-retail
+tags:
+- name: Retail
+paths:
+  /customers/v2/retail:
+    post:
+      tags:
+      - Retail
+      summary: Requests creation of retail customer. On a success, you will receive a customer ID which you can then use to create accounts for this customer.
+      operationId: V2RetailPost
+      parameters:
+      - name: Authorization
+        in: header
+        description: Your API token, retrieved from the web portal.
+        required: true
+        schema:
+          type: string
+      - name: DigitalSignature
+        in: header
+        description: Signed hash of the body of the request. The hash is signed by your private key.
+        required: true
+        schema:
+          type: string
+      - name: X-Request-Id
+        in: header
+        description: A unique identifier for the request.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Information required to create retail customer.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRetailRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResourceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '403':
+          description: Forbidden
+  /customers/v2/retail/{customerId}:
+    patch:
+      tags:
+      - Retail
+      summary: Requests update of retail customer.
+      operationId: V2RetailPatch
+      parameters:
+      - name: Authorization
+        in: header
+        description: Your API token, retrieved from the web portal.
+        required: true
+        schema:
+          type: string
+      - name: DigitalSignature
+        in: header
+        description: Signed hash of the body of the request. The hash is signed by your private key.
+        required: true
+        schema:
+          type: string
+      - name: X-Request-Id
+        in: header
+        description: A unique identifier for the request.
+        required: true
+        schema:
+          type: string
+      - name: customerId
+        in: path
+        description: The ID of the customer.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Information required to update a retail customer.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRetailRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetailCustomerPatchResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '422':
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    KycAmlPatchModel:
+      type: object
+      properties:
+        sanctions:
+          type:
+          - boolean
+          - 'null'
+          description: Updated sanctions flag (if changed).
+        pep:
+          $ref: '#/components/schemas/PepType'
+        rca:
+          $ref: '#/components/schemas/RcaType'
+        craRating:
+          $ref: '#/components/schemas/CraRating'
+      additionalProperties: false
+      description: Patch model containing KYC/AML fields that were updated. Only properties that changed are present.
+    CurrentAddressRequest:
+      required:
+      - addressType
+      - buildingNameNumber
+      - streetName
+      - city
+      - country
+      - postalCode
+      type: object
+      properties:
+        addressType:
+          $ref: '#/components/schemas/AddressType'
+        buildingNameNumber:
+          minLength: 1
+          maxLength: 100
+          pattern: '[^!$%^_=+><?|;~@`]'
+          type:
+          - string
+          - 'null'
+          description: The building name or number of this address. Must not contain postal code.
+          example: '322'
+        streetName:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 100
+          pattern: '[^!$%^_=+><?|;~@`]'
+          description: This address' street name. Must not contain postal code.
+          example: Long Road
+        city:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: City of the customer's address.
+          example: Cyan City
+        county:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: County of the customer's address. Must not contain the values of buildingNameNumber or streetName fields.
+          example: Greenshire
+        postalCode:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Postal code of the customer's address. If this address is in the UK, must be a valid UK postcode and conform to the regex pattern.
+          example: PG15 8AB
+          pattern: ^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: Date from which the address is valid. Defaults to today if unspecified.
+          format: date
+          example: '2022-05-22'
+      additionalProperties: false
+      description: The customer's current address.
+    UpdateRetailTaxDetailsRequest:
+      type: object
+      properties:
+        validSelfCertification:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if self-certification is valid.
+        usPerson:
+          $ref: '#/components/schemas/USPerson'
+      additionalProperties: false
+      description: Tax details for a retail customer.
+    ValidationProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provides human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]). When this member is not present, its value is assumed to be "about:blank".
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see[RFC7231], Section 3.4).
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: The validation errors.
+      additionalProperties: {}
+      description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
+    CreateRetailRequest:
+      required:
+      - addressHistory
+      - kycAml
+      - personalDetails
+      - taxDetails
+      type: object
+      properties:
+        personalDetails:
+          $ref: '#/components/schemas/CreatePersonalDetailsRequest'
+        identityDocuments:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreateCustomerIdentityDocumentRequest'
+          description: The customer's identity documents.
+        addressHistory:
+          $ref: '#/components/schemas/CreateAddressHistoryRequest'
+        kycAml:
+          $ref: '#/components/schemas/CreateKycAmlRequest'
+        taxDetails:
+          $ref: '#/components/schemas/CreateRetailTaxDetailsRequest'
+        specialStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SpecialStatusValue'
+          description: 'The customer''s special statuses, if any. Possible values include: ''Vulnerability_Health_VisualImpairmentBraille'', ''Vulnerability_Health_VisualImpairmentLargeText'', ''Vulnerability_Health_AudioImpairment'', ''Vulnerability_Health_Other'', ''Vulnerability_LifeEvents'', ''Vulnerability_Resilience'', and ''Vulnerability_Capability'''
+          example:
+          - Vulnerability_LifeEvents
+      additionalProperties: false
+      description: Request body for creating a retail customer.
+    SpecialStatusValue:
+      enum:
+      - Vulnerability_Health_VisualImpairmentBraille
+      - Vulnerability_Health_VisualImpairmentLargeText
+      - Vulnerability_Health_AudioImpairment
+      - Vulnerability_Health_Other
+      - Vulnerability_LifeEvents
+      - Vulnerability_Resilience
+      - Vulnerability_Capability
+      type: string
+      example: Vulnerability_LifeEvents
+      description: Supported special statuses.
+    RetailCustomerPatchResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: The unique identifier of the retail customer.
+          format: uuid
+        personalDetails:
+          $ref: '#/components/schemas/PersonalDetailsPatchModel'
+        kycAml:
+          $ref: '#/components/schemas/KycAmlPatchModel'
+        taxDetails:
+          $ref: '#/components/schemas/RetailCustomerTaxDetailsPatchModel'
+        specialStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SpecialStatusValue'
+          description: 'The customer''s special statuses, if any. Possible values include: ''Vulnerability_Health_VisualImpairmentBraille'', ''Vulnerability_Health_VisualImpairmentLargeText'', ''Vulnerability_Health_AudioImpairment'', ''Vulnerability_Health_Other'', ''Vulnerability_LifeEvents'', ''Vulnerability_Resilience'', and ''Vulnerability_Capability'''
+      additionalProperties: false
+      description: Summary of the fields that have been updated for retail customer PATCH. Contains only sections and properties that were changed.
+    CountryCode:
+      enum:
+      - AFG
+      - ALB
+      - ATA
+      - DZA
+      - ASM
+      - AND
+      - AGO
+      - ATG
+      - AZE
+      - ARG
+      - AUS
+      - AUT
+      - BHS
+      - BHR
+      - BGD
+      - ARM
+      - BRB
+      - BEL
+      - BMU
+      - BTN
+      - BOL
+      - BIH
+      - BWA
+      - BVT
+      - BRA
+      - BLZ
+      - IOT
+      - SLB
+      - VGB
+      - BRN
+      - BGR
+      - MMR
+      - BDI
+      - BLR
+      - KHM
+      - CMR
+      - CAN
+      - CPV
+      - CYM
+      - CAF
+      - LKA
+      - TCD
+      - CHL
+      - CHN
+      - TWN
+      - CXR
+      - CCK
+      - COL
+      - COM
+      - MYT
+      - COG
+      - COD
+      - COK
+      - CRI
+      - HRV
+      - CUB
+      - CYP
+      - CZE
+      - BEN
+      - DNK
+      - DMA
+      - DOM
+      - ECU
+      - SLV
+      - GNQ
+      - ETH
+      - ERI
+      - EST
+      - FRO
+      - FLK
+      - SGS
+      - FJI
+      - FIN
+      - ALA
+      - FRA
+      - GUF
+      - PYF
+      - ATF
+      - DJI
+      - GAB
+      - GEO
+      - GMB
+      - PSE
+      - DEU
+      - GHA
+      - GIB
+      - KIR
+      - GRC
+      - GRL
+      - GRD
+      - GLP
+      - GUM
+      - GTM
+      - GIN
+      - GUY
+      - HTI
+      - HMD
+      - VAT
+      - HND
+      - HKG
+      - HUN
+      - ISL
+      - IND
+      - IDN
+      - IRN
+      - IRQ
+      - IRL
+      - ISR
+      - ITA
+      - CIV
+      - JAM
+      - JPN
+      - KAZ
+      - JOR
+      - KEN
+      - PRK
+      - KOR
+      - KWT
+      - KGZ
+      - LAO
+      - LBN
+      - LSO
+      - LVA
+      - LBR
+      - LBY
+      - LIE
+      - LTU
+      - LUX
+      - MAC
+      - MDG
+      - MWI
+      - MYS
+      - MDV
+      - MLI
+      - MLT
+      - MTQ
+      - MRT
+      - MUS
+      - MEX
+      - MCO
+      - MNG
+      - MDA
+      - MNE
+      - MSR
+      - MAR
+      - MOZ
+      - OMN
+      - NAM
+      - NRU
+      - NPL
+      - NLD
+      - CUW
+      - ABW
+      - SXM
+      - BES
+      - NCL
+      - VUT
+      - NZL
+      - NIC
+      - NER
+      - NGA
+      - NIU
+      - NFK
+      - NOR
+      - MNP
+      - UMI
+      - FSM
+      - MHL
+      - PLW
+      - PAK
+      - PAN
+      - PNG
+      - PRY
+      - PER
+      - PHL
+      - PCN
+      - POL
+      - PRT
+      - GNB
+      - TLS
+      - PRI
+      - QAT
+      - REU
+      - ROU
+      - RUS
+      - RWA
+      - BLM
+      - SHN
+      - KNA
+      - AIA
+      - LCA
+      - MAF
+      - SPM
+      - VCT
+      - SMR
+      - STP
+      - SAU
+      - SEN
+      - SRB
+      - SYC
+      - SLE
+      - SGP
+      - SVK
+      - VNM
+      - SVN
+      - SOM
+      - ZAF
+      - ZWE
+      - ESP
+      - SSD
+      - SDN
+      - ESH
+      - SUR
+      - SJM
+      - SWZ
+      - SWE
+      - CHE
+      - SYR
+      - TJK
+      - THA
+      - TGO
+      - TKL
+      - TON
+      - TTO
+      - ARE
+      - TUN
+      - TUR
+      - TKM
+      - TCA
+      - TUV
+      - UGA
+      - UKR
+      - MKD
+      - EGY
+      - GBR
+      - GGY
+      - JEY
+      - IMN
+      - TZA
+      - USA
+      - VIR
+      - BFA
+      - URY
+      - UZB
+      - VEN
+      - WLF
+      - WSM
+      - YEM
+      - ZMB
+      type: string
+      example: GBR
+      description: 3-letter country codes as defined in ISO 3166-1
+    CreatedResourceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the created retail customer. You should record this to be able to use it later.
+          format: uuid
+      additionalProperties: false
+      description: Response containing information about the created resource.
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provides human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]). When this member is not present, its value is assumed to be "about:blank".
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see[RFC7231], Section 3.4).
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
+      description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
+    CreateAddressHistoryRequest:
+      required:
+      - currentAddress
+      type: object
+      properties:
+        currentAddress:
+          $ref: '#/components/schemas/CurrentAddressRequest'
+        previousAddresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PreviousAddressRequest'
+          description: The customer's previous addresses.
+      additionalProperties: false
+      description: The customer's address history.
+    CreateTaxResidencyRequest:
+      required:
+      - countryOfTaxResidence
+      type: object
+      properties:
+        countryOfTaxResidence:
+          $ref: '#/components/schemas/CountryCode'
+        taxIdNumber:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Tax identification number. If not provided, you must specify a noTaxIdReason.
+          example: PC335577B
+        noTaxIdReason:
+          $ref: '#/components/schemas/ReasonForNoTaxId'
+      additionalProperties: false
+      description: Request to create a information about a customer's tax residency, including country of tax residence and tax identification details.
+    PersonalDetailsPatchModel:
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: Updated first name (if changed).
+          example: Kristy
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        middleName:
+          type:
+          - string
+          - 'null'
+          description: Updated middle name (if changed).
+          example: Jade
+        surname:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: Updated surname (if changed).
+          example: Friar
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        dateOfBirth:
+          type:
+          - string
+          - 'null'
+          description: Updated date of birth (if changed).
+          format: date
+          example: '1985-12-23'
+        countryOfResidence:
+          $ref: '#/components/schemas/CountryCode'
+        email:
+          type:
+          - string
+          - 'null'
+          description: Updated email address (if changed). Must be RFC compliant.
+          example: kirsty.fr@mymail.com
+        telephone:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 20
+          description: 'Updated telephone number (if changed). '
+          example: '00441234555777'
+          pattern: ^(00)[0-9]{1,18}$
+        nationalIdentificationNumber:
+          type:
+          - string
+          - 'null'
+          description: Updated national identification number (if changed).
+      additionalProperties: false
+      description: Patch model containing personal detail fields that were updated. Only properties that changed are present.
+    PreviousAddressRequest:
+      required:
+      - addressType
+      - buildingNameNumber
+      - streetName
+      - city
+      - country
+      - postalCode
+      type: object
+      properties:
+        addressType:
+          $ref: '#/components/schemas/AddressType'
+        buildingNameNumber:
+          minLength: 1
+          maxLength: 100
+          pattern: '[^!$%^_=+><?|;~@`]'
+          type:
+          - string
+          - 'null'
+          description: The building name or number of this address. Must not contain postal code.
+          example: '322'
+        streetName:
+          minLength: 1
+          maxLength: 100
+          pattern: '[^!$%^_=+><?|;~@`]'
+          type:
+          - string
+          - 'null'
+          description: The street name of this address. Must not contain postal code.
+          example: Long Road
+        city:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: City of this address.
+          example: Cyan City
+        county:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: County of the customer's address. Must not contain the values of buildingNameNumber or streetName fields.
+          example: Greenshire
+        postalCode:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: Postal code of the customer's address. If this address is in the UK, must be a valid UK postcode and conform to the regex pattern.
+          example: PG15 8AB
+          pattern: ^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: Date from which the address is valid.
+          format: date
+          example: '2016-06-22'
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: Date until which the address was valid. Must be more recent than validFrom date. Formatted yyyy-MM-dd.
+          format: date
+          example: '2022-05-15'
+      additionalProperties: false
+      description: The customer's previous address.
+    CraRating:
+      enum:
+      - LowRisk
+      - MediumRisk
+      - HighRisk
+      - VeryHighRisk
+      type: string
+      description: The customer's CRA rating. Determined by the outcomes of your due diligence checks.
+    UpdateRetailRequest:
+      type: object
+      properties:
+        personalDetails:
+          $ref: '#/components/schemas/UpdatePersonalDetailsRequest'
+        kycAml:
+          $ref: '#/components/schemas/UpdateKycAmlRequest'
+        taxDetails:
+          $ref: '#/components/schemas/UpdateRetailTaxDetailsRequest'
+        specialStatuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SpecialStatusValue'
+          description: 'The customer''s special statuses, if any. Null values are ignored.  All existing special statuses will be replaced with the provided collection. Possible values include: ''Vulnerability_Health_VisualImpairmentBraille'', ''Vulnerability_Health_VisualImpairmentLargeText'', ''Vulnerability_Health_AudioImpairment'', ''Vulnerability_Health_Other'', ''Vulnerability_LifeEvents'', ''Vulnerability_Resilience'', and ''Vulnerability_Capability'''
+      additionalProperties: false
+      description: Retail Customer update request. Null values are ignored.
+    CreateCustomerIdentityDocumentRequest:
+      required:
+      - idCountryOfIssue
+      - idExpiryDate
+      - idNumber
+      - idType
+      type: object
+      properties:
+        idCountryOfIssue:
+          $ref: '#/components/schemas/CountryCode'
+        idType:
+          $ref: '#/components/schemas/IdType'
+        idNumber:
+          minLength: 1
+          type:
+          - string
+          - 'null'
+          description: The ID number of the document.
+          example: '855865736946'
+        idExpiryDate:
+          type: string
+          description: The expiry date of the document.
+          format: date
+          example: '2028-05-18'
+      additionalProperties: false
+      description: Create an identity document for a customer
+    UpdateKycAmlRequest:
+      type: object
+      properties:
+        sanctions:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the customer is under sanctions. Null value is ignored.
+        pep:
+          $ref: '#/components/schemas/PepType'
+        rca:
+          $ref: '#/components/schemas/RcaType'
+        craRating:
+          $ref: '#/components/schemas/CraRating'
+      additionalProperties: false
+      description: KYC AML update request. Null values are ignored.
+    USPerson:
+      enum:
+      - NotAUSPerson
+      - SpecifiedUSPerson
+      - USPersonOtherThanASpecifiedUSPerson
+      type: string
+      description: Specifies the classification of a person as a U.S. person for regulatory or reporting purposes.
+    CreateKycAmlRequest:
+      required:
+      - craRating
+      - pep
+      - rca
+      - sanctions
+      type: object
+      properties:
+        sanctions:
+          type: boolean
+          description: Indicates if the customer is under sanctions.
+        pep:
+          $ref: '#/components/schemas/PepType'
+        rca:
+          $ref: '#/components/schemas/RcaType'
+        craRating:
+          $ref: '#/components/schemas/CraRating'
+      additionalProperties: false
+      description: KYC/AML information for the customer.
+    ReasonForNoTaxId:
+      enum:
+      - CountryDoesNotIssue
+      - UnableToObtain
+      - NotRequired
+      type: string
+      description: Supported reasons for not having a tax ID (required if no tax ID number provided).
+    AddressType:
+      enum:
+      - ResidentialAddress
+      type: string
+      example: ResidentialAddress
+      description: Represents the type of the address
+    CreateRetailTaxDetailsRequest:
+      required:
+      - usPerson
+      - validSelfCertification
+      - taxResidencies
+      type: object
+      properties:
+        validSelfCertification:
+          type: boolean
+          description: Indicates if self-certification is valid.
+        usPerson:
+          $ref: '#/components/schemas/USPerson'
+        taxResidencies:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreateTaxResidencyRequest'
+          description: Gets or sets the collection of tax residencies to be created as part of the request.
+      additionalProperties: false
+      description: Tax details for a retail customer.
+    PepType:
+      enum:
+      - 'No'
+      - Yes_Domestic
+      - Yes_International
+      type: string
+      description: Indicates if the customer is a Politically Exposed Person.
+    IdType:
+      enum:
+      - Passport
+      - DrivingLicence
+      - NationalId
+      type: string
+      description: The type of ID document.
+    RcaType:
+      enum:
+      - 'No'
+      - Yes_Domestic
+      - Yes_International
+      type: string
+      description: Indicates if the customer is a Relative or Close Associate.
+    RetailCustomerTaxDetailsPatchModel:
+      type: object
+      properties:
+        validSelfCertification:
+          type:
+          - boolean
+          - 'null'
+          description: Updated self-certification validity (if changed).
+        usPerson:
+          $ref: '#/components/schemas/USPerson'
+      additionalProperties: false
+      description: Patch model containing retail customer tax detail fields that were updated.
+    CreatePersonalDetailsRequest:
+      required:
+      - countryOfResidence
+      - dateOfBirth
+      - firstName
+      - surname
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: The customer's first name.
+          example: Kirsty
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        middleName:
+          type:
+          - string
+          - 'null'
+          description: The customer's middle name.
+          example: Jane
+        surname:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: The customer's surname.
+          example: Friar
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        dateOfBirth:
+          type: string
+          description: The customer's date of birth. Cannot precede 1850-01-01.
+          format: date
+          example: '1985-12-22'
+        email:
+          type:
+          - string
+          - 'null'
+          description: The customer's email address. Must be RFC compliant.
+          example: kristy.fr@mymail.com
+        telephone:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 20
+          description: The customer's telephone number. Must start with '00' in place of '+', and include the country-code.
+          example: '00441234555666'
+          pattern: ^(00)[0-9]{1,18}$
+        countryOfResidence:
+          $ref: '#/components/schemas/CountryCode'
+        nationalIdentificationNumber:
+          type:
+          - string
+          - 'null'
+          description: The customer's national identification number, for example, their National Insurance (NI) number.
+          example: PC223344D
+      additionalProperties: false
+      description: Personal details for the customer.
+    UpdatePersonalDetailsRequest:
+      type: object
+      properties:
+        firstName:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: The customer's first name. Null value is ignored.
+          example: Kristy
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        middleName:
+          type:
+          - string
+          - 'null'
+          description: The customer's middle name. Null value is ignored.
+          example: Jade
+        surname:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: The customer's surname. Null value is ignored.
+          example: Friar
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        dateOfBirth:
+          type:
+          - string
+          - 'null'
+          description: The customer's date of birth. Null value is ignored. Cannot precede 1850-01-01.
+          format: date
+          example: '1985-12-22'
+        email:
+          type:
+          - string
+          - 'null'
+          description: The customer's email address. Must be RFC compliant. Null value is ignored.
+          example: kristy.fr@mymail.com
+        telephone:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 20
+          description: The customer's telephone number. Must start with '00' in place of '+', and include the country-code. Null value is ignored.
+          example: '00441234555666'
+          pattern: ^(00)[0-9]{1,18}$
+        countryOfResidence:
+          $ref: '#/components/schemas/CountryCode'
+        nationalIdentificationNumber:
+          type:
+          - string
+          - 'null'
+          description: The customer's national identification number, such as their National Insurance (NI) number. Null value is ignored.
+          example: PC223344D
+      additionalProperties: false
+      description: Personal Details update request. Null values are ignored.

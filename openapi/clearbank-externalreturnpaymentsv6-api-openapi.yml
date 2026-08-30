@@ -1,0 +1,278 @@
+openapi: 3.2.0
+info:
+  title: ClearBank CHAPS RTGS FI API V6 External Return Payments V6 API
+  version: 6.0-CHAPS
+tags:
+- name: ExternalReturnPaymentsV6
+paths:
+  /payments/chaps/v6/return-payments:
+    post:
+      tags:
+      - ExternalReturnPaymentsV6
+      description: Return a CHAPS payment. All CHAPS returns must be made by the next working day. The same operating hours apply for CHAPS returns as for regular CHAPS payments. Note that this endpoint only supports returning CHAPS payments made after the Bank of England's RTGS Renewal Programme went live (all payments made on or after 19 June 2023).
+      operationId: ExternalReturnPayment-v6
+      parameters:
+      - $ref: '#/components/parameters/ParametersOpenapi_Authorization'
+      - $ref: '#/components/parameters/ParametersOpenapi_DigitalSignature'
+      - $ref: '#/components/parameters/ParametersOpenapi_RequestIdentifier'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReturnPaymentDtoV6'
+            example:
+              paymentId: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+              reason: AC04
+              instructionIdentification: RETURN-001
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CreateReturnPaymentDtoV6'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateReturnPaymentDtoV6'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateReturnPaymentDtoV6'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+          headers:
+            X-Correlation-Id:
+              $ref: '#/components/headers/HeadersOpenapi_CorrelationIdentifier'
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PaymentCreatedResponseDtoV6'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCreatedResponseDtoV6'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PaymentCreatedResponseDtoV6'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Not Found
+components:
+  schemas:
+    CreateReturnPaymentDtoV6:
+      required:
+      - paymentId
+      - reason
+      - instructionIdentification
+      type: object
+      properties:
+        paymentId:
+          description: ClearBank identifier that uniquely identifies the inbound payment instruction.
+          type: string
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        reason:
+          $ref: '#/components/schemas/ReturnReasonCodeV6'
+          description: Specifies the reason for the return.
+          example: AC04
+        instructionIdentification:
+          description: 'Unique identification, as assigned by an instructing party for an instructed party, to unambiguously identify the instruction.
+
+
+            Usage: The instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.'
+          type: string
+          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
+          minLength: 1
+          maxLength: 35
+        additionalInformation:
+          description: Optional additional information providing context for the return. Required when Reason is NARR. Maximum 105 characters.
+          type: string
+          maxLength: 105
+          example: Returned due to incorrect account number
+      additionalProperties: false
+    ApiHeadersSchema_AuthorizationType:
+      description: Authorization header restricted to Bearer token only
+      type: string
+      pattern: ^Bearer +.+
+    ReturnReasonCodeV6:
+      description: Specifies the reason for the return.
+      type: string
+      enum:
+      - AM09
+      - BE01
+      - BE04
+      - BE05
+      - BE06
+      - FOCR
+      - MD06
+      - MS02
+      - CURR
+      - AC04
+      - AM02
+      - AM03
+      - AG01
+      - RR04
+      - AC01
+      - AC02
+      - AC03
+      - AC06
+      - AC07
+      - AC13
+      - AC14
+      - AC15
+      - AC16
+      - AC17
+      - AG02
+      - AG07
+      - AGNT
+      - AM01
+      - AM04
+      - AM05
+      - AM06
+      - AM07
+      - AM10
+      - ARDT
+      - BE07
+      - BE08
+      - BE10
+      - BE11
+      - BE16
+      - BE17
+      - CN01
+      - CNOR
+      - CNPC
+      - CUST
+      - DNOR
+      - DS28
+      - DT01
+      - DT02
+      - ED01
+      - ED03
+      - ED05
+      - EMVL
+      - ERIN
+      - FF03
+      - FF04
+      - FF05
+      - FF06
+      - FF07
+      - FR01
+      - FRTR
+      - G004
+      - MD01
+      - MD02
+      - MD05
+      - MD07
+      - MS03
+      - NARR
+      - NOAS
+      - NOCM
+      - NOOR
+      - PINL
+      - RC01
+      - RC07
+      - RC08
+      - RC11
+      - RF01
+      - RR01
+      - RR02
+      - RR03
+      - RR05
+      - RR06
+      - RR07
+      - RR08
+      - RR09
+      - RR11
+      - RR12
+      - RUTA
+      - SL01
+      - SL02
+      - SL11
+      - SL12
+      - SL13
+      - SL14
+      - SP01
+      - SP02
+      - SVNR
+      - TM01
+      - TRAC
+      - UPAY
+    ClearBankSchema_PaymentId:
+      description: ClearBank identifier that uniquely identifies the payment instruction. Supplied in response to the original payment instruction request.
+      type: string
+      format: uuid
+    ApiHeadersSchema_DigitalSignatureType:
+      description: The digital signature generated by the API consumer
+      type: string
+    ApiHeadersSchema_CorrelationIdentifierType:
+      description: A unique identifier generated by ClearBank®
+      type: string
+    PaymentCreatedResponseDtoV6:
+      required:
+      - paymentId
+      type: object
+      properties:
+        paymentId:
+          $ref: '#/components/schemas/ClearBankSchema_PaymentId'
+      additionalProperties: false
+      description: ClearBank identifier that uniquely identifies the new outbound/return payment instruction.
+    ApiHeadersSchema_RequestIdentifierType:
+      description: The request identifier supplied by the API consumer
+      type: string
+    ProblemDetails:
+      description: Properties of a given error
+      type: object
+      required:
+      - type
+      - title
+      properties:
+        detail:
+          description: A human-readable description of the problem unique to the instance of the problem.
+          type: string
+        errors: {}
+        instance:
+          description: A URI that uniquely identifies the problem being reported.
+          type: string
+        status:
+          description: The HTTP response code returned by the API.
+          type: string
+        title:
+          description: A short, human-readable summary of the problem type.
+          type: string
+        type:
+          description: A URI that uniquely identifies the problem type being reported
+          type: string
+  parameters:
+    ParametersOpenapi_RequestIdentifier:
+      name: X-Request-Id
+      in: header
+      description: A unique identifier for the request; valid for 24 hours, max length 83.
+      required: true
+      schema:
+        $ref: '#/components/schemas/ApiHeadersSchema_RequestIdentifierType'
+    ParametersOpenapi_Authorization:
+      name: Authorization
+      in: header
+      description: Your API token, retrieved from the ClearBank Portal.
+      required: true
+      schema:
+        $ref: '#/components/schemas/ApiHeadersSchema_AuthorizationType'
+    ParametersOpenapi_DigitalSignature:
+      name: DigitalSignature
+      in: header
+      description: Signed hash of the body of the request. The hash is signed by your private key.
+      required: true
+      schema:
+        $ref: '#/components/schemas/ApiHeadersSchema_DigitalSignatureType'
+  headers:
+    HeadersOpenapi_CorrelationIdentifier:
+      description: A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes
+      schema:
+        $ref: '#/components/schemas/ApiHeadersSchema_CorrelationIdentifierType'

@@ -72,6 +72,8 @@ apis:
   humanURL: https://clearbank.github.io/uk/docs/api/
   baseURL: https://institution-api.clearbank.co.uk
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -120,6 +122,8 @@ apis:
   humanURL: https://clearbank.github.io/uk/docs/api/
   baseURL: https://institution-api.clearbank.co.uk
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI

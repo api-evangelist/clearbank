@@ -98,22 +98,6 @@ apis:
     url: https://clearbank.github.io/uk/docs/api/overview/
   - type: Documentation
     url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
-- aid: clearbank:clearbank-cop-api
-  name: ClearBank Co P API
-  description: The CoP API from ClearBank — 1 operation(s) for cop.
-  humanURL: https://clearbank.github.io/uk/docs/api/
-  baseURL: https://institution-api.clearbank.co.uk
-  tags:
-  - CoP
-  properties:
-  - type: OpenAPI
-    url: openapi/clearbank-cop-api-openapi.yml
-  - type: Documentation
-    url: https://clearbank.github.io/uk/docs/api/
-  - type: APIReference
-    url: https://clearbank.github.io/uk/docs/api/overview/
-  - type: Documentation
-    url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
 - aid: clearbank:clearbank-createfxquoteendpoint-api
   name: ClearBank Create Fx Quote Endpoint API
   description: The CreateFxQuoteEndpoint API from ClearBank — 1 operation(s) for createfxquoteendpoint.
@@ -324,6 +308,22 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/clearbank-secondaryreferencedata-api-openapi.yml
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/api/
+  - type: APIReference
+    url: https://clearbank.github.io/uk/docs/api/overview/
+  - type: Documentation
+    url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
+- aid: clearbank:clearbank-co-p-api
+  name: ClearBank Co P API
+  description: The Co P API from ClearBank — 1 operation(s) for co p.
+  humanURL: https://clearbank.github.io/uk/docs/api/
+  baseURL: https://institution-api.clearbank.co.uk
+  tags:
+  - Co P
+  properties:
+  - type: OpenAPI
+    url: openapi/clearbank-co-p-api-openapi.yml
   - type: Documentation
     url: https://clearbank.github.io/uk/docs/api/
   - type: APIReference

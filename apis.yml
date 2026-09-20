@@ -331,6 +331,10 @@ apis:
   - type: Documentation
     url: https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/
 common:
+- type: Pricing
+  url: https://clear.bank/legal/pricing-disclosure-emt-minting-and-redemption-service
+- type: Plans
+  url: plans/clearbank-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/clearbank-capability-edges.yml
   name: ClearBank Business Capability Map

@@ -64,7 +64,8 @@ edges:
   reason: Multi-currency payment orchestrator initiating and cancelling payment instructions before the
     currency cut-off — payment instruction capture and authorisation lifecycle.
 - tag: CoP
-  spec_file: clearbank-cop-api-openapi.yml
+  spec_file: clearbank-co-p-api-openapi.yml
+  reanchored_from: clearbank-cop-api-openapi.yml
   capability_id: BC-1340.10
   capability_id_l1: BC-1340
   capability_name: Payment Initiation Management

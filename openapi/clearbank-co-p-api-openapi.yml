@@ -4,13 +4,13 @@ info:
   description: ClearBank API for CoP outbound requests
   version: 1.0.COP-Outbound
 tags:
-- name: CoP
+- name: Co P
 paths:
   /open-banking/outbound/v1/name-verification:
     post:
       tags:
-      - CoP
-      summary: This endpoint is used to confirm the exact name registered with the payee’s account.
+      - Co P
+      summary: This endpoint is used to confirm the exact name registered with the payee’s…
       parameters:
       - name: Authorization
         in: header
@@ -73,15 +73,25 @@ paths:
           description: CoP participant not found
         '424':
           description: Call to CoP participant resulted in an error
+      operationId: postOpenBankingOutboundV1NameVerification
+      x-operation-id-source: derived
 components:
   schemas:
-    Data:
+    ErrorBody:
       type: object
       properties:
-        VerificationReport:
-          $ref: '#/components/schemas/VerificationReport'
+        Reason:
+          type:
+          - string
+          - 'null'
+          description: The error reason.
+        ParticipantName:
+          type:
+          - string
+          - 'null'
+          description: Name of the participant.
       additionalProperties: false
-      description: Information about the exact name registered with the payee’s account.
+      description: Error body with description.
     CoPOutboundRequest:
       required:
       - Identification
@@ -123,6 +133,13 @@ components:
           description: A unique value which can be used to identify the CoP request and then used in any subsequent payment initiations to link them to this CoP request.
       additionalProperties: false
       description: Required information to perform a CoP check
+    Data:
+      type: object
+      properties:
+        VerificationReport:
+          $ref: '#/components/schemas/VerificationReport'
+      additionalProperties: false
+      description: Information about the exact name registered with the payee’s account.
     ErrorResponse:
       type: object
       properties:
@@ -130,6 +147,13 @@ components:
           $ref: '#/components/schemas/ErrorBody'
       additionalProperties: false
       description: Error response class.
+    CoPOutboundResponse:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/Data'
+      additionalProperties: false
+      description: Response contract
     VerificationReport:
       required:
       - Matched
@@ -174,25 +198,3 @@ components:
           description: Open Banking Directory registration ID of the participant responding to the CoP request.
       additionalProperties: false
       description: Additional information, including the result of the name match.
-    CoPOutboundResponse:
-      type: object
-      properties:
-        Data:
-          $ref: '#/components/schemas/Data'
-      additionalProperties: false
-      description: Response contract
-    ErrorBody:
-      type: object
-      properties:
-        Reason:
-          type:
-          - string
-          - 'null'
-          description: The error reason.
-        ParticipantName:
-          type:
-          - string
-          - 'null'
-          description: Name of the participant.
-      additionalProperties: false
-      description: Error body with description.

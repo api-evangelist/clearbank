@@ -10,7 +10,7 @@ paths:
     post:
       tags:
       - Payments
-      summary: This endpoint is used to initiate payments.
+      summary: This endpoint is used to initiate payments
       parameters:
       - name: Authorization
         in: header
@@ -118,11 +118,13 @@ paths:
           description: Server Error
         '503':
           description: Server Error
+      operationId: postV1MccyPayments
+      x-operation-id-source: derived
   /v1/mccy/payments/{batchId}:
     delete:
       tags:
       - Payments
-      summary: This endpoint is used to cancel an entire batch of payments with a matching batch ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.
+      summary: This endpoint is used to cancel an entire batch of payments with a matching…
       parameters:
       - name: Authorization
         in: header
@@ -197,11 +199,13 @@ paths:
           description: Server Error
         '503':
           description: Server Error
+      operationId: deleteV1MccyPaymentsByBatchId
+      x-operation-id-source: derived
   /v1/mccy/payments/{batchId}/{endToEndId}:
     delete:
       tags:
       - Payments
-      summary: This endpoint is used to cancel a single payment within a batch, with a matching batch ID and end-to-end ID. It must be sent at least one hour prior to the opening of the currency payment window in order to successfully cancel the payment.
+      summary: This endpoint is used to cancel a single payment within a batch, with a…
       parameters:
       - name: Authorization
         in: header
@@ -283,8 +287,425 @@ paths:
           description: Server Error
         '503':
           description: Server Error
+      operationId: deleteV1MccyPaymentsByBatchIdByEndToEndId
+      x-operation-id-source: derived
 components:
   schemas:
+    AccountIdentifier:
+      required:
+      - kind
+      - identifier
+      type: object
+      description: The unique identifier for the account.
+      properties:
+        kind:
+          $ref: '#/components/schemas/AccountIdentifierKind'
+        identifier:
+          type: string
+          description: Unique account identifier value that corresponds to the specified account identifier kind.
+          minLength: 1
+          maxLength: 36
+          example: GB22CBUK60109839856819
+      additionalProperties: false
+    RemittanceInformation:
+      type:
+      - object
+      - 'null'
+      description: Remittance information to accompany the payment.
+      properties:
+        additionalRemittanceInformation:
+          type:
+          - string
+          - 'null'
+          description: Additional remittance information in free-form text, to compliment the structured remittance information.
+          minLength: 0
+          maxLength: 140
+          example: Example unstructured information
+      additionalProperties: false
+    UltimateCreditor:
+      type:
+      - object
+      - 'null'
+      description: Information about the ultimate creditor of the transaction. To be used where there is a “for further credit to” scenario.
+      required:
+      - name
+      - address
+      properties:
+        name:
+          type: string
+          description: Ultimate creditor's name.
+          minLength: 1
+          maxLength: 140
+          example: Amanda Myers
+        address:
+          type:
+          - object
+          - 'null'
+          description: Information about the ultimate creditor's address. Mandatory only when information about the ultimate creditor is being provided.
+          required:
+          - country
+          properties:
+            addressLine1:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 70
+              description: First line of the ultimate creditor's address.
+              example: 21 Cyan
+            addressLine2:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 35
+              description: Second line of the ultimate creditor's address.
+              example: Fontainebleau
+            addressLine3:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 35
+              description: Third line of the ultimate creditor's address.
+              example: Île-de-France
+            postCode:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 16
+              description: Ultimate creditor's postcode.
+              example: '77300'
+            country:
+              minLength: 2
+              maxLength: 2
+              type: string
+              description: Two-letter ISO country code for the ultimate creditor's address. Mandatory only when the ultimate creditor's details are being provided.
+              pattern: ^[A-Z]{2}$
+              example: FR
+        bic:
+          type:
+          - string
+          - 'null'
+          description: Ultimate creditor's Business Identifier Code (BIC).
+          minLength: 8
+          maxLength: 11
+          pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
+          example: ABBAFRA112A
+        identification:
+          type:
+          - object
+          - 'null'
+          description: The ultimate creditor's business and personal information.
+          properties:
+            organisationIdentification:
+              type: object
+              description: Information about the ultimate creditor's organisation.
+              properties:
+                Other:
+                  type: object
+                  description: Information about the ultimate creditor's non-SWIFT BIC organisation. identification.
+                  properties:
+                    identification:
+                      type:
+                      - string
+                      - 'null'
+                      description: The ultimate creditor's non-SWIFT BIC organisation identification, as assigned by an identification scheme. Customarily the account number/IBAN of the Ultimate Creditor held with the Creditor.
+                      minLength: 0
+                      maxLength: 35
+                      example: BE29539003417022
+                    schemeName:
+                      type: object
+                      description: Name of the identification scheme in coded form or free-form text.
+                      properties:
+                        code:
+                          type:
+                          - string
+                          - 'null'
+                          description: Name of the identification scheme in coded form, as specified in the ExternalOrganisationIdentification1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
+                          minLength: 0
+                          maxLength: 4
+                          example: CUST
+                        proprietary:
+                          type:
+                          - string
+                          - 'null'
+                          description: Name of the identification scheme in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
+                          minLength: 0
+                          maxLength: 35
+                          example: Example other identification scheme
+                    issuer:
+                      type:
+                      - string
+                      - 'null'
+                      description: Entity/authority/body responsible for issuing the identification.
+                      minLength: 0
+                      maxLength: 35
+            privateIdentification:
+              type:
+              - object
+              - 'null'
+              description: The ultimate creditor's private or personal information.
+              properties:
+                dateAndPlaceOfBirth:
+                  type:
+                  - object
+                  - 'null'
+                  description: The ultimate creditor's birth information.
+                  properties:
+                    dateOfBirth:
+                      type:
+                      - string
+                      - 'null'
+                      description: The ultimate creditor's date of birth.
+                      format: date
+                      example: '1975-11-22'
+                    cityOfBirth:
+                      type:
+                      - string
+                      - 'null'
+                      description: The ultimate creditor's city of birth.
+                      minLength: 0
+                      maxLength: 35
+                      example: Copenhagen
+                    countryOfBirth:
+                      type:
+                      - string
+                      - 'null'
+                      description: Two-letter ISO country code for the ultimate creditor's country of birth.
+                      minLength: 0
+                      maxLength: 2
+                      pattern: ^[A-Z]{2}$
+                      example: DK
+                other:
+                  type:
+                  - object
+                  - 'null'
+                  description: Information about the ultimate creditor's private identification.
+                  properties:
+                    identification:
+                      type:
+                      - string
+                      - 'null'
+                      description: The ultimate creditor's personal identification, as assigned by an identification scheme.
+                      minLength: 0
+                      maxLength: 35
+                      example: '139748154'
+                    schemeName:
+                      type:
+                      - object
+                      - 'null'
+                      description: Information about the identification scheme in coded form or free-form text.
+                      properties:
+                        code:
+                          type:
+                          - string
+                          - 'null'
+                          description: Name of the identification scheme in coded form, as specified in the ExternalPersonIdentification1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
+                          minLength: 0
+                          maxLength: 4
+                          example: CCPT
+                        proprietary:
+                          type:
+                          - string
+                          - 'null'
+                          description: Name of the identification scheme in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
+                          minLength: 0
+                          maxLength: 35
+                          example: Example other identification scheme
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference [RFC3986] that identifies a problem type. When dereferenced, it provides a human-readable documentation for the problem type. When not present, default value is assumed to be "about:blank".
+        title:
+          type:
+          - string
+          - 'null'
+          description: 'A short, human-readable summary of the problem type. '
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          description: The HTTP status code ([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation of what went wrong. It can include specifics about the issue, missing parameters, or invalid data.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URL reference to a retrieve more information about the error, if available
+      additionalProperties: {}
+    AccountIdentifierKind:
+      enum:
+      - AccountId
+      - IBAN
+      type: string
+      description: The kind of account identifier provided. This can either be IBAN or AccountId. This field is case insensitive.
+    CreditorAgent:
+      type: object
+      required:
+      - FinancialInstitutionIdentification
+      properties:
+        FinancialInstitutionIdentification:
+          type: object
+          description: Information that identifies the creditor agent as a financial institution.
+          required:
+          - name
+          - addressDetails
+          properties:
+            bic:
+              type:
+              - string
+              - 'null'
+              description: Creditor agent's Business Identifier Code (BIC). No need to specify if you are providing the creditor agent's American Bankers Association (ABA) routing number or Clearing System Id Code.
+              minLength: 8
+              maxLength: 11
+              pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
+              example: CBUKGBA132S
+            aba:
+              type:
+              - string
+              - 'null'
+              description: Creditor agent's American Bankers Association (ABA) routing number. No need to specify if you are providing the creditor agent's Business Identifier Code (BIC) or Clearing System Id Code.
+              minLength: 0
+              maxLength: 35
+              example: '853688941'
+            clearingSystemIdCode:
+              description: Creditor agent's Clearing System Id Code. No need to specify if you are providing the creditor agent's Business Identifier Code (BIC) or American Bankers Association (ABA) routing number.
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 35
+              example: GBDSC
+            memberId:
+              description: Creditor agent's Member Id for the specified clearing system. Mandatory only when Clearing System Id Code has been provided.
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 35
+              example: 30-12-77
+            name:
+              type: string
+              description: Creditor agent's name.
+              minLength: 1
+              maxLength: 140
+              example: Big FI Corp
+            addressDetails:
+              type:
+              - object
+              - 'null'
+              description: Information about the creditor agent's address.
+              required:
+              - country
+              properties:
+                addressLine1:
+                  type:
+                  - string
+                  - 'null'
+                  minLength: 0
+                  maxLength: 70
+                  description: First line of the creditor agent's address.
+                  example: 11 The Square
+                addressLine2:
+                  type:
+                  - string
+                  - 'null'
+                  minLength: 0
+                  maxLength: 35
+                  description: Second line of the creditor agent's address.
+                  example: Circle District
+                addressLine3:
+                  type:
+                  - string
+                  - 'null'
+                  minLength: 0
+                  maxLength: 35
+                  description: Third line of the creditor agent's address.
+                  example: Sphere City
+                postCode:
+                  type:
+                  - string
+                  - 'null'
+                  minLength: 0
+                  maxLength: 16
+                  description: Creditor agent's postcode.
+                  example: SP1 8NY
+                country:
+                  minLength: 2
+                  maxLength: 2
+                  type: string
+                  description: Two-letter ISO country code for the creditor agent's address. Mandatory only when the creditor agent's details are being provided.
+                  pattern: ^[A-Z]{2}$
+                  example: GB
+          additionalProperties: false
+        branchId:
+          type:
+          - string
+          - 'null'
+          description: Creditor agent's unique branch Id.
+          minLength: 0
+          maxLength: 35
+          example: Big FI Outbound Salisbury
+      additionalProperties: false
+    PaymentRequest:
+      required:
+      - currencyCode
+      - transactions
+      type: object
+      properties:
+        batchId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the batch in which the payment is being submitted. (GUID format 128-bit label). You must set a batch ID to be able to cancel a payment.
+          format: uuid
+          example: d7cc6fda-52a5-5ba8-a03e-303746dc2501
+        currencyCode:
+          type: string
+          description: Three-letter ISO currency code for the outbound payment. This field is case insensitive.
+          example: EUR
+          minLength: 3
+          maxLength: 3
+          enum:
+          - EUR
+          - USD
+          - CAD
+          - CHF
+          - CZK
+          - DKK
+          - HUF
+          - NOK
+          - PLN
+          - RON
+          - SEK
+        transactions:
+          type: array
+          description: Array of transactions. The maximum batch size is 100.
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/PaymentRequestItem'
+      additionalProperties: false
+    PaymentResponse:
+      type: object
+      properties:
+        isScheduled:
+          type: boolean
+          description: Whether the payment(s) are scheduled for the next payment window.
+          example: true
+      additionalProperties: false
     PaymentRequestItem:
       required:
       - endToEndId
@@ -477,107 +898,6 @@ components:
           $ref: '#/components/schemas/RemittanceInformation'
         ultimateCreditor:
           $ref: '#/components/schemas/UltimateCreditor'
-      additionalProperties: false
-    Purpose:
-      type:
-      - object
-      - 'null'
-      description: Information about the purpose of the transaction.
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: Purpose of the transaction in coded form, as specified in the Purpose1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
-          minLength: 0
-          maxLength: 4
-          example: SUPP
-        proprietary:
-          type:
-          - string
-          - 'null'
-          description: Purpose of the transaction in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
-          minLength: 0
-          maxLength: 35
-          example: Other non-codified purpose
-      additionalProperties: false
-    PaymentResponse:
-      type: object
-      properties:
-        isScheduled:
-          type: boolean
-          description: Whether the payment(s) are scheduled for the next payment window.
-          example: true
-      additionalProperties: false
-    AccountIdentifier:
-      required:
-      - kind
-      - identifier
-      type: object
-      description: The unique identifier for the account.
-      properties:
-        kind:
-          $ref: '#/components/schemas/AccountIdentifierKind'
-        identifier:
-          type: string
-          description: Unique account identifier value that corresponds to the specified account identifier kind.
-          minLength: 1
-          maxLength: 36
-          example: GB22CBUK60109839856819
-      additionalProperties: false
-    RemittanceInformation:
-      type:
-      - object
-      - 'null'
-      description: Remittance information to accompany the payment.
-      properties:
-        additionalRemittanceInformation:
-          type:
-          - string
-          - 'null'
-          description: Additional remittance information in free-form text, to compliment the structured remittance information.
-          minLength: 0
-          maxLength: 140
-          example: Example unstructured information
-      additionalProperties: false
-    PaymentRequest:
-      required:
-      - currencyCode
-      - transactions
-      type: object
-      properties:
-        batchId:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the batch in which the payment is being submitted. (GUID format 128-bit label). You must set a batch ID to be able to cancel a payment.
-          format: uuid
-          example: d7cc6fda-52a5-5ba8-a03e-303746dc2501
-        currencyCode:
-          type: string
-          description: Three-letter ISO currency code for the outbound payment. This field is case insensitive.
-          example: EUR
-          minLength: 3
-          maxLength: 3
-          enum:
-          - EUR
-          - USD
-          - CAD
-          - CHF
-          - CZK
-          - DKK
-          - HUF
-          - NOK
-          - PLN
-          - RON
-          - SEK
-        transactions:
-          type: array
-          description: Array of transactions. The maximum batch size is 100.
-          minItems: 1
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/PaymentRequestItem'
       additionalProperties: false
     Creditor:
       required:
@@ -818,6 +1138,29 @@ components:
               maxLength: 35
               example: Example other identification scheme
       additionalProperties: false
+    Purpose:
+      type:
+      - object
+      - 'null'
+      description: Information about the purpose of the transaction.
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: Purpose of the transaction in coded form, as specified in the Purpose1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
+          minLength: 0
+          maxLength: 4
+          example: SUPP
+        proprietary:
+          type:
+          - string
+          - 'null'
+          description: Purpose of the transaction in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
+          minLength: 0
+          maxLength: 35
+          example: Other non-codified purpose
+      additionalProperties: false
     IntermediaryAgent:
       type: object
       description: Information about the intermediary/correspondent bank.
@@ -902,340 +1245,3 @@ components:
                   example: GB
           additionalProperties: false
       additionalProperties: false
-    AccountIdentifierKind:
-      enum:
-      - AccountId
-      - IBAN
-      type: string
-      description: The kind of account identifier provided. This can either be IBAN or AccountId. This field is case insensitive.
-    UltimateCreditor:
-      type:
-      - object
-      - 'null'
-      description: Information about the ultimate creditor of the transaction. To be used where there is a “for further credit to” scenario.
-      required:
-      - name
-      - address
-      properties:
-        name:
-          type: string
-          description: Ultimate creditor's name.
-          minLength: 1
-          maxLength: 140
-          example: Amanda Myers
-        address:
-          type:
-          - object
-          - 'null'
-          description: Information about the ultimate creditor's address. Mandatory only when information about the ultimate creditor is being provided.
-          required:
-          - country
-          properties:
-            addressLine1:
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 70
-              description: First line of the ultimate creditor's address.
-              example: 21 Cyan
-            addressLine2:
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 35
-              description: Second line of the ultimate creditor's address.
-              example: Fontainebleau
-            addressLine3:
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 35
-              description: Third line of the ultimate creditor's address.
-              example: Île-de-France
-            postCode:
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 16
-              description: Ultimate creditor's postcode.
-              example: '77300'
-            country:
-              minLength: 2
-              maxLength: 2
-              type: string
-              description: Two-letter ISO country code for the ultimate creditor's address. Mandatory only when the ultimate creditor's details are being provided.
-              pattern: ^[A-Z]{2}$
-              example: FR
-        bic:
-          type:
-          - string
-          - 'null'
-          description: Ultimate creditor's Business Identifier Code (BIC).
-          minLength: 8
-          maxLength: 11
-          pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
-          example: ABBAFRA112A
-        identification:
-          type:
-          - object
-          - 'null'
-          description: The ultimate creditor's business and personal information.
-          properties:
-            organisationIdentification:
-              type: object
-              description: Information about the ultimate creditor's organisation.
-              properties:
-                Other:
-                  type: object
-                  description: Information about the ultimate creditor's non-SWIFT BIC organisation. identification.
-                  properties:
-                    identification:
-                      type:
-                      - string
-                      - 'null'
-                      description: The ultimate creditor's non-SWIFT BIC organisation identification, as assigned by an identification scheme. Customarily the account number/IBAN of the Ultimate Creditor held with the Creditor.
-                      minLength: 0
-                      maxLength: 35
-                      example: BE29539003417022
-                    schemeName:
-                      type: object
-                      description: Name of the identification scheme in coded form or free-form text.
-                      properties:
-                        code:
-                          type:
-                          - string
-                          - 'null'
-                          description: Name of the identification scheme in coded form, as specified in the ExternalOrganisationIdentification1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
-                          minLength: 0
-                          maxLength: 4
-                          example: CUST
-                        proprietary:
-                          type:
-                          - string
-                          - 'null'
-                          description: Name of the identification scheme in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
-                          minLength: 0
-                          maxLength: 35
-                          example: Example other identification scheme
-                    issuer:
-                      type:
-                      - string
-                      - 'null'
-                      description: Entity/authority/body responsible for issuing the identification.
-                      minLength: 0
-                      maxLength: 35
-            privateIdentification:
-              type:
-              - object
-              - 'null'
-              description: The ultimate creditor's private or personal information.
-              properties:
-                dateAndPlaceOfBirth:
-                  type:
-                  - object
-                  - 'null'
-                  description: The ultimate creditor's birth information.
-                  properties:
-                    dateOfBirth:
-                      type:
-                      - string
-                      - 'null'
-                      description: The ultimate creditor's date of birth.
-                      format: date
-                      example: '1975-11-22'
-                    cityOfBirth:
-                      type:
-                      - string
-                      - 'null'
-                      description: The ultimate creditor's city of birth.
-                      minLength: 0
-                      maxLength: 35
-                      example: Copenhagen
-                    countryOfBirth:
-                      type:
-                      - string
-                      - 'null'
-                      description: Two-letter ISO country code for the ultimate creditor's country of birth.
-                      minLength: 0
-                      maxLength: 2
-                      pattern: ^[A-Z]{2}$
-                      example: DK
-                other:
-                  type:
-                  - object
-                  - 'null'
-                  description: Information about the ultimate creditor's private identification.
-                  properties:
-                    identification:
-                      type:
-                      - string
-                      - 'null'
-                      description: The ultimate creditor's personal identification, as assigned by an identification scheme.
-                      minLength: 0
-                      maxLength: 35
-                      example: '139748154'
-                    schemeName:
-                      type:
-                      - object
-                      - 'null'
-                      description: Information about the identification scheme in coded form or free-form text.
-                      properties:
-                        code:
-                          type:
-                          - string
-                          - 'null'
-                          description: Name of the identification scheme in coded form, as specified in the ExternalPersonIdentification1Code code set required by ISO 20022 Message Schemas. No need to specify if you are providing this name in free-form text (i.e., proprietary).
-                          minLength: 0
-                          maxLength: 4
-                          example: CCPT
-                        proprietary:
-                          type:
-                          - string
-                          - 'null'
-                          description: Name of the identification scheme in free-form text. No need to specify if you are providing this name in  coded form (i.e., code).
-                          minLength: 0
-                          maxLength: 35
-                          example: Example other identification scheme
-      additionalProperties: false
-    CreditorAgent:
-      type: object
-      required:
-      - FinancialInstitutionIdentification
-      properties:
-        FinancialInstitutionIdentification:
-          type: object
-          description: Information that identifies the creditor agent as a financial institution.
-          required:
-          - name
-          - addressDetails
-          properties:
-            bic:
-              type:
-              - string
-              - 'null'
-              description: Creditor agent's Business Identifier Code (BIC). No need to specify if you are providing the creditor agent's American Bankers Association (ABA) routing number or Clearing System Id Code.
-              minLength: 8
-              maxLength: 11
-              pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
-              example: CBUKGBA132S
-            aba:
-              type:
-              - string
-              - 'null'
-              description: Creditor agent's American Bankers Association (ABA) routing number. No need to specify if you are providing the creditor agent's Business Identifier Code (BIC) or Clearing System Id Code.
-              minLength: 0
-              maxLength: 35
-              example: '853688941'
-            clearingSystemIdCode:
-              description: Creditor agent's Clearing System Id Code. No need to specify if you are providing the creditor agent's Business Identifier Code (BIC) or American Bankers Association (ABA) routing number.
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 35
-              example: GBDSC
-            memberId:
-              description: Creditor agent's Member Id for the specified clearing system. Mandatory only when Clearing System Id Code has been provided.
-              type:
-              - string
-              - 'null'
-              minLength: 0
-              maxLength: 35
-              example: 30-12-77
-            name:
-              type: string
-              description: Creditor agent's name.
-              minLength: 1
-              maxLength: 140
-              example: Big FI Corp
-            addressDetails:
-              type:
-              - object
-              - 'null'
-              description: Information about the creditor agent's address.
-              required:
-              - country
-              properties:
-                addressLine1:
-                  type:
-                  - string
-                  - 'null'
-                  minLength: 0
-                  maxLength: 70
-                  description: First line of the creditor agent's address.
-                  example: 11 The Square
-                addressLine2:
-                  type:
-                  - string
-                  - 'null'
-                  minLength: 0
-                  maxLength: 35
-                  description: Second line of the creditor agent's address.
-                  example: Circle District
-                addressLine3:
-                  type:
-                  - string
-                  - 'null'
-                  minLength: 0
-                  maxLength: 35
-                  description: Third line of the creditor agent's address.
-                  example: Sphere City
-                postCode:
-                  type:
-                  - string
-                  - 'null'
-                  minLength: 0
-                  maxLength: 16
-                  description: Creditor agent's postcode.
-                  example: SP1 8NY
-                country:
-                  minLength: 2
-                  maxLength: 2
-                  type: string
-                  description: Two-letter ISO country code for the creditor agent's address. Mandatory only when the creditor agent's details are being provided.
-                  pattern: ^[A-Z]{2}$
-                  example: GB
-          additionalProperties: false
-        branchId:
-          type:
-          - string
-          - 'null'
-          description: Creditor agent's unique branch Id.
-          minLength: 0
-          maxLength: 35
-          example: Big FI Outbound Salisbury
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference [RFC3986] that identifies a problem type. When dereferenced, it provides a human-readable documentation for the problem type. When not present, default value is assumed to be "about:blank".
-        title:
-          type:
-          - string
-          - 'null'
-          description: 'A short, human-readable summary of the problem type. '
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          description: The HTTP status code ([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation of what went wrong. It can include specifics about the issue, missing parameters, or invalid data.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URL reference to a retrieve more information about the error, if available
-      additionalProperties: {}

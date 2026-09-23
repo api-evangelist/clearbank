@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: ClearBank CHAPS RTGS FI API V6 External Customer Payments V6 API
+  title: ClearBank CHAPS RTGS FI API V6 External Customer Payments…
   version: 6.0-CHAPS
 tags:
 - name: ExternalCustomerPaymentsV6
@@ -86,12 +86,41 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
         '404':
           description: Not Found
+      summary: External create customer payment v6
+      x-summary-source: derived
 components:
   schemas:
-    ClearBankSchema_PaymentId:
-      description: ClearBank identifier that uniquely identifies the payment instruction. Supplied in response to the original payment instruction request.
-      type: string
-      format: uuid
+    PrivateIdentifierV6:
+      type: object
+      properties:
+        otherIdentification:
+          description: Other identification of the private individual, such as national insurance number.
+          type: string
+          maxLength: 35
+          example: AB123456C
+          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]+$
+      additionalProperties: false
+      description: Option to provide either OrganisationIdentifier or PrivateIdentifier, but not both.
+    AccountIdentificationOtherDtoV6:
+      required:
+      - schemeName
+      - identification
+      type: object
+      properties:
+        schemeName:
+          description: 'Name of the identification scheme used to identify the account. Permitted values: BBan (basic bank account number) or SortcodeAccountNumber (UK sort code and account number format).'
+          type: string
+          enum:
+          - BBan
+          - SortcodeAccountNumber
+          example: SortcodeAccountNumber
+        identification:
+          description: Unambiguous identification for the given scheme (specified in schemeName). For SortcodeAccountNumber, provide the sort code and account number separated by a hyphen (e.g., 040004-12345678).
+          type: string
+          example: 040004-12345678
+          minLength: 1
+          maxLength: 34
+      additionalProperties: false
     ProblemDetails:
       description: Properties of a given error
       type: object
@@ -115,88 +144,52 @@ components:
         type:
           description: A URI that uniquely identifies the problem type being reported
           type: string
-    CreateCustomerPaymentDtoV6:
+    InterBankSettlementAmountDtoV6:
       required:
-      - instructionIdentification
-      - endToEndIdentification
-      - interBankSettlementAmount
-      - sourceAccount
-      - debtorAccount
-      - debtor
-      - creditorAccount
-      - creditor
-      - purpose
-      - categoryPurpose
+      - amount
+      - currency
+      type: object
+      description: A number of monetary units specified in an active or a historic currency where the unit of currency is explicit and compliant with ISO 4217.
+      properties:
+        amount:
+          type: number
+          format: decimal
+          example: 1000
+          description: Amount of money to be moved between the debtor and creditor expressed in GBP as ordered by the initiating party.
+        currency:
+          type: string
+          pattern: ^[A-Z]{3}$
+          example: GBP
+          description: Set to 'GBP' as other currencies are not supported.
+          minLength: 1
+      additionalProperties: false
+    CustomerPartyDetailsDtoV6:
+      required:
+      - name
+      - postalAddress
       type: object
       properties:
-        instructionIdentification:
-          description: 'Unique identification, as assigned by an instructing party for an instructed party, to unambiguously identify the instruction.
-
-
-            Usage: The instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.'
+        name:
+          description: Name of the person or business who owns the account.
           type: string
+          minLength: 1
+          example: Jane Smith
           pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
-          minLength: 1
-          maxLength: 35
-          example: INSTR-001
-        endToEndIdentification:
-          description: 'Unique identification, as assigned by the initiating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
-
-
-            Usage: The end-to-end identification can be used for reconciliation or to link tasks relating to the transaction. It can be included in several messages related to the transaction.
-
-
-            Usage: In case there are technical limitations to pass on multiple references, the end-to-end identification must be passed on throughout the entire end-to-end chain.'
-          type: string
-          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]+$
-          minLength: 1
-          maxLength: 35
-          example: E2E-001
-        interBankSettlementAmount:
-          $ref: '#/components/schemas/InterBankSettlementAmountDtoV6'
+          maxLength: 140
+        postalAddress:
+          $ref: '#/components/schemas/PartyAddressDetailsDtoV6'
           type: object
-        sourceAccount:
+          description: Information that locates and identifies a specific address, as defined by postal services. Required for the creditor.
+        organisationIdentifier:
+          $ref: '#/components/schemas/OrganisationIdentifierV6'
           type: object
-          description: The ClearBank account that will be credited or debited based on the successful completion of the payment instruction.
-          oneOf:
-          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
-          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
-        debtorAccount:
-          description: Unambiguous identification of the account of the debtor to which a debit entry will be made as a result of the transaction.
-          type: object
-          oneOf:
-          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
-          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
-        debtor:
-          $ref: '#/components/schemas/CustomerPartyDetailsDtoV6'
-          description: Party that owes an amount of money to the (ultimate) creditor.
-          type: object
-        creditorAccount:
-          description: Unambiguous identification of the account of the creditor to which a credit entry will be posted as a result of the payment transaction.
-          type: object
-          oneOf:
-          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
-          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
-        creditor:
-          $ref: '#/components/schemas/CustomerPartyDetailsDtoV6'
-          description: Party that is owed an amount of money as the (ultimate) creditor. Postal address is required.
-          type: object
-        purpose:
-          $ref: '#/components/schemas/PurposeCodeV6'
-          description: Underlying reason for the payment transaction, as published in an external Purpose Code list.
-          example: LOAN
-          minLength: 4
-          maxLength: 4
-        categoryPurpose:
-          $ref: '#/components/schemas/CategoryPurposeCodeV6'
-          description: Broader nature of the payment, as published in an external Category Purpose Code list.
-          example: LOAN
-          minLength: 4
-          maxLength: 4
-        remittanceInformation:
-          $ref: '#/components/schemas/StructuredRemittanceInformationDtoV6'
+        privateIdentifier:
+          $ref: '#/components/schemas/PrivateIdentifierV6'
           type: object
       additionalProperties: false
+    ApiHeadersSchema_CorrelationIdentifierType:
+      description: A unique identifier generated by ClearBank®
+      type: string
     PurposeCodeV6:
       description: Underlying reason for the payment transaction, as published in an external purpose code list.
       type: string
@@ -328,28 +321,103 @@ components:
       - PDEP
       - PLDS
       - PLRF
-    PrivateIdentifierV6:
+    AccountIdentificationIbanDtoV6:
+      required:
+      - iban
       type: object
       properties:
-        otherIdentification:
-          description: Other identification of the private individual, such as national insurance number.
+        iban:
+          description: International Bank Account Number (IBAN) - identifier used internationally by financial institutions to uniquely identify the account of a customer. Further specifications of the format and content of the IBAN can be found in the standard ISO 13616 "Banking and related financial services - International Bank Account Number (IBAN)" version 1997-10-01, or later revisions.
           type: string
-          maxLength: 35
-          example: AB123456C
-          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]+$
+          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
+          maxLength: 34
+          example: GB29NWBK60161331926819
+          minLength: 1
       additionalProperties: false
-      description: Option to provide either OrganisationIdentifier or PrivateIdentifier, but not both.
-    StructuredRemittanceInformationDtoV6:
+    ApiHeadersSchema_DigitalSignatureType:
+      description: The digital signature generated by the API consumer
+      type: string
+    CreateCustomerPaymentDtoV6:
+      required:
+      - instructionIdentification
+      - endToEndIdentification
+      - interBankSettlementAmount
+      - sourceAccount
+      - debtorAccount
+      - debtor
+      - creditorAccount
+      - creditor
+      - purpose
+      - categoryPurpose
       type: object
-      description: Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts' receivable system.
       properties:
-        creditorReferenceInformation:
-          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+        instructionIdentification:
+          description: 'Unique identification, as assigned by an instructing party for an instructed party, to unambiguously identify the instruction.
+
+
+            Usage: The instruction identification is a point to point reference that can be used between the instructing party and the instructed party to refer to the individual instruction. It can be included in several messages related to the instruction.'
           type: string
+          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
           minLength: 1
           maxLength: 35
-          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
-          example: INV-2026-001
+          example: INSTR-001
+        endToEndIdentification:
+          description: 'Unique identification, as assigned by the initiating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
+
+
+            Usage: The end-to-end identification can be used for reconciliation or to link tasks relating to the transaction. It can be included in several messages related to the transaction.
+
+
+            Usage: In case there are technical limitations to pass on multiple references, the end-to-end identification must be passed on throughout the entire end-to-end chain.'
+          type: string
+          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]+$
+          minLength: 1
+          maxLength: 35
+          example: E2E-001
+        interBankSettlementAmount:
+          $ref: '#/components/schemas/InterBankSettlementAmountDtoV6'
+          type: object
+        sourceAccount:
+          type: object
+          description: The ClearBank account that will be credited or debited based on the successful completion of the payment instruction.
+          oneOf:
+          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
+          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
+        debtorAccount:
+          description: Unambiguous identification of the account of the debtor to which a debit entry will be made as a result of the transaction.
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
+          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
+        debtor:
+          $ref: '#/components/schemas/CustomerPartyDetailsDtoV6'
+          description: Party that owes an amount of money to the (ultimate) creditor.
+          type: object
+        creditorAccount:
+          description: Unambiguous identification of the account of the creditor to which a credit entry will be posted as a result of the payment transaction.
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/AccountIdentificationIbanDtoV6'
+          - $ref: '#/components/schemas/AccountIdentificationOtherDtoV6'
+        creditor:
+          $ref: '#/components/schemas/CustomerPartyDetailsDtoV6'
+          description: Party that is owed an amount of money as the (ultimate) creditor. Postal address is required.
+          type: object
+        purpose:
+          $ref: '#/components/schemas/PurposeCodeV6'
+          description: Underlying reason for the payment transaction, as published in an external Purpose Code list.
+          example: LOAN
+          minLength: 4
+          maxLength: 4
+        categoryPurpose:
+          $ref: '#/components/schemas/CategoryPurposeCodeV6'
+          description: Broader nature of the payment, as published in an external Category Purpose Code list.
+          example: LOAN
+          minLength: 4
+          maxLength: 4
+        remittanceInformation:
+          $ref: '#/components/schemas/StructuredRemittanceInformationDtoV6'
+          type: object
       additionalProperties: false
     CategoryPurposeCodeV6:
       description: Broader nature of the payment, as published in an external Category Purpose Code list.
@@ -383,104 +451,6 @@ components:
       - TREA
       - VATX
       - WHLD
-    ApiHeadersSchema_DigitalSignatureType:
-      description: The digital signature generated by the API consumer
-      type: string
-    AccountIdentificationOtherDtoV6:
-      required:
-      - schemeName
-      - identification
-      type: object
-      properties:
-        schemeName:
-          description: 'Name of the identification scheme used to identify the account. Permitted values: BBan (basic bank account number) or SortcodeAccountNumber (UK sort code and account number format).'
-          type: string
-          enum:
-          - BBan
-          - SortcodeAccountNumber
-          example: SortcodeAccountNumber
-        identification:
-          description: Unambiguous identification for the given scheme (specified in schemeName). For SortcodeAccountNumber, provide the sort code and account number separated by a hyphen (e.g., 040004-12345678).
-          type: string
-          example: 040004-12345678
-          minLength: 1
-          maxLength: 34
-      additionalProperties: false
-    CustomerPartyDetailsDtoV6:
-      required:
-      - name
-      - postalAddress
-      type: object
-      properties:
-        name:
-          description: Name of the person or business who owns the account.
-          type: string
-          minLength: 1
-          example: Jane Smith
-          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
-          maxLength: 140
-        postalAddress:
-          $ref: '#/components/schemas/PartyAddressDetailsDtoV6'
-          type: object
-          description: Information that locates and identifies a specific address, as defined by postal services. Required for the creditor.
-        organisationIdentifier:
-          $ref: '#/components/schemas/OrganisationIdentifierV6'
-          type: object
-        privateIdentifier:
-          $ref: '#/components/schemas/PrivateIdentifierV6'
-          type: object
-      additionalProperties: false
-    AccountIdentificationIbanDtoV6:
-      required:
-      - iban
-      type: object
-      properties:
-        iban:
-          description: International Bank Account Number (IBAN) - identifier used internationally by financial institutions to uniquely identify the account of a customer. Further specifications of the format and content of the IBAN can be found in the standard ISO 13616 "Banking and related financial services - International Bank Account Number (IBAN)" version 1997-10-01, or later revisions.
-          type: string
-          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
-          maxLength: 34
-          example: GB29NWBK60161331926819
-          minLength: 1
-      additionalProperties: false
-    ApiHeadersSchema_AuthorizationType:
-      description: Authorization header restricted to Bearer token only
-      type: string
-      pattern: ^Bearer +.+
-    InterBankSettlementAmountDtoV6:
-      required:
-      - amount
-      - currency
-      type: object
-      description: A number of monetary units specified in an active or a historic currency where the unit of currency is explicit and compliant with ISO 4217.
-      properties:
-        amount:
-          type: number
-          format: decimal
-          example: 1000
-          description: Amount of money to be moved between the debtor and creditor expressed in GBP as ordered by the initiating party.
-        currency:
-          type: string
-          pattern: ^[A-Z]{3}$
-          example: GBP
-          description: Set to 'GBP' as other currencies are not supported.
-          minLength: 1
-      additionalProperties: false
-    ApiHeadersSchema_CorrelationIdentifierType:
-      description: A unique identifier generated by ClearBank®
-      type: string
-    PaymentCreatedResponseDtoV6:
-      required:
-      - paymentId
-      type: object
-      properties:
-        paymentId:
-          $ref: '#/components/schemas/ClearBankSchema_PaymentId'
-      additionalProperties: false
-      description: ClearBank identifier that uniquely identifies the new outbound/return payment instruction.
-    ApiHeadersSchema_RequestIdentifierType:
-      description: The request identifier supplied by the API consumer
-      type: string
     PartyAddressDetailsDtoV6:
       required:
       - townName
@@ -554,6 +524,38 @@ components:
           pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]+$
       additionalProperties: false
       description: Option to provide either OrganisationIdentifier or PrivateIdentifier, but not both.
+    StructuredRemittanceInformationDtoV6:
+      type: object
+      description: Information supplied to enable the matching of an entry with the items that the transfer is intended to settle, such as commercial invoices in an accounts' receivable system.
+      properties:
+        creditorReferenceInformation:
+          description: Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+          type: string
+          minLength: 1
+          maxLength: 35
+          pattern: ^[0-9a-zA-Z/\-\?:\(\)\.,'\+ !#$%&\*=^_`\{\|\}~";<>@\[\\\]]+$
+          example: INV-2026-001
+      additionalProperties: false
+    ClearBankSchema_PaymentId:
+      description: ClearBank identifier that uniquely identifies the payment instruction. Supplied in response to the original payment instruction request.
+      type: string
+      format: uuid
+    PaymentCreatedResponseDtoV6:
+      required:
+      - paymentId
+      type: object
+      properties:
+        paymentId:
+          $ref: '#/components/schemas/ClearBankSchema_PaymentId'
+      additionalProperties: false
+      description: ClearBank identifier that uniquely identifies the new outbound/return payment instruction.
+    ApiHeadersSchema_AuthorizationType:
+      description: Authorization header restricted to Bearer token only
+      type: string
+      pattern: ^Bearer +.+
+    ApiHeadersSchema_RequestIdentifierType:
+      description: The request identifier supplied by the API consumer
+      type: string
   parameters:
     ParametersOpenapi_DigitalSignature:
       name: DigitalSignature
@@ -562,13 +564,6 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/ApiHeadersSchema_DigitalSignatureType'
-    ParametersOpenapi_RequestIdentifier:
-      name: X-Request-Id
-      in: header
-      description: A unique identifier for the request; valid for 24 hours, max length 83.
-      required: true
-      schema:
-        $ref: '#/components/schemas/ApiHeadersSchema_RequestIdentifierType'
     ParametersOpenapi_Authorization:
       name: Authorization
       in: header
@@ -576,6 +571,13 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/ApiHeadersSchema_AuthorizationType'
+    ParametersOpenapi_RequestIdentifier:
+      name: X-Request-Id
+      in: header
+      description: A unique identifier for the request; valid for 24 hours, max length 83.
+      required: true
+      schema:
+        $ref: '#/components/schemas/ApiHeadersSchema_RequestIdentifierType'
   headers:
     HeadersOpenapi_CorrelationIdentifier:
       description: A unique identifier generated by ClearBank® for the request. It is recommended you store this response header for debugging purposes

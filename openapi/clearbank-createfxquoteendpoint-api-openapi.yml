@@ -11,7 +11,7 @@ paths:
     post:
       tags:
       - CreateFxQuoteEndpoint
-      summary: Requests a quote for a specified FX trade.
+      summary: Requests a quote for a specified FX trade
       operationId: Order.Create
       parameters:
       - name: Authorization
@@ -52,31 +52,6 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
     CreateFxQuoteResponse:
       required:
       - quoteId
@@ -159,6 +134,31 @@ components:
           description: Three-letter ISO 4217 currency code of the margin.
           example: USD
       additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CreateFxQuoteRequest:
       required:
       - valueDate

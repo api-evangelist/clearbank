@@ -9,7 +9,7 @@ paths:
     post:
       tags:
       - SCT Payments
-      summary: This endpoint is used to create an outbound SCT payment.
+      summary: This endpoint is used to create an outbound SCT payment
       operationId: Payment.Create
       parameters:
       - name: Authorization
@@ -59,7 +59,7 @@ paths:
     post:
       tags:
       - SCT Payments
-      summary: This endpoint is used to approve or reject a recall request of an inbound SCT payment.
+      summary: This endpoint is used to approve or reject a recall request of an inbound SCT…
       operationId: Payments.Inbound.RecallRequestResult
       parameters:
       - name: Authorization
@@ -99,7 +99,7 @@ paths:
     post:
       tags:
       - SCT Payments
-      summary: This endpoint is used to request a recall for an outbound SCT payment.
+      summary: This endpoint is used to request a recall for an outbound SCT payment
       operationId: Payment.Recall
       parameters:
       - name: Authorization
@@ -145,7 +145,7 @@ paths:
     post:
       tags:
       - SCT Payments
-      summary: This endpoint is used to return an inbound SCT payment.
+      summary: This endpoint is used to return an inbound SCT payment
       operationId: Payments.Inbound.ReturnOfInboundPayment
       parameters:
       - name: Authorization
@@ -189,6 +189,21 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    PrivateIdentification:
+      type: object
+      properties:
+        dateAndPlaceOfBirth:
+          $ref: '#/components/schemas/DateAndPlaceOfBirth'
+        other:
+          maxLength: 35
+          minLength: 1
+          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
+          type:
+          - string
+          - 'null'
+          description: Unique identification of a person, as assigned by an institution, using an identification scheme.
+          example: Other identification.
+      additionalProperties: false
     DebtorPostalAddress:
       required:
       - country
@@ -246,6 +261,70 @@ components:
           description: Nation with its own government. Mandatory if the payment origin or destination country is outside the EEA.
           example: GB
       additionalProperties: false
+    DateAndPlaceOfBirth:
+      type: object
+      properties:
+        dateOfBirth:
+          pattern: '[0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2}'
+          type:
+          - string
+          - 'null'
+          description: Date of birth of a person
+          format: date-time
+          example: '2004-05-15'
+        placeOfBirth:
+          maxLength: 35
+          minLength: 1
+          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
+          type:
+          - string
+          - 'null'
+          description: Place of birth of a person
+          example: Birth Town
+      additionalProperties: false
+    RecallOfOutboundPaymentRequest:
+      required:
+      - paymentId
+      - recallCode
+      type: object
+      properties:
+        paymentId:
+          pattern: '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}'
+          maxLength: 36
+          type: string
+          description: Unique identifier of the Outbound SCT payment to be recalled.
+          format: uuid
+          example: 1bfb7a86-7d9b-45ff-9d5c-34048efc4c8a
+        recallCode:
+          minLength: 4
+          maxLength: 4
+          pattern: ^[A-Z0-9]{1,4}$
+          type: string
+          description: Reason code to recall an Outbound SCT Payment
+          example: CUST
+        additionalInfo:
+          maxLength: 105
+          minLength: 1
+          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
+          type:
+          - string
+          - 'null'
+          description: Additional Information
+          example: Some additional information.
+      additionalProperties: false
+    ReturnOfInboundPaymentRequest:
+      required:
+      - paymentId
+      type: object
+      properties:
+        paymentId:
+          pattern: '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}'
+          maxLength: 36
+          type: string
+          description: Unique identifier of the payment to be returned.
+          format: uuid
+          example: b907589a-f3c5-4328-84c5-c83df6f66d07
+      additionalProperties: false
     CreateSepaOutboundPaymentResponse:
       type: object
       properties:
@@ -255,48 +334,6 @@ components:
           format: uuid
           readOnly: true
           example: 1bfb7a86-7d9b-45ff-9d5c-34048efc4c8a
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          readOnly: true
-      additionalProperties: {}
-    IdentificationCreditor:
-      type: object
-      properties:
-        organisationIdentification:
-          $ref: '#/components/schemas/OrganisationIdentificationCreditor'
-        privateIdentification:
-          $ref: '#/components/schemas/PrivateIdentification'
       additionalProperties: false
     PostalAddress:
       required:
@@ -354,6 +391,48 @@ components:
           description: Nation with its own government.
           example: GB
       additionalProperties: false
+    IdentificationCreditor:
+      type: object
+      properties:
+        organisationIdentification:
+          $ref: '#/components/schemas/OrganisationIdentificationCreditor'
+        privateIdentification:
+          $ref: '#/components/schemas/PrivateIdentification'
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          readOnly: true
+      additionalProperties: {}
     RecallOfInboundPaymentReviewRequest:
       required:
       - paymentId
@@ -391,33 +470,49 @@ components:
           description: Additional information
           example: Additional details.
       additionalProperties: false
-    PrivateIdentification:
+    CreditorAgent:
       type: object
       properties:
-        dateAndPlaceOfBirth:
-          $ref: '#/components/schemas/DateAndPlaceOfBirth'
-        other:
-          maxLength: 35
+        bic:
           minLength: 1
-          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
+          pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
           type:
           - string
           - 'null'
-          description: Unique identification of a person, as assigned by an institution, using an identification scheme.
-          example: Other identification.
+          description: Business identifier code (BIC) - Code allocated to a financial institution by the ISO 9362 Registration Authority
+          example: BUKBNL20
       additionalProperties: false
-    ReturnOfInboundPaymentRequest:
+    Debtor:
       required:
-      - paymentId
+      - accountIban
+      - name
       type: object
       properties:
-        paymentId:
-          pattern: '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}'
-          maxLength: 36
+        name:
+          maxLength: 70
+          minLength: 1
+          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
           type: string
-          description: Unique identifier of the payment to be returned.
-          format: uuid
-          example: b907589a-f3c5-4328-84c5-c83df6f66d07
+          description: The name used to identify the legal owner of the account from which to debit funds.
+          example: John Doe
+        accountIban:
+          minLength: 1
+          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
+          type: string
+          description: International Bank Account Number associated with the debtor account to which a debit entry will be made as a result of the transaction.
+          example: NL73ABNA0529451824
+        postalAddress:
+          $ref: '#/components/schemas/DebtorPostalAddress'
+        identification:
+          $ref: '#/components/schemas/Identification'
+      additionalProperties: false
+    Identification:
+      type: object
+      properties:
+        organisationIdentification:
+          $ref: '#/components/schemas/OrganisationIdentification'
+        privateIdentification:
+          $ref: '#/components/schemas/PrivateIdentification'
       additionalProperties: false
     Creditor:
       required:
@@ -442,14 +537,6 @@ components:
           $ref: '#/components/schemas/PostalAddress'
         identification:
           $ref: '#/components/schemas/IdentificationCreditor'
-      additionalProperties: false
-    Identification:
-      type: object
-      properties:
-        organisationIdentification:
-          $ref: '#/components/schemas/OrganisationIdentification'
-        privateIdentification:
-          $ref: '#/components/schemas/PrivateIdentification'
       additionalProperties: false
     OrganisationIdentification:
       type: object
@@ -495,50 +582,6 @@ components:
               maxLength: 35
               description: The name of the entity that assigns the identification.
               example: IssuerName
-      additionalProperties: false
-    CreateSepaOutboundPaymentRequest:
-      required:
-      - amount
-      - creditor
-      - currency
-      - debtor
-      - endToEndId
-      - remittanceInformationUnstructured
-      type: object
-      properties:
-        endToEndId:
-          minLength: 1
-          maxLength: 35
-          pattern: ([0-9a-zA-Z\-\?:\(\)\.,'\+](/?([0-9a-zA-Z\-\?:\(\)\.,'\+ ]/?)*[0-9a-zA-Z\-\?:\(\)\.,'\+]+)?)
-          type: string
-          description: Unique identification, as assigned by the originating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
-          example: End2EndId
-        amount:
-          type: number
-          description: Amount of money to be moved between the debtor and creditor, before deduction of charges.
-          format: double
-          minimum: '0.01'
-          maximum: 999,999,999.99
-          example: '2.99'
-        currency:
-          minLength: 1
-          pattern: ^[A-Z]{3}$
-          type: string
-          description: An active or a historic currency where the unit of currency is explicit and compliant with ISO 4217.
-          example: EUR
-        debtor:
-          $ref: '#/components/schemas/Debtor'
-        creditor:
-          $ref: '#/components/schemas/Creditor'
-        creditorAgent:
-          $ref: '#/components/schemas/CreditorAgent'
-        remittanceInformationUnstructured:
-          maxLength: 140
-          minLength: 1
-          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
-          type: string
-          description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment is intended to settle, such as commercial invoices in an accounts receivable system, in an unstructured form. Test the return of an SCT payment in the simulation environment by populating with '--SCTRETURN--'
-          example: My remittance information.
       additionalProperties: false
     OrganisationIdentificationCreditor:
       type: object
@@ -593,90 +636,47 @@ components:
                 description: The name of the entity that assigns the identification.
                 example: IssuerName
         additionalProperties: false
-    DateAndPlaceOfBirth:
+    CreateSepaOutboundPaymentRequest:
+      required:
+      - amount
+      - creditor
+      - currency
+      - debtor
+      - endToEndId
+      - remittanceInformationUnstructured
       type: object
       properties:
-        dateOfBirth:
-          pattern: '[0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2}'
-          type:
-          - string
-          - 'null'
-          description: Date of birth of a person
-          format: date-time
-          example: '2004-05-15'
-        placeOfBirth:
+        endToEndId:
+          minLength: 1
           maxLength: 35
+          pattern: ([0-9a-zA-Z\-\?:\(\)\.,'\+](/?([0-9a-zA-Z\-\?:\(\)\.,'\+ ]/?)*[0-9a-zA-Z\-\?:\(\)\.,'\+]+)?)
+          type: string
+          description: Unique identification, as assigned by the originating party, to unambiguously identify the transaction. This identification is passed on, unchanged, throughout the entire end-to-end chain.
+          example: End2EndId
+        amount:
+          type: number
+          description: Amount of money to be moved between the debtor and creditor, before deduction of charges.
+          format: double
+          minimum: '0.01'
+          maximum: 999,999,999.99
+          example: '2.99'
+        currency:
+          minLength: 1
+          pattern: ^[A-Z]{3}$
+          type: string
+          description: An active or a historic currency where the unit of currency is explicit and compliant with ISO 4217.
+          example: EUR
+        debtor:
+          $ref: '#/components/schemas/Debtor'
+        creditor:
+          $ref: '#/components/schemas/Creditor'
+        creditorAgent:
+          $ref: '#/components/schemas/CreditorAgent'
+        remittanceInformationUnstructured:
+          maxLength: 140
           minLength: 1
           pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
-          type:
-          - string
-          - 'null'
-          description: Place of birth of a person
-          example: Birth Town
-      additionalProperties: false
-    Debtor:
-      required:
-      - accountIban
-      - name
-      type: object
-      properties:
-        name:
-          maxLength: 70
-          minLength: 1
-          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
           type: string
-          description: The name used to identify the legal owner of the account from which to debit funds.
-          example: John Doe
-        accountIban:
-          minLength: 1
-          pattern: '[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}'
-          type: string
-          description: International Bank Account Number associated with the debtor account to which a debit entry will be made as a result of the transaction.
-          example: NL73ABNA0529451824
-        postalAddress:
-          $ref: '#/components/schemas/DebtorPostalAddress'
-        identification:
-          $ref: '#/components/schemas/Identification'
-      additionalProperties: false
-    CreditorAgent:
-      type: object
-      properties:
-        bic:
-          minLength: 1
-          pattern: '[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}'
-          type:
-          - string
-          - 'null'
-          description: Business identifier code (BIC) - Code allocated to a financial institution by the ISO 9362 Registration Authority
-          example: BUKBNL20
-      additionalProperties: false
-    RecallOfOutboundPaymentRequest:
-      required:
-      - paymentId
-      - recallCode
-      type: object
-      properties:
-        paymentId:
-          pattern: '[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}'
-          maxLength: 36
-          type: string
-          description: Unique identifier of the Outbound SCT payment to be recalled.
-          format: uuid
-          example: 1bfb7a86-7d9b-45ff-9d5c-34048efc4c8a
-        recallCode:
-          minLength: 4
-          maxLength: 4
-          pattern: ^[A-Z0-9]{1,4}$
-          type: string
-          description: Reason code to recall an Outbound SCT Payment
-          example: CUST
-        additionalInfo:
-          maxLength: 105
-          minLength: 1
-          pattern: ^[0-9a-zA-Z\-\?:\(\)\.,'\+]((?!//)([0-9a-zA-Z\-\?:\(\)\.,'\+/ ]))+[0-9a-zA-Z\-\?:\(\)\.,'\+]$
-          type:
-          - string
-          - 'null'
-          description: Additional Information
-          example: Some additional information.
+          description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment is intended to settle, such as commercial invoices in an accounts receivable system, in an unstructured form. Test the return of an SCT payment in the simulation environment by populating with '--SCTRETURN--'
+          example: My remittance information.
       additionalProperties: false

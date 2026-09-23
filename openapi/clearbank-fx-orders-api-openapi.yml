@@ -48,6 +48,102 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    RequestCustomerInfo:
+      required:
+      - attestation
+      - buyAccount
+      - sellAccount
+      type: object
+      properties:
+        sellAccount:
+          $ref: '#/components/schemas/RequestAccountInfo'
+        buyAccount:
+          $ref: '#/components/schemas/RequestAccountInfo'
+        attestation:
+          type: string
+          description: Confirmation accounts are owned by the same person (Must be Y)
+      additionalProperties: false
+      description: The customer info od FX trade
+    CreateFxOrderRequest:
+      required:
+      - customerInformation
+      - tradeInformation
+      type: object
+      properties:
+        customerInformation:
+          $ref: '#/components/schemas/RequestCustomerInfo'
+        tradeInformation:
+          $ref: '#/components/schemas/RequestTradeInfo'
+      additionalProperties: false
+      description: FX Trade Creation Model
+    RequestTradeInfo:
+      required:
+      - details
+      - endToEndId
+      type: object
+      properties:
+        valueDate:
+          type: string
+          description: The date info of FX trade in the format yyyy-MM-ddTHH:mm:ssZ
+          format: date-time
+        details:
+          $ref: '#/components/schemas/RequestTradeDetails'
+        margin:
+          $ref: '#/components/schemas/RequestMarginInfo'
+        endToEndId:
+          maxLength: 35
+          minLength: 1
+          pattern: '[A-z0-9/\-?:().," + ]'
+          type: string
+          description: Customer assigned unique ID
+        unstructuredInformation:
+          maxLength: 140
+          type:
+          - string
+          - 'null'
+          description: Free-form reference or other information
+      additionalProperties: false
+      description: The payment info of FX trade
+    RequestMarginInfo:
+      required:
+      - account
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
+          format: double
+          example: '0.01'
+          exclusiveMaximum: 0.0499
+        account:
+          $ref: '#/components/schemas/RequestAccountInfo'
+      additionalProperties: false
     RequestTradeDetails:
       required:
       - buyCurrency
@@ -95,99 +191,3 @@ components:
           example: GB57CLRB04040100057354
       additionalProperties: false
       description: The account information
-    RequestTradeInfo:
-      required:
-      - details
-      - endToEndId
-      type: object
-      properties:
-        valueDate:
-          type: string
-          description: The date info of FX trade in the format yyyy-MM-ddTHH:mm:ssZ
-          format: date-time
-        details:
-          $ref: '#/components/schemas/RequestTradeDetails'
-        margin:
-          $ref: '#/components/schemas/RequestMarginInfo'
-        endToEndId:
-          maxLength: 35
-          minLength: 1
-          pattern: '[A-z0-9/\-?:().," + ]'
-          type: string
-          description: Customer assigned unique ID
-        unstructuredInformation:
-          maxLength: 140
-          type:
-          - string
-          - 'null'
-          description: Free-form reference or other information
-      additionalProperties: false
-      description: The payment info of FX trade
-    CreateFxOrderRequest:
-      required:
-      - customerInformation
-      - tradeInformation
-      type: object
-      properties:
-        customerInformation:
-          $ref: '#/components/schemas/RequestCustomerInfo'
-        tradeInformation:
-          $ref: '#/components/schemas/RequestTradeInfo'
-      additionalProperties: false
-      description: FX Trade Creation Model
-    RequestMarginInfo:
-      required:
-      - account
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
-          format: double
-          example: '0.01'
-          exclusiveMaximum: 0.0499
-        account:
-          $ref: '#/components/schemas/RequestAccountInfo'
-      additionalProperties: false
-    RequestCustomerInfo:
-      required:
-      - attestation
-      - buyAccount
-      - sellAccount
-      type: object
-      properties:
-        sellAccount:
-          $ref: '#/components/schemas/RequestAccountInfo'
-        buyAccount:
-          $ref: '#/components/schemas/RequestAccountInfo'
-        attestation:
-          type: string
-          description: Confirmation accounts are owned by the same person (Must be Y)
-      additionalProperties: false
-      description: The customer info od FX trade
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}

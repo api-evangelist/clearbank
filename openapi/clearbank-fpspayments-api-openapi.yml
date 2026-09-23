@@ -10,8 +10,17 @@ paths:
     post:
       tags:
       - FpsPayments
-      summary: Initiate a payment using the faster payments scheme. This endpoint is FTR compliant.
-      description: "This endpoint works on a partial acceptance basis - meaning that you can submit 10 payments and only 6 of them may be accepted for processing.\n            \nEach payment instruction is validated against the scheme specific rules as well as the ISO20022 specification.\n            \nCurrently, only payments through GBP are supported. We have listed possible currencies for future proofing of the API.\n            \nThe remittance information must be scheme compatible. Values exceeding the length limits of the scheme will be truncated. Missing remittance information will be replaced by a blank string."
+      summary: Initiate a payment using the faster payments scheme.
+      description: 'This endpoint works on a partial acceptance basis - meaning that you can submit 10 payments and only 6 of them may be accepted for processing.
+
+
+        Each payment instruction is validated against the scheme specific rules as well as the ISO20022 specification.
+
+
+        Currently, only payments through GBP are supported. We have listed possible currencies for future proofing of the API.
+
+
+        The remittance information must be scheme compatible. Values exceeding the length limits of the scheme will be truncated. Missing remittance information will be replaced by a blank string.'
       operationId: Post
       parameters:
       - name: Authorization
@@ -64,7 +73,7 @@ paths:
     post:
       tags:
       - FpsPayments
-      summary: Return an inbound Faster Payment. This endpoint can be used to return Faster Payments - including Faster Payments Originating Overseas - that cleared less than 90 days ago.
+      summary: Return an inbound Faster Payment.
       description: This endpoint is the recommended method for returning Faster Payments that cannot be completed for any reason.
       operationId: PostReturn
       parameters:
@@ -114,6 +123,30 @@ paths:
                 $ref: '#/components/schemas/ValidationProblemDetails'
 components:
   schemas:
+    BatchDebtorPartyIdentifier:
+      required:
+      - address
+      type: object
+      properties:
+        legalEntityIdentifier:
+          maxLength: 35
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: 'The legal entity identifier of the account holder (eg: charity number). This should be supplied if known.'
+          example: 9485839XYZ
+        address:
+          maxLength: 140
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\/\-?:().,'+ ]*$
+          type: string
+          description: 'The full postal address of the account holder. For UK addresses, the order of this information MUST be: country, town, city, state/province/municipality, street name, building number and/or name, postal code.'
+          example: UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL
+      additionalProperties: false
+      description: 'Optionally, the Legal Entity Identifier of the account.
+
+        Mandatory the Address of the account.'
     CounterpartAccountGenericIdentificationScheme:
       type: object
       properties:
@@ -136,6 +169,82 @@ components:
           example: Example scheme
       additionalProperties: false
       description: Information about the identification scheme in coded form or free-form text.
+    BatchPaymentInstructionCounterpartAccount:
+      required:
+      - identification
+      type: object
+      properties:
+        identification:
+          $ref: '#/components/schemas/BatchPaymentInstructionCounterpartAccountIdentification'
+          description: The identifiable information of an account.
+      additionalProperties: false
+      description: Information about the counterpart in a given transaction.
+    BatchCreditTransferResponse:
+      type: object
+      properties:
+        transactions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentInstructionResponse'
+          description: An array containing the the acceptance or rejection status of each individual payment instruction. You'll receive a 400 - Bad Request response if all payments in the batch fail. You'll receive a 202 - Accepted response if any payments in the batch succeed.
+        halLinks:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HalLink'
+          description: Hypermedia links.
+      additionalProperties: false
+      description: The result of each payment instruction and applicable links
+    CreateReturnCreditTransferRequest:
+      required:
+      - paymentReturnInstruction
+      type: object
+      properties:
+        paymentReturnInstruction:
+          $ref: '#/components/schemas/PaymentReturnInstruction'
+          description: Information about the payment return.
+      additionalProperties: false
+      description: Information that should be used to create a single credit return.
+    BatchPaymentIdentification:
+      required:
+      - endToEndIdentification
+      - instructionIdentification
+      type: object
+      properties:
+        instructionIdentification:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identification, as assigned by an instructing party for an instructed party, to unambiguously identify the instruction.
+          example: PAYMENT12345
+        endToEndIdentification:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identification, as assigned by the initiating party to unambiguously identify the transaction. This identification is passed on unchanged throughout the entire end-to-end chain.
+          example: E2E12345
+      additionalProperties: false
+      description: Identification of the payment instruction.
+    PaymentReturnInstruction:
+      required:
+      - TransactionId
+      - ReasonForReturn
+      type: object
+      properties:
+        TransactionId:
+          maxLength: 36
+          minLength: 1
+          type: string
+          description: The ID of the transaction to be returned.
+          format: uuid
+        ReasonForReturn:
+          type: string
+          description: 'A scheme compliant return code. Accepted values: [ BeneficiarySortCodeOrAccountUnknown, BeneficiaryAccountClosed, BeneficiaryAccountStopped, BeneficiaryDeceased, AccountCannotBeIdentified, BeneficiaryAccountNameDoesNotMatchBeneficiaryAccountNumber, ReturnRequestedBySenderOfOriginalPayment, AccountIsNotInCurrencyQuoted, BeneficiaryNotExpectingFundsOrInstructedReturn, TermsAndConditionsOfAccountDoNotPermitCreditingOfFunds, SendingFpsInstitutionActionRequired, AccountTransferred, PaymentCannotBeAppliedBecauseOfBeneficiarySensitivities, Other ]'
+      additionalProperties: false
+      description: Information about the single payment return instruction.
     PaymentInstructionResponse:
       required:
       - endToEndIdentification
@@ -160,56 +269,20 @@ components:
           example: Accepted
       additionalProperties: false
       description: The acceptance or rejection status of a payment instruction.
-    BatchCreateCreditTransferRequest:
-      required:
-      - paymentInstructions
+    BatchPaymentInstructionCounterpartAccountIdentification:
       type: object
       properties:
-        paymentInstructions:
-          type: array
-          maxLength: 10
-          minLength: 1
-          items:
-            $ref: '#/components/schemas/BatchPaymentInstruction'
-          description: Details of the payments to be made.
+        iban:
+          type:
+          - string
+          - 'null'
+          description: The International Bank Account Number of the account.
+          example: GB29NWBK60161331926819
+        other:
+          $ref: '#/components/schemas/BatchCounterpartAccountGenericIdentification'
+          description: Unique identification of an account, as assigned by the account servicer, using an identification scheme.
       additionalProperties: false
-      description: Information that should be used to create a batch credit transfer.
-    BatchStructured:
-      type: object
-      properties:
-        creditorReferenceInformation:
-          $ref: '#/components/schemas/BatchCreditorReferenceInformation'
-          description: Reference information provided by the debtor to allow the identification of underlying documents by the creditor.
-      additionalProperties: false
-      description: Information supplied by the remitter (in a structured form), to reconcile an entry with item(s) that the payment intends to settle (for example, a purchase reference number).
-    HalLink:
-      required:
-      - href
-      - name
-      type: object
-      properties:
-        name:
-          type: string
-          description: The named link type.
-        href:
-          type: string
-          description: URI to be used.
-        templated:
-          type: boolean
-          description: Specifies "true" if href is a URI template, i.e., with parameters. Otherwise, this property is absent or set to false.
-      additionalProperties: false
-      description: Hypermedia link.
-    BatchRemittanceInformation:
-      type: object
-      properties:
-        structured:
-          $ref: '#/components/schemas/BatchStructured'
-          description: Information supplied by the remitter (in a structured form), to reconcile an entry with item(s) that the payment intends to settle (e.g., a purchase reference number).
-        unstructured:
-          $ref: '#/components/schemas/BatchUnstructured'
-          description: Information supplied by the remitter (in an unstructured form) to reconcile an entry with item(s) that the payment intends to settle.
-      additionalProperties: false
-      description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment is intended to settle, such as commercial invoices in an accounts receivable system.
+      description: The identifiable information of an account.
     ValidationProblemDetails:
       type: object
       properties:
@@ -260,6 +333,19 @@ components:
           example: /errors/12345
       additionalProperties: {}
       description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
+    BatchCreditorReferenceInformation:
+      type: object
+      properties:
+        reference:
+          maxLength: 35
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: A reference, as assigned by the debtor to unambiguously refer to the payment transaction. Conditionally required if supplied by the debtor.
+          example: Payment for invoice 12345
+      additionalProperties: false
+      description: Reference information provided by the ultimate debtor to allow the identification of underlying documents by the creditor.
     BatchCreditorPartyIdentifier:
       required:
       - name
@@ -281,75 +367,6 @@ components:
           example: 9485839XYZ
       additionalProperties: false
       description: The name and, optionally, the legal entity identifier of the account.
-    BatchPaymentInstructionCounterpartAccount:
-      required:
-      - identification
-      type: object
-      properties:
-        identification:
-          $ref: '#/components/schemas/BatchPaymentInstructionCounterpartAccountIdentification'
-          description: The identifiable information of an account.
-      additionalProperties: false
-      description: Information about the counterpart in a given transaction.
-    BatchCreditTransferResponse:
-      type: object
-      properties:
-        transactions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentInstructionResponse'
-          description: An array containing the the acceptance or rejection status of each individual payment instruction. You'll receive a 400 - Bad Request response if all payments in the batch fail. You'll receive a 202 - Accepted response if any payments in the batch succeed.
-        halLinks:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HalLink'
-          description: Hypermedia links.
-      additionalProperties: false
-      description: The result of each payment instruction and applicable links
-    BatchCreditorReferenceInformation:
-      type: object
-      properties:
-        reference:
-          maxLength: 35
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: A reference, as assigned by the debtor to unambiguously refer to the payment transaction. Conditionally required if supplied by the debtor.
-          example: Payment for invoice 12345
-      additionalProperties: false
-      description: Reference information provided by the ultimate debtor to allow the identification of underlying documents by the creditor.
-    CreateReturnCreditTransferRequest:
-      required:
-      - paymentReturnInstruction
-      type: object
-      properties:
-        paymentReturnInstruction:
-          $ref: '#/components/schemas/PaymentReturnInstruction'
-          description: Information about the payment return.
-      additionalProperties: false
-      description: Information that should be used to create a single credit return.
-    PaymentReturnInstruction:
-      required:
-      - TransactionId
-      - ReasonForReturn
-      type: object
-      properties:
-        TransactionId:
-          maxLength: 36
-          minLength: 1
-          type: string
-          description: The ID of the transaction to be returned.
-          format: uuid
-        ReasonForReturn:
-          type: string
-          description: 'A scheme compliant return code. Accepted values: [ BeneficiarySortCodeOrAccountUnknown, BeneficiaryAccountClosed, BeneficiaryAccountStopped, BeneficiaryDeceased, AccountCannotBeIdentified, BeneficiaryAccountNameDoesNotMatchBeneficiaryAccountNumber, ReturnRequestedBySenderOfOriginalPayment, AccountIsNotInCurrencyQuoted, BeneficiaryNotExpectingFundsOrInstructedReturn, TermsAndConditionsOfAccountDoNotPermitCreditingOfFunds, SendingFpsInstitutionActionRequired, AccountTransferred, PaymentCannotBeAppliedBecauseOfBeneficiarySensitivities, Other ]'
-      additionalProperties: false
-      description: Information about the single payment return instruction.
     BatchCreditTransfer:
       required:
       - amount
@@ -379,6 +396,30 @@ components:
           description: If set to true, then the payment will be sent to scheme for processing. If set to false or not supplied, then it will be processed as an internal transfer if eligible.
       additionalProperties: false
       description: Represents a creditor in a payment instruction.
+    BatchAdditionalReferenceInformation:
+      type: object
+      properties:
+        reference:
+          maxLength: 140
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Additional remittance information.
+          example: Plumbing payment
+      additionalProperties: false
+      description: Reference information provided by the ultimate debtor to allow the identification of underlying documents by the creditor.
+    BatchRemittanceInformation:
+      type: object
+      properties:
+        structured:
+          $ref: '#/components/schemas/BatchStructured'
+          description: Information supplied by the remitter (in a structured form), to reconcile an entry with item(s) that the payment intends to settle (e.g., a purchase reference number).
+        unstructured:
+          $ref: '#/components/schemas/BatchUnstructured'
+          description: Information supplied by the remitter (in an unstructured form) to reconcile an entry with item(s) that the payment intends to settle.
+      additionalProperties: false
+      description: Information supplied to enable the matching/reconciliation of an entry with the items that the payment is intended to settle, such as commercial invoices in an accounts receivable system.
     OtherProblemDetails:
       type: object
       properties:
@@ -407,6 +448,77 @@ components:
                 example: InsufficientFunds
           description: If all payments in the batch fail, you'll receive a 400 response containing this array in the body, with an entry for each failed payment. You'll receive a 202 - Accepted response if any payments in the batch succeed. The model for 400 responses will match the model of 422 - Client Error in all other cases.
       additionalProperties: false
+    BatchPaymentInstruction:
+      required:
+      - creditTransfers
+      - debtor
+      - debtorAccount
+      - paymentInstructionIdentification
+      type: object
+      properties:
+        debtor:
+          $ref: '#/components/schemas/BatchDebtorPartyIdentifier'
+          description: Details about the account holder.
+        paymentInstructionIdentification:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: The unique identifier for the payment instruction.
+          example: INSTRUCTION12345
+        paymentTypeCode:
+          type: string
+          maxLength: 3
+          minLength: 3
+          description: A three-letter code signifying the type of payment. SIP - Single immediate payment, SOP - Standing order payment, FDP - Forward-dated payment.
+          enum:
+          - SIP
+          - SOP
+          - FDP
+        debtorAccount:
+          $ref: '#/components/schemas/BatchPaymentInstructionCounterpartAccount'
+          description: Information about the counterpart in a given transaction.
+        creditTransfers:
+          type: array
+          maxLength: 10
+          minLength: 1
+          items:
+            $ref: '#/components/schemas/BatchCreditTransfer'
+          description: A series of payments that should be made from the debtor account.
+      additionalProperties: false
+      description: A payment from a single account to multiple creditors.
+    BatchStructured:
+      type: object
+      properties:
+        creditorReferenceInformation:
+          $ref: '#/components/schemas/BatchCreditorReferenceInformation'
+          description: Reference information provided by the debtor to allow the identification of underlying documents by the creditor.
+      additionalProperties: false
+      description: Information supplied by the remitter (in a structured form), to reconcile an entry with item(s) that the payment intends to settle (for example, a purchase reference number).
+    BatchCounterpartAccountGenericIdentification:
+      required:
+      - identification
+      - schemeName
+      type: object
+      properties:
+        issuer:
+          maxLength: 35
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The name of the entity that assigns the identification.
+          example: Example Passport
+        identification:
+          maxLength: 34
+          minLength: 1
+          type: string
+          description: Identification assigned by an institution.
+          example: '123456789012345678'
+        schemeName:
+          $ref: '#/components/schemas/CounterpartAccountGenericIdentificationScheme'
+          description: Name of the identification scheme.
+      additionalProperties: false
+      description: Unique identification of an account, as assigned by the account servicer, using an identification scheme.
     BatchAmount:
       required:
       - instructedAmount
@@ -604,55 +716,23 @@ components:
           example: 100.0
       additionalProperties: false
       description: Indicates the amount and the currency used in a given transaction or account balance.
-    BatchDebtorPartyIdentifier:
+    HalLink:
       required:
-      - address
+      - href
+      - name
       type: object
       properties:
-        legalEntityIdentifier:
-          maxLength: 35
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: 'The legal entity identifier of the account holder (eg: charity number). This should be supplied if known.'
-          example: 9485839XYZ
-        address:
-          maxLength: 140
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\/\-?:().,'+ ]*$
+        name:
           type: string
-          description: 'The full postal address of the account holder. For UK addresses, the order of this information MUST be: country, town, city, state/province/municipality, street name, building number and/or name, postal code.'
-          example: UK, Manchester, Greater Manchester, Oxford Road, 123, M13 9PL
-      additionalProperties: false
-      description: 'Optionally, the Legal Entity Identifier of the account.
-
-        Mandatory the Address of the account.'
-    BatchCounterpartAccountGenericIdentification:
-      required:
-      - identification
-      - schemeName
-      type: object
-      properties:
-        issuer:
-          maxLength: 35
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: The name of the entity that assigns the identification.
-          example: Example Passport
-        identification:
-          maxLength: 34
-          minLength: 1
+          description: The named link type.
+        href:
           type: string
-          description: Identification assigned by an institution.
-          example: '123456789012345678'
-        schemeName:
-          $ref: '#/components/schemas/CounterpartAccountGenericIdentificationScheme'
-          description: Name of the identification scheme.
+          description: URI to be used.
+        templated:
+          type: boolean
+          description: Specifies "true" if href is a URI template, i.e., with parameters. Otherwise, this property is absent or set to false.
       additionalProperties: false
-      description: Unique identification of an account, as assigned by the account servicer, using an identification scheme.
+      description: Hypermedia link.
     BatchUnstructured:
       type: object
       properties:
@@ -661,88 +741,17 @@ components:
           description: Additional unstructured remittance information.
       additionalProperties: false
       description: Information supplied by the remitter (in a structured form), to reconcile an entry with item(s) that the payment intends to settle (for example, a purchase reference number).
-    BatchAdditionalReferenceInformation:
-      type: object
-      properties:
-        reference:
-          maxLength: 140
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: Additional remittance information.
-          example: Plumbing payment
-      additionalProperties: false
-      description: Reference information provided by the ultimate debtor to allow the identification of underlying documents by the creditor.
-    BatchPaymentIdentification:
+    BatchCreateCreditTransferRequest:
       required:
-      - endToEndIdentification
-      - instructionIdentification
+      - paymentInstructions
       type: object
       properties:
-        instructionIdentification:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Unique identification, as assigned by an instructing party for an instructed party, to unambiguously identify the instruction.
-          example: PAYMENT12345
-        endToEndIdentification:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Unique identification, as assigned by the initiating party to unambiguously identify the transaction. This identification is passed on unchanged throughout the entire end-to-end chain.
-          example: E2E12345
-      additionalProperties: false
-      description: Identification of the payment instruction.
-    BatchPaymentInstructionCounterpartAccountIdentification:
-      type: object
-      properties:
-        iban:
-          type:
-          - string
-          - 'null'
-          description: The International Bank Account Number of the account.
-          example: GB29NWBK60161331926819
-        other:
-          $ref: '#/components/schemas/BatchCounterpartAccountGenericIdentification'
-          description: Unique identification of an account, as assigned by the account servicer, using an identification scheme.
-      additionalProperties: false
-      description: The identifiable information of an account.
-    BatchPaymentInstruction:
-      required:
-      - creditTransfers
-      - debtor
-      - debtorAccount
-      - paymentInstructionIdentification
-      type: object
-      properties:
-        debtor:
-          $ref: '#/components/schemas/BatchDebtorPartyIdentifier'
-          description: Details about the account holder.
-        paymentInstructionIdentification:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: The unique identifier for the payment instruction.
-          example: INSTRUCTION12345
-        paymentTypeCode:
-          type: string
-          maxLength: 3
-          minLength: 3
-          description: A three-letter code signifying the type of payment. SIP - Single immediate payment, SOP - Standing order payment, FDP - Forward-dated payment.
-          enum:
-          - SIP
-          - SOP
-          - FDP
-        debtorAccount:
-          $ref: '#/components/schemas/BatchPaymentInstructionCounterpartAccount'
-          description: Information about the counterpart in a given transaction.
-        creditTransfers:
+        paymentInstructions:
           type: array
           maxLength: 10
           minLength: 1
           items:
-            $ref: '#/components/schemas/BatchCreditTransfer'
-          description: A series of payments that should be made from the debtor account.
+            $ref: '#/components/schemas/BatchPaymentInstruction'
+          description: Details of the payments to be made.
       additionalProperties: false
-      description: A payment from a single account to multiple creditors.
+      description: Information that should be used to create a batch credit transfer.

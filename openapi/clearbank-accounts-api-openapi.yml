@@ -10,7 +10,7 @@ paths:
     post:
       tags:
       - Accounts
-      summary: This endpoint is used to create a new real multi-currency account.
+      summary: This endpoint is used to create a new real multi-currency account
       parameters:
       - name: Authorization
         in: header
@@ -93,11 +93,13 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+      operationId: postMccyV2Accounts
+      x-operation-id-source: derived
   /v4/Accounts:
     post:
       tags:
       - Accounts
-      summary: This endpoint is used to create a new FSCS-protected embedded banking account.
+      summary: This endpoint is used to create a new FSCS-protected embedded banking account
       description: If you want to create a cash ISA or savings account, use the POST /v1/isas or POST /v1/savings endpoints instead.
       operationId: V4InstitutionsByInstitutionIdAccountsPost
       parameters:
@@ -272,28 +274,24 @@ paths:
                 type: string
 components:
   schemas:
-    AccountStatusReason:
-      enum:
-      - AccountHolderBankrupt
-      - AccountHolderDeceased
-      - AccountSwitched
-      - CompanyNoLongerTrading
-      - DissatisfiedCustomer
-      - DuplicateAccount
-      - FinancialCrime
-      - FraudConfirmed
-      - FraudFirstParty
-      - FraudThirdParty
-      - InternallyDormant
-      - KYCRequired
-      - LegallyDisputed
-      - PotentialSanctionedIndividual
-      - SanctionedIndividual
-      - SuspectMoneyLaundering
-      - TransactionDispute
-      - Other
-      type: string
-      description: Reason for why the current status of the account is Closed or Suspended.
+    AccountIdentifier:
+      required:
+      - identifier
+      - kind
+      type: object
+      properties:
+        identifier:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: 'Unique account identifier value that corresponds to the specified account identifier kind. For example: when using kind ''Iban'', this should be the account''s IBAN value.'
+        kind:
+          minLength: 1
+          type: string
+          description: The kind of account identifier provided. This should always be 'Iban'.
+          enum:
+          - Iban
+      additionalProperties: false
     AccountResponse:
       required:
       - currencies
@@ -378,24 +376,6 @@ components:
           enum:
           - Customer
           - Operating
-      additionalProperties: false
-    AccountIdentifier:
-      required:
-      - identifier
-      - kind
-      type: object
-      properties:
-        identifier:
-          maxLength: 50
-          minLength: 1
-          type: string
-          description: 'Unique account identifier value that corresponds to the specified account identifier kind. For example: when using kind ''Iban'', this should be the account''s IBAN value.'
-        kind:
-          minLength: 1
-          type: string
-          description: The kind of account identifier provided. This should always be 'Iban'.
-          enum:
-          - Iban
       additionalProperties: false
     CreateAccountRequest:
       required:
@@ -495,6 +475,238 @@ components:
           - string
           - 'null'
       additionalProperties: {}
+    AccountStatusReason:
+      enum:
+      - AccountHolderBankrupt
+      - AccountHolderDeceased
+      - AccountSwitched
+      - CompanyNoLongerTrading
+      - DissatisfiedCustomer
+      - DuplicateAccount
+      - FinancialCrime
+      - FraudConfirmed
+      - FraudFirstParty
+      - FraudThirdParty
+      - InternallyDormant
+      - KYCRequired
+      - LegallyDisputed
+      - PotentialSanctionedIndividual
+      - SanctionedIndividual
+      - SuspectMoneyLaundering
+      - TransactionDispute
+      - Other
+      type: string
+      description: Reason for why the current status of the account is Closed or Suspended.
+    ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Balance:
+      required:
+      - name
+      - amount
+      - currency
+      - status
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name associated with the current account.
+          example: Current Account
+        amount:
+          type: number
+          description: The amount of funds in the account in a specific currency.
+          format: double
+          example: 54321.54
+        currency:
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          type: string
+          description: Set to 'GBP' as other currencies are not supported.
+          example: GBP
+        status:
+          enum:
+          - CLBD
+          - XPCD
+          - OTHR
+          - VALU
+          type: string
+          description: The type of balance being reported.
+          example: VALU
+      description: A summary of the balance of an account, in a specific currency.
     ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Account:
       required:
       - id
@@ -786,216 +998,6 @@ components:
           description: Name for the owner of the current account.
           example: John Smith
       description: Set of elements used to identify a person or an organisation.
-    ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Balance:
-      required:
-      - name
-      - amount
-      - currency
-      - status
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name associated with the current account.
-          example: Current Account
-        amount:
-          type: number
-          description: The amount of funds in the account in a specific currency.
-          format: double
-          example: 54321.54
-        currency:
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UZS
-          - VEF
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-          type: string
-          description: Set to 'GBP' as other currencies are not supported.
-          example: GBP
-        status:
-          enum:
-          - CLBD
-          - XPCD
-          - OTHR
-          - VALU
-          type: string
-          description: The type of balance being reported.
-          example: VALU
-      description: A summary of the balance of an account, in a specific currency.
 x-refined-from:
 - clearbank-mccy-accounts-v2.json
 - clearbank-sterling-v4.json

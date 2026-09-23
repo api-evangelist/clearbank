@@ -62,8 +62,120 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
       tags:
       - Customer Due Diligence
+      summary: Create customer due diligence retail onboard
+      x-summary-source: derived
+      operationId: postCustomerDueDiligenceV1RetailOnboard
+      x-operation-id-source: derived
 components:
   schemas:
+    RetailCustomerCheckRequest:
+      required:
+      - customerData
+      type: object
+      properties:
+        customerData:
+          $ref: '#/components/schemas/CustomerData'
+      additionalProperties: false
+    PersonName:
+      required:
+      - firstName
+      - surname
+      type: object
+      properties:
+        firstName:
+          maxLength: 40
+          minLength: 1
+          pattern: ^[a-zA-Z.'\- ]+$
+          type: string
+          example: Adrien
+        middleName:
+          maxLength: 100
+          pattern: ^[a-zA-Z.'\- ]+$
+          type:
+          - string
+          - 'null'
+          example: Edin
+        surname:
+          maxLength: 40
+          minLength: 1
+          pattern: ^[a-zA-Z.'\- ]+$
+          type: string
+          example: Reed-Myers
+      additionalProperties: false
+    CustomerData:
+      required:
+      - currentAddress
+      - dateOfBirth
+      - email
+      - name
+      - nationalInsuranceNumber
+      - nationality
+      - taxResidency
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/PersonName'
+          description: The customer's full name. Their first name and surname are required.
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1976-01-26'
+          maxLength: 10
+          description: 'The customer''s date of birth, formatted: yyyy-MM-dd.'
+        nationality:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          description: An array containing the customer's nationalities as ISO 3166 Alpha-3 country-codes. You can provide multiple values for customers with more than one nationality. Does not accept US nationals.
+          example:
+          - GBR
+          - IRL
+        taxResidency:
+          minItems: 1
+          maxItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCode'
+          description: An array containing the country the customer resides in for tax purposes, represented as an ISO 3166 Alpha-3 country-code. Currently does not accept more than one country.
+          example:
+          - GBR
+        nationalInsuranceNumber:
+          minLength: 9
+          maxLength: 9
+          pattern: ^[a-zA-Z]{2}\d{6}[a-zA-Z]$
+          example: AB112233C
+          type: string
+          description: The UK National Insurance (NI) number of the customer. Should not include whitespace.
+        email:
+          type: string
+          format: email
+          example: example@emailprovider.co.uk
+          description: The customer's email address.
+        mobile:
+          pattern: ^(?:[+][1-9])?\d{11,14}$
+          type:
+          - string
+          - 'null'
+          description: The customer's international mobile number, including its country-code prefix. For example '+44' for UK numbers. The use of '+' is optional.
+          example: '+447725666777'
+        currentAddress:
+          $ref: '#/components/schemas/Address'
+          description: The customer's current residential address.
+        idvEmailsEnabled:
+          type: boolean
+          default: true
+          description: If set to false, you'll receive Additional Info Required webhooks.
+      additionalProperties: false
+    RetailCustomerCheckResponse:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          format: uuid
+          example: aac7c700-1ea6-5664-8804-ceeb066d3cf5
+          description: A unique ID for each submitted application. Use this to identify which application a corresponding webhook pertains to.
+      additionalProperties: false
     Address:
       required:
       - countryCode
@@ -164,114 +276,6 @@ components:
           - 'null'
           description: A URL reference to a retrieve more information about the error, if available.
       additionalProperties: {}
-    PersonName:
-      required:
-      - firstName
-      - surname
-      type: object
-      properties:
-        firstName:
-          maxLength: 40
-          minLength: 1
-          pattern: ^[a-zA-Z.'\- ]+$
-          type: string
-          example: Adrien
-        middleName:
-          maxLength: 100
-          pattern: ^[a-zA-Z.'\- ]+$
-          type:
-          - string
-          - 'null'
-          example: Edin
-        surname:
-          maxLength: 40
-          minLength: 1
-          pattern: ^[a-zA-Z.'\- ]+$
-          type: string
-          example: Reed-Myers
-      additionalProperties: false
-    CustomerData:
-      required:
-      - currentAddress
-      - dateOfBirth
-      - email
-      - name
-      - nationalInsuranceNumber
-      - nationality
-      - taxResidency
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/PersonName'
-          description: The customer's full name. Their first name and surname are required.
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1976-01-26'
-          maxLength: 10
-          description: 'The customer''s date of birth, formatted: yyyy-MM-dd.'
-        nationality:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          description: An array containing the customer's nationalities as ISO 3166 Alpha-3 country-codes. You can provide multiple values for customers with more than one nationality. Does not accept US nationals.
-          example:
-          - GBR
-          - IRL
-        taxResidency:
-          minItems: 1
-          maxItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/CountryCode'
-          description: An array containing the country the customer resides in for tax purposes, represented as an ISO 3166 Alpha-3 country-code. Currently does not accept more than one country.
-          example:
-          - GBR
-        nationalInsuranceNumber:
-          minLength: 9
-          maxLength: 9
-          pattern: ^[a-zA-Z]{2}\d{6}[a-zA-Z]$
-          example: AB112233C
-          type: string
-          description: The UK National Insurance (NI) number of the customer. Should not include whitespace.
-        email:
-          type: string
-          format: email
-          example: example@emailprovider.co.uk
-          description: The customer's email address.
-        mobile:
-          pattern: ^(?:[+][1-9])?\d{11,14}$
-          type:
-          - string
-          - 'null'
-          description: The customer's international mobile number, including its country-code prefix. For example '+44' for UK numbers. The use of '+' is optional.
-          example: '+447725666777'
-        currentAddress:
-          $ref: '#/components/schemas/Address'
-          description: The customer's current residential address.
-        idvEmailsEnabled:
-          type: boolean
-          default: true
-          description: If set to false, you'll receive Additional Info Required webhooks.
-      additionalProperties: false
-    RetailCustomerCheckRequest:
-      required:
-      - customerData
-      type: object
-      properties:
-        customerData:
-          $ref: '#/components/schemas/CustomerData'
-      additionalProperties: false
-    RetailCustomerCheckResponse:
-      type: object
-      properties:
-        applicationId:
-          type: string
-          format: uuid
-          example: aac7c700-1ea6-5664-8804-ceeb066d3cf5
-          description: A unique ID for each submitted application. Use this to identify which application a corresponding webhook pertains to.
-      additionalProperties: false
     CountryCode:
       format: ISO 3166 Alpha-3 country-code
       type: string

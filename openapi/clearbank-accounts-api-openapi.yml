@@ -274,6 +274,28 @@ paths:
                 type: string
 components:
   schemas:
+    AccountStatusReason:
+      enum:
+      - AccountHolderBankrupt
+      - AccountHolderDeceased
+      - AccountSwitched
+      - CompanyNoLongerTrading
+      - DissatisfiedCustomer
+      - DuplicateAccount
+      - FinancialCrime
+      - FraudConfirmed
+      - FraudFirstParty
+      - FraudThirdParty
+      - InternallyDormant
+      - KYCRequired
+      - LegallyDisputed
+      - PotentialSanctionedIndividual
+      - SanctionedIndividual
+      - SuspectMoneyLaundering
+      - TransactionDispute
+      - Other
+      type: string
+      description: Reason for why the current status of the account is Closed or Suspended.
     AccountIdentifier:
       required:
       - identifier
@@ -291,91 +313,6 @@ components:
           description: The kind of account identifier provided. This should always be 'Iban'.
           enum:
           - Iban
-      additionalProperties: false
-    AccountResponse:
-      required:
-      - currencies
-      - id
-      - identifiers
-      - kind
-      - label
-      - name
-      - owner
-      - status
-      - type
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the account held with ClearBank.
-          format: uuid
-          example: 98efba88-c43e-41c5-9d47-0938f2fe7192
-        name:
-          minLength: 1
-          type: string
-          description: Name of the account.
-          example: Gen Seg Eco Bank
-        label:
-          type: string
-          description: Friendly label for the account.
-          example: Mid tier asset funds
-        owner:
-          type: string
-          description: The name used to identify the legal owner of the account.
-          example: Eco Bank
-        kind:
-          type: string
-          description: The type of funds the account will hold.
-          example: GeneralSegregated
-          enum:
-          - YourFunds
-          - GeneralSegregated
-          - DesignatedSegregated
-          - GeneralClient
-          - DesignatedClient
-        currencies:
-          type: array
-          items:
-            type: string
-          description: Currencies supported by the account. This is the three-letter ISO currency code.
-        productId:
-          type:
-          - string
-          - 'null'
-          description: The product identifier used to determine the behaviour of the account. Only applicable for FSCS accounts.
-          format: uuid
-          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
-        customerId:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier for the customer that the account is associated with. Only applicable for FSCS accounts.
-          format: uuid
-          example: 190e5d1d-7016-4efe-9988-3ebfecb21192
-        identifiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/AccountIdentifier'
-          description: List of identifiers.
-        status:
-          type: string
-          description: 'Current status of the account. Valid options include: Active, Suspended, Closed.'
-          example: Active
-        statusReason:
-          $ref: '#/components/schemas/AccountStatusReason'
-        statusInformation:
-          type:
-          - string
-          - 'null'
-          description: Additional information to support the specified status reason.
-          example: Received documentation
-        type:
-          type: string
-          description: The type of account.
-          example: Customer
-          enum:
-          - Customer
-          - Operating
       additionalProperties: false
     CreateAccountRequest:
       required:
@@ -475,238 +412,91 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    AccountStatusReason:
-      enum:
-      - AccountHolderBankrupt
-      - AccountHolderDeceased
-      - AccountSwitched
-      - CompanyNoLongerTrading
-      - DissatisfiedCustomer
-      - DuplicateAccount
-      - FinancialCrime
-      - FraudConfirmed
-      - FraudFirstParty
-      - FraudThirdParty
-      - InternallyDormant
-      - KYCRequired
-      - LegallyDisputed
-      - PotentialSanctionedIndividual
-      - SanctionedIndividual
-      - SuspectMoneyLaundering
-      - TransactionDispute
-      - Other
-      type: string
-      description: Reason for why the current status of the account is Closed or Suspended.
-    ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Balance:
+    AccountResponse:
       required:
+      - currencies
+      - id
+      - identifiers
+      - kind
+      - label
       - name
-      - amount
-      - currency
+      - owner
       - status
+      - type
       type: object
       properties:
+        id:
+          type: string
+          description: Unique identifier for the account held with ClearBank.
+          format: uuid
+          example: 98efba88-c43e-41c5-9d47-0938f2fe7192
         name:
+          minLength: 1
           type: string
-          description: The name associated with the current account.
-          example: Current Account
-        amount:
-          type: number
-          description: The amount of funds in the account in a specific currency.
-          format: double
-          example: 54321.54
-        currency:
+          description: Name of the account.
+          example: Gen Seg Eco Bank
+        label:
+          type: string
+          description: Friendly label for the account.
+          example: Mid tier asset funds
+        owner:
+          type: string
+          description: The name used to identify the legal owner of the account.
+          example: Eco Bank
+        kind:
+          type: string
+          description: The type of funds the account will hold.
+          example: GeneralSegregated
           enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UZS
-          - VEF
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-          type: string
-          description: Set to 'GBP' as other currencies are not supported.
-          example: GBP
+          - YourFunds
+          - GeneralSegregated
+          - DesignatedSegregated
+          - GeneralClient
+          - DesignatedClient
+        currencies:
+          type: array
+          items:
+            type: string
+          description: Currencies supported by the account. This is the three-letter ISO currency code.
+        productId:
+          type:
+          - string
+          - 'null'
+          description: The product identifier used to determine the behaviour of the account. Only applicable for FSCS accounts.
+          format: uuid
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        customerId:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier for the customer that the account is associated with. Only applicable for FSCS accounts.
+          format: uuid
+          example: 190e5d1d-7016-4efe-9988-3ebfecb21192
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountIdentifier'
+          description: List of identifiers.
         status:
-          enum:
-          - CLBD
-          - XPCD
-          - OTHR
-          - VALU
           type: string
-          description: The type of balance being reported.
-          example: VALU
-      description: A summary of the balance of an account, in a specific currency.
+          description: 'Current status of the account. Valid options include: Active, Suspended, Closed.'
+          example: Active
+        statusReason:
+          $ref: '#/components/schemas/AccountStatusReason'
+        statusInformation:
+          type:
+          - string
+          - 'null'
+          description: Additional information to support the specified status reason.
+          example: Received documentation
+        type:
+          type: string
+          description: The type of account.
+          example: Customer
+          enum:
+          - Customer
+          - Operating
+      additionalProperties: false
     ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Account:
       required:
       - id
@@ -987,6 +777,216 @@ components:
           format: double
           example: -500.55
       description: Information that is used to create a FSCS-protected current account.
+    ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Balance:
+      required:
+      - name
+      - amount
+      - currency
+      - status
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name associated with the current account.
+          example: Current Account
+        amount:
+          type: number
+          description: The amount of funds in the account in a specific currency.
+          format: double
+          example: 54321.54
+        currency:
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UZS
+          - VEF
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+          type: string
+          description: Set to 'GBP' as other currencies are not supported.
+          example: GBP
+        status:
+          enum:
+          - CLBD
+          - XPCD
+          - OTHR
+          - VALU
+          type: string
+          description: The type of balance being reported.
+          example: VALU
+      description: A summary of the balance of an account, in a specific currency.
     ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.PartyIdentification:
       type: object
       properties:

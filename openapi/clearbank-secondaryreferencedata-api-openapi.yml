@@ -73,35 +73,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ErrorBody:
+    SRDValidationRequest:
+      required:
+      - Identification
+      - SchemeName
       type: object
       properties:
-        Reason:
-          type:
-          - string
-          - 'null'
-          description: The error reason.
-        ParticipantName:
-          type:
-          - string
-          - 'null'
-          description: Name of the participant.
+        SchemeName:
+          minLength: 1
+          type: string
+          description: Indicates the sort code and account number associated with the payee’s account. The value should always be SortCodeAccountNumber.
+        Identification:
+          minLength: 1
+          type: string
+          description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8-digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
       additionalProperties: false
-      description: Error body with description.
-    SRDValidationResponse:
-      type: object
-      properties:
-        Data:
-          $ref: '#/components/schemas/SRDValidationData'
-      additionalProperties: false
-      description: Response contract.
-    ErrorResponse:
-      type: object
-      properties:
-        Error:
-          $ref: '#/components/schemas/ErrorBody'
-      additionalProperties: false
-      description: Error response class.
+      description: Secondary reference data validation request
     SRDValidationData:
       type: object
       properties:
@@ -120,19 +107,32 @@ components:
           description: The identification given in the original request.
       additionalProperties: false
       description: SRD Validation data.
-    SRDValidationRequest:
-      required:
-      - Identification
-      - SchemeName
+    ErrorBody:
       type: object
       properties:
-        SchemeName:
-          minLength: 1
-          type: string
-          description: Indicates the sort code and account number associated with the payee’s account. The value should always be SortCodeAccountNumber.
-        Identification:
-          minLength: 1
-          type: string
-          description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8-digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
+        Reason:
+          type:
+          - string
+          - 'null'
+          description: The error reason.
+        ParticipantName:
+          type:
+          - string
+          - 'null'
+          description: Name of the participant.
       additionalProperties: false
-      description: Secondary reference data validation request
+      description: Error body with description.
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          $ref: '#/components/schemas/ErrorBody'
+      additionalProperties: false
+      description: Error response class.
+    SRDValidationResponse:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/SRDValidationData'
+      additionalProperties: false
+      description: Response contract.

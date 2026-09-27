@@ -48,31 +48,6 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
     RequestCustomerInfo:
       required:
       - attestation
@@ -89,6 +64,27 @@ components:
           description: Confirmation accounts are owned by the same person (Must be Y)
       additionalProperties: false
       description: The customer info od FX trade
+    RequestAccountInfo:
+      required:
+      - owner
+      type: object
+      properties:
+        owner:
+          maxLength: 140
+          minLength: 1
+          pattern: ^[a-zA-Z \-]+$
+          type: string
+          description: The account owner name
+          example: FX Service Ltd
+        iban:
+          type:
+          - string
+          - 'null'
+          description: The IBAN of the account.
+          minLength: 1
+          example: GB57CLRB04040100057354
+      additionalProperties: false
+      description: The account information
     CreateFxOrderRequest:
       required:
       - customerInformation
@@ -101,34 +97,6 @@ components:
           $ref: '#/components/schemas/RequestTradeInfo'
       additionalProperties: false
       description: FX Trade Creation Model
-    RequestTradeInfo:
-      required:
-      - details
-      - endToEndId
-      type: object
-      properties:
-        valueDate:
-          type: string
-          description: The date info of FX trade in the format yyyy-MM-ddTHH:mm:ssZ
-          format: date-time
-        details:
-          $ref: '#/components/schemas/RequestTradeDetails'
-        margin:
-          $ref: '#/components/schemas/RequestMarginInfo'
-        endToEndId:
-          maxLength: 35
-          minLength: 1
-          pattern: '[A-z0-9/\-?:().," + ]'
-          type: string
-          description: Customer assigned unique ID
-        unstructuredInformation:
-          maxLength: 140
-          type:
-          - string
-          - 'null'
-          description: Free-form reference or other information
-      additionalProperties: false
-      description: The payment info of FX trade
     RequestMarginInfo:
       required:
       - account
@@ -170,24 +138,56 @@ components:
           description: BuyCurrency
       additionalProperties: false
       description: Information about FX trade
-    RequestAccountInfo:
+    RequestTradeInfo:
       required:
-      - owner
+      - details
+      - endToEndId
       type: object
       properties:
-        owner:
-          maxLength: 140
-          minLength: 1
-          pattern: ^[a-zA-Z \-]+$
+        valueDate:
           type: string
-          description: The account owner name
-          example: FX Service Ltd
-        iban:
+          description: The date info of FX trade in the format yyyy-MM-ddTHH:mm:ssZ
+          format: date-time
+        details:
+          $ref: '#/components/schemas/RequestTradeDetails'
+        margin:
+          $ref: '#/components/schemas/RequestMarginInfo'
+        endToEndId:
+          maxLength: 35
+          minLength: 1
+          pattern: '[A-z0-9/\-?:().," + ]'
+          type: string
+          description: Customer assigned unique ID
+        unstructuredInformation:
+          maxLength: 140
           type:
           - string
           - 'null'
-          description: The IBAN of the account.
-          minLength: 1
-          example: GB57CLRB04040100057354
+          description: Free-form reference or other information
       additionalProperties: false
-      description: The account information
+      description: The payment info of FX trade
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}

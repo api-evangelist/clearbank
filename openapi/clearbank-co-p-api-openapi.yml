@@ -77,83 +77,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ErrorBody:
-      type: object
-      properties:
-        Reason:
-          type:
-          - string
-          - 'null'
-          description: The error reason.
-        ParticipantName:
-          type:
-          - string
-          - 'null'
-          description: Name of the participant.
-      additionalProperties: false
-      description: Error body with description.
-    CoPOutboundRequest:
-      required:
-      - Identification
-      - LegalOwnerType
-      - OwnerName
-      - SchemeName
-      type: object
-      properties:
-        SchemeName:
-          minLength: 1
-          type: string
-          description: Indicates the sort code and account number associated with the payee’s account. The value should always be SortCodeAccountNumber.
-        LegalOwnerType:
-          minLength: 1
-          type: string
-          description: Nature of funds held in the account. Valid options are Personal or Business.
-        Identification:
-          minLength: 1
-          type: string
-          description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8 digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
-        OwnerName:
-          maxLength: 140
-          minLength: 1
-          type: string
-          description: OwnerName identifies the owner of the account. This must be in a structured or unstructured comma-delimited format. Both formats consist of three parts separated by commas. We recommend using the unstructured format for all CoP name verification requests. The unstructured format is valid for personal, business, and joint accounts. The full owner name string is populated in the third part (“ClearBank Ltd” would be “,,ClearBank Ltd”). The structured format is only valid for personal accounts. The three parts of the owner's name are comma-delimited (“Mr John Smith” would be “Mr, John, Smith”).
-        SecondaryIdentification:
-          maxLength: 140
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: Payment reference information as provided by the payer. If provided, this information may be used by the payee’s ASPSP to identify the account.
-        EndToEndIdentification:
-          maxLength: 140
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: A unique value which can be used to identify the CoP request and then used in any subsequent payment initiations to link them to this CoP request.
-      additionalProperties: false
-      description: Required information to perform a CoP check
-    Data:
-      type: object
-      properties:
-        VerificationReport:
-          $ref: '#/components/schemas/VerificationReport'
-      additionalProperties: false
-      description: Information about the exact name registered with the payee’s account.
-    ErrorResponse:
-      type: object
-      properties:
-        Error:
-          $ref: '#/components/schemas/ErrorBody'
-      additionalProperties: false
-      description: Error response class.
-    CoPOutboundResponse:
-      type: object
-      properties:
-        Data:
-          $ref: '#/components/schemas/Data'
-      additionalProperties: false
-      description: Response contract
     VerificationReport:
       required:
       - Matched
@@ -198,3 +121,80 @@ components:
           description: Open Banking Directory registration ID of the participant responding to the CoP request.
       additionalProperties: false
       description: Additional information, including the result of the name match.
+    Data:
+      type: object
+      properties:
+        VerificationReport:
+          $ref: '#/components/schemas/VerificationReport'
+      additionalProperties: false
+      description: Information about the exact name registered with the payee’s account.
+    ErrorBody:
+      type: object
+      properties:
+        Reason:
+          type:
+          - string
+          - 'null'
+          description: The error reason.
+        ParticipantName:
+          type:
+          - string
+          - 'null'
+          description: Name of the participant.
+      additionalProperties: false
+      description: Error body with description.
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          $ref: '#/components/schemas/ErrorBody'
+      additionalProperties: false
+      description: Error response class.
+    CoPOutboundResponse:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/Data'
+      additionalProperties: false
+      description: Response contract
+    CoPOutboundRequest:
+      required:
+      - Identification
+      - LegalOwnerType
+      - OwnerName
+      - SchemeName
+      type: object
+      properties:
+        SchemeName:
+          minLength: 1
+          type: string
+          description: Indicates the sort code and account number associated with the payee’s account. The value should always be SortCodeAccountNumber.
+        LegalOwnerType:
+          minLength: 1
+          type: string
+          description: Nature of funds held in the account. Valid options are Personal or Business.
+        Identification:
+          minLength: 1
+          type: string
+          description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8 digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
+        OwnerName:
+          maxLength: 140
+          minLength: 1
+          type: string
+          description: OwnerName identifies the owner of the account. This must be in a structured or unstructured comma-delimited format. Both formats consist of three parts separated by commas. We recommend using the unstructured format for all CoP name verification requests. The unstructured format is valid for personal, business, and joint accounts. The full owner name string is populated in the third part (“ClearBank Ltd” would be “,,ClearBank Ltd”). The structured format is only valid for personal accounts. The three parts of the owner's name are comma-delimited (“Mr John Smith” would be “Mr, John, Smith”).
+        SecondaryIdentification:
+          maxLength: 140
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: Payment reference information as provided by the payer. If provided, this information may be used by the payee’s ASPSP to identify the account.
+        EndToEndIdentification:
+          maxLength: 140
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: A unique value which can be used to identify the CoP request and then used in any subsequent payment initiations to link them to this CoP request.
+      additionalProperties: false
+      description: Required information to perform a CoP check

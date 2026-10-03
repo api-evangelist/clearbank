@@ -274,46 +274,31 @@ paths:
                 type: string
 components:
   schemas:
-    AccountStatusReason:
-      enum:
-      - AccountHolderBankrupt
-      - AccountHolderDeceased
-      - AccountSwitched
-      - CompanyNoLongerTrading
-      - DissatisfiedCustomer
-      - DuplicateAccount
-      - FinancialCrime
-      - FraudConfirmed
-      - FraudFirstParty
-      - FraudThirdParty
-      - InternallyDormant
-      - KYCRequired
-      - LegallyDisputed
-      - PotentialSanctionedIndividual
-      - SanctionedIndividual
-      - SuspectMoneyLaundering
-      - TransactionDispute
-      - Other
-      type: string
-      description: Reason for why the current status of the account is Closed or Suspended.
-    AccountIdentifier:
-      required:
-      - identifier
-      - kind
+    ProblemDetails:
       type: object
       properties:
-        identifier:
-          maxLength: 50
-          minLength: 1
-          type: string
-          description: 'Unique account identifier value that corresponds to the specified account identifier kind. For example: when using kind ''Iban'', this should be the account''s IBAN value.'
-        kind:
-          minLength: 1
-          type: string
-          description: The kind of account identifier provided. This should always be 'Iban'.
-          enum:
-          - Iban
-      additionalProperties: false
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CreateAccountRequest:
       required:
       - bankIdentifierCode
@@ -387,31 +372,46 @@ components:
           format: uuid
           example: 725a5f09-595a-4db1-946a-8330d423da34
       additionalProperties: false
-    ProblemDetails:
+    AccountStatusReason:
+      enum:
+      - AccountHolderBankrupt
+      - AccountHolderDeceased
+      - AccountSwitched
+      - CompanyNoLongerTrading
+      - DissatisfiedCustomer
+      - DuplicateAccount
+      - FinancialCrime
+      - FraudConfirmed
+      - FraudFirstParty
+      - FraudThirdParty
+      - InternallyDormant
+      - KYCRequired
+      - LegallyDisputed
+      - PotentialSanctionedIndividual
+      - SanctionedIndividual
+      - SuspectMoneyLaundering
+      - TransactionDispute
+      - Other
+      type: string
+      description: Reason for why the current status of the account is Closed or Suspended.
+    AccountIdentifier:
+      required:
+      - identifier
+      - kind
       type: object
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
+        identifier:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: 'Unique account identifier value that corresponds to the specified account identifier kind. For example: when using kind ''Iban'', this should be the account''s IBAN value.'
+        kind:
+          minLength: 1
+          type: string
+          description: The kind of account identifier provided. This should always be 'Iban'.
+          enum:
+          - Iban
+      additionalProperties: false
     AccountResponse:
       required:
       - currencies
@@ -497,6 +497,17 @@ components:
           - Customer
           - Operating
       additionalProperties: false
+    ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.PartyIdentification:
+      type: object
+      properties:
+        name:
+          maxLength: 140
+          minLength: 0
+          pattern: ^[^\|_\[\]<>^`~\\$]*$
+          type: string
+          description: Name for the owner of the current account.
+          example: John Smith
+      description: Set of elements used to identify a person or an organisation.
     ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Account:
       required:
       - id
@@ -745,38 +756,6 @@ components:
           type: string
           description: The CHIPS Universal Identifier associated with the account.
       description: Represents a summary of a given account.
-    ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.CreateAccountRequest:
-      required:
-      - sortCode
-      - productId
-      - customerId
-      type: object
-      properties:
-        owner:
-          $ref: '#/components/schemas/ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.PartyIdentification'
-        sortCode:
-          pattern: ^\d{6}$
-          type: string
-          description: The sort code that the current account should be created under.
-          example: '010203'
-        productId:
-          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-          type: string
-          description: The product identifier of the current account. It is used to determine the behaviour of the account.
-          format: uuid
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        customerId:
-          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
-          type: string
-          description: The unique identifier of the customer that holds the current account.
-          format: uuid
-          example: 01234567-89ab-cdef-0123-456789abcdef
-        minimumBalance:
-          type: number
-          description: 'The minimum allowable balance of the account (example: -£1000). Note that you must send a negative number to create an overdraft. This field can only be used if your organisation is an embedded banking client with an overdraft agreement in place; otherwise the request will be rejected.'
-          format: double
-          example: -500.55
-      description: Information that is used to create a FSCS-protected current account.
     ClearBank.FI.API.Accounts.Versions.V4.Models.Response.Accounts.Balance:
       required:
       - name
@@ -987,17 +966,38 @@ components:
           description: The type of balance being reported.
           example: VALU
       description: A summary of the balance of an account, in a specific currency.
-    ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.PartyIdentification:
+    ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.CreateAccountRequest:
+      required:
+      - sortCode
+      - productId
+      - customerId
       type: object
       properties:
-        name:
-          maxLength: 140
-          minLength: 0
-          pattern: ^[^\|_\[\]<>^`~\\$]*$
+        owner:
+          $ref: '#/components/schemas/ClearBank.FI.API.Accounts.Versions.V4.Models.Binding.Accounts.PartyIdentification'
+        sortCode:
+          pattern: ^\d{6}$
           type: string
-          description: Name for the owner of the current account.
-          example: John Smith
-      description: Set of elements used to identify a person or an organisation.
+          description: The sort code that the current account should be created under.
+          example: '010203'
+        productId:
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+          type: string
+          description: The product identifier of the current account. It is used to determine the behaviour of the account.
+          format: uuid
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        customerId:
+          pattern: ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+          type: string
+          description: The unique identifier of the customer that holds the current account.
+          format: uuid
+          example: 01234567-89ab-cdef-0123-456789abcdef
+        minimumBalance:
+          type: number
+          description: 'The minimum allowable balance of the account (example: -£1000). Note that you must send a negative number to create an overdraft. This field can only be used if your organisation is an embedded banking client with an overdraft agreement in place; otherwise the request will be rejected.'
+          format: double
+          example: -500.55
+      description: Information that is used to create a FSCS-protected current account.
 x-refined-from:
 - clearbank-mccy-accounts-v2.json
 - clearbank-sterling-v4.json

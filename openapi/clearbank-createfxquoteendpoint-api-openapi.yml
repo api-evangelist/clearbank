@@ -52,6 +52,83 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    CreateFxQuoteRequest:
+      required:
+      - valueDate
+      - instructedAmount
+      - fixedSide
+      - sellCurrency
+      - buyCurrency
+      type: object
+      properties:
+        valueDate:
+          type: string
+          description: Settlement date for the proposed FX trade in the format yyyy-MM-ddTHH:mm:ssZ.
+          format: date-time
+          example: '2024-08-24T14:15:22Z'
+        instructedAmount:
+          type: number
+          description: Amount instructed to buy or sell.
+          format: double
+          example: '1000.00'
+        fixedSide:
+          type:
+          - string
+          - 'null'
+          description: The side of the trade to be fixed.
+          enum:
+          - buy
+          - sell
+          example: buy
+        sellCurrency:
+          type:
+          - string
+          - 'null'
+          description: Three-letter ISO 4217 currency code for the currency to sell.
+          example: EUR
+          minLength: 3
+          maxLength: 3
+        buyCurrency:
+          type:
+          - string
+          - 'null'
+          description: Three-letter ISO 4217 currency code for the currency to buy.
+          example: USD
+          minLength: 3
+          maxLength: 3
+        margin:
+          type: number
+          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
+          format: double
+          minimum: 0
+          maximum: 0.0499
+          example: '0.01'
+      additionalProperties: false
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
     CreateFxQuoteResponse:
       required:
       - quoteId
@@ -133,81 +210,4 @@ components:
           - 'null'
           description: Three-letter ISO 4217 currency code of the margin.
           example: USD
-      additionalProperties: false
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
-    CreateFxQuoteRequest:
-      required:
-      - valueDate
-      - instructedAmount
-      - fixedSide
-      - sellCurrency
-      - buyCurrency
-      type: object
-      properties:
-        valueDate:
-          type: string
-          description: Settlement date for the proposed FX trade in the format yyyy-MM-ddTHH:mm:ssZ.
-          format: date-time
-          example: '2024-08-24T14:15:22Z'
-        instructedAmount:
-          type: number
-          description: Amount instructed to buy or sell.
-          format: double
-          example: '1000.00'
-        fixedSide:
-          type:
-          - string
-          - 'null'
-          description: The side of the trade to be fixed.
-          enum:
-          - buy
-          - sell
-          example: buy
-        sellCurrency:
-          type:
-          - string
-          - 'null'
-          description: Three-letter ISO 4217 currency code for the currency to sell.
-          example: EUR
-          minLength: 3
-          maxLength: 3
-        buyCurrency:
-          type:
-          - string
-          - 'null'
-          description: Three-letter ISO 4217 currency code for the currency to buy.
-          example: USD
-          minLength: 3
-          maxLength: 3
-        margin:
-          type: number
-          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
-          format: double
-          minimum: 0
-          maximum: 0.0499
-          example: '0.01'
       additionalProperties: false

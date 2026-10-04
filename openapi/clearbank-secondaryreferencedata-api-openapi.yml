@@ -73,6 +73,21 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorBody:
+      type: object
+      properties:
+        Reason:
+          type:
+          - string
+          - 'null'
+          description: The error reason.
+        ParticipantName:
+          type:
+          - string
+          - 'null'
+          description: Name of the participant.
+      additionalProperties: false
+      description: Error body with description.
     SRDValidationRequest:
       required:
       - Identification
@@ -89,6 +104,20 @@ components:
           description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8-digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
       additionalProperties: false
       description: Secondary reference data validation request
+    SRDValidationResponse:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/SRDValidationData'
+      additionalProperties: false
+      description: Response contract.
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          $ref: '#/components/schemas/ErrorBody'
+      additionalProperties: false
+      description: Error response class.
     SRDValidationData:
       type: object
       properties:
@@ -107,32 +136,3 @@ components:
           description: The identification given in the original request.
       additionalProperties: false
       description: SRD Validation data.
-    ErrorBody:
-      type: object
-      properties:
-        Reason:
-          type:
-          - string
-          - 'null'
-          description: The error reason.
-        ParticipantName:
-          type:
-          - string
-          - 'null'
-          description: Name of the participant.
-      additionalProperties: false
-      description: Error body with description.
-    ErrorResponse:
-      type: object
-      properties:
-        Error:
-          $ref: '#/components/schemas/ErrorBody'
-      additionalProperties: false
-      description: Error response class.
-    SRDValidationResponse:
-      type: object
-      properties:
-        Data:
-          $ref: '#/components/schemas/SRDValidationData'
-      additionalProperties: false
-      description: Response contract.

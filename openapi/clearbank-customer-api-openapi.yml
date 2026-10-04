@@ -645,134 +645,12 @@ paths:
           description: Forbidden
 components:
   schemas:
-    PreviousAddressGetResponse:
-      type: object
-      properties:
-        addressType:
-          $ref: '#/components/schemas/AddressType'
-        buildingNameNumber:
-          type:
-          - string
-          - 'null'
-          description: The building name or number at this address.
-          example: '9'
-        streetName:
-          type:
-          - string
-          - 'null'
-          description: The customer's address' street name.
-          example: Short Road
-        county:
-          type:
-          - string
-          - 'null'
-          description: County of the customer's address.
-          example: Blueshire
-        city:
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          description: City of the customer's address.
-          example: Lilac City
-        postalCode:
-          type:
-          - string
-          - 'null'
-          description: Postal code of the customer's address. If this address is in the UK, must be a valid UK postcode and conform to the regex pattern.
-          example: LB1 7CC
-          pattern: ^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$
-        country:
-          $ref: '#/components/schemas/CountryCode'
-        validFrom:
-          type:
-          - string
-          - 'null'
-          description: The date from which the customer started living at this address.
-          format: date
-          example: '2021-02-18'
-        validTo:
-          type:
-          - string
-          - 'null'
-          description: The date at which the customer stopped living at this address.
-          format: date
-          example: '2022-05-15'
-        isCurrentAddress:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if this is the customer's current address.
-          example: false
-      additionalProperties: false
-      description: The details of the customer's address history.
-    PersonalDetailsGetResponse:
-      type: object
-      properties:
-        firstName:
-          minLength: 1
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          description: Customer's first name
-          example: Kirsty
-          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
-        middleName:
-          type:
-          - string
-          - 'null'
-          description: Customer's middle name
-          example: Jane
-        surname:
-          minLength: 1
-          maxLength: 255
-          type:
-          - string
-          - 'null'
-          description: Customer's surname
-          example: Friar
-          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
-        email:
-          type:
-          - string
-          - 'null'
-          description: Customer's email address. Must be RFC compliant.
-          example: kristy.fr@mymail.com
-        telephone:
-          type:
-          - string
-          - 'null'
-          minLength: 3
-          maxLength: 20
-          description: The customer's telephone number.  Must start with '00' in place of '+', and include the country-code.
-          example: '00441234555777'
-          pattern: ^(00)[0-9]{1,18}$
-        countryOfResidence:
-          $ref: '#/components/schemas/CountryCode'
-        dateOfBirth:
-          type:
-          - string
-          - 'null'
-          description: Customer's Date of Birth
-          format: date
-          example: '1985-12-22'
-        nationalIdentificationNumber:
-          type:
-          - string
-          - 'null'
-          description: Updated national identification number (if changed).
-          example: PC112233D
-      additionalProperties: false
-      description: Customer's personal details
-    CraRating:
+    CustomerType:
       enum:
-      - LowRisk
-      - MediumRisk
-      - HighRisk
-      - VeryHighRisk
+      - Retail
       type: string
-      description: The customer's CRA rating. Determined by the outcomes of your due diligence checks.
+      example: Retail
+      description: The type of customer. This will always be 'Retail'.
     CurrentAddressRequest:
       required:
       - addressType
@@ -836,33 +714,121 @@ components:
           example: '2022-05-22'
       additionalProperties: false
       description: The customer's current address.
-    AddressHistoryGetResponse:
+    CustomerStatus:
+      enum:
+      - Active
+      type: string
+      example: Active
+      description: Represents the status of a customer in the system. This will always be 'Active'.
+    RelatedPartyType:
+      enum:
+      - Director
+      - UBO
+      - ControllingPerson
+      type: string
+      example: UBO
+      description: Related party types.
+    SpecialStatusValue:
+      enum:
+      - Vulnerability_Health_VisualImpairmentBraille
+      - Vulnerability_Health_VisualImpairmentLargeText
+      - Vulnerability_Health_AudioImpairment
+      - Vulnerability_Health_Other
+      - Vulnerability_LifeEvents
+      - Vulnerability_Resilience
+      - Vulnerability_Capability
+      type: string
+      example: Vulnerability_LifeEvents
+      description: Supported special statuses.
+    PersonalDetailsGetResponse:
       type: object
       properties:
-        currentAddress:
-          $ref: '#/components/schemas/AddressGetResponse'
-        previousAddresses:
+        firstName:
+          minLength: 1
+          maxLength: 255
           type:
-          - array
+          - string
           - 'null'
-          items:
-            $ref: '#/components/schemas/PreviousAddressGetResponse'
-          description: Array of the customer's previous addresses.
+          description: Customer's first name
+          example: Kirsty
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        middleName:
+          type:
+          - string
+          - 'null'
+          description: Customer's middle name
+          example: Jane
+        surname:
+          minLength: 1
+          maxLength: 255
+          type:
+          - string
+          - 'null'
+          description: Customer's surname
+          example: Friar
+          pattern: '[^0-9!$%^_=+><?|;~@£&()/\\[\]{}:",#`¬]{1,255}'
+        email:
+          type:
+          - string
+          - 'null'
+          description: Customer's email address. Must be RFC compliant.
+          example: kristy.fr@mymail.com
+        telephone:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 20
+          description: The customer's telephone number.  Must start with '00' in place of '+', and include the country-code.
+          example: '00441234555777'
+          pattern: ^(00)[0-9]{1,18}$
+        countryOfResidence:
+          $ref: '#/components/schemas/CountryCode'
+        dateOfBirth:
+          type:
+          - string
+          - 'null'
+          description: Customer's Date of Birth
+          format: date
+          example: '1985-12-22'
+        nationalIdentificationNumber:
+          type:
+          - string
+          - 'null'
+          description: Updated national identification number (if changed).
+          example: PC112233D
       additionalProperties: false
-      description: Addresses associated with the customer.
-    ReasonForNoTaxId:
-      enum:
-      - CountryDoesNotIssue
-      - UnableToObtain
-      - NotRequired
-      type: string
-      description: Supported reasons for not having a tax ID (required if no tax ID number provided).
-    CustomerType:
-      enum:
-      - Retail
-      type: string
-      example: Retail
-      description: The type of customer. This will always be 'Retail'.
+      description: Customer's personal details
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provides human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]). When this member is not present, its value is assumed to be "about:blank".
+        title:
+          type:
+          - string
+          - 'null'
+          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see[RFC7231], Section 3.4).
+        status:
+          type:
+          - integer
+          - 'null'
+          description: The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type:
+          - string
+          - 'null'
+          description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
+      description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
     CountryCode:
       enum:
       - AFG
@@ -1117,60 +1083,42 @@ components:
       type: string
       example: GBR
       description: 3-letter country codes as defined in ISO 3166-1
-    RelatedPartyGetResponse:
-      description: Response model for Related Party.
+    RcaType:
+      enum:
+      - 'No'
+      - Yes_Domestic
+      - Yes_International
+      type: string
+      description: Indicates if the customer is a Relative or Close Associate.
+    UpdateTaxResidencyRequest:
       type: object
       properties:
-        id:
-          type: string
-          description: The related party's unique ID.
-          format: uuid
-        type:
-          $ref: '#/components/schemas/RelatedPartyType'
-        ownershipPercentage:
-          type:
-          - integer
-          - 'null'
-          description: The related party's ownership percentage, expressed as an integer.
-          format: int32
-          example: 100
-    KycAmlGetResponse:
-      type: object
-      properties:
-        sanctions:
-          type:
-          - boolean
-          - 'null'
-          description: Indicates if the customer is under sanctions.
-        pep:
-          $ref: '#/components/schemas/PepType'
-        rca:
-          $ref: '#/components/schemas/RcaType'
-        craRating:
-          $ref: '#/components/schemas/CraRating'
-      additionalProperties: false
-      description: KYC/AML information of the customer.
-    IdentityDocumentsGetResponse:
-      type: object
-      properties:
-        idNumber:
+        taxIdNumber:
+          minLength: 1
           type:
           - string
           - 'null'
-          description: The ID number of the identity document.
+          description: Tax identification number. If not provided, you must specify a noTaxIdReason.
           example: PC335577B
-        expiryDate:
-          type:
-          - string
-          - 'null'
-          description: The expiry date of the identity document.
-          format: date
-        countryOfIssue:
-          $ref: '#/components/schemas/CountryCode'
-        type:
-          $ref: '#/components/schemas/IdType'
+        noTaxIdReason:
+          $ref: '#/components/schemas/ReasonForNoTaxId'
       additionalProperties: false
-      description: Customer's Identity documents
+      description: The customer's tax residency update request.
+    IdType:
+      enum:
+      - Passport
+      - DrivingLicence
+      - NationalId
+      type: string
+      description: The type of ID document.
+    CraRating:
+      enum:
+      - LowRisk
+      - MediumRisk
+      - HighRisk
+      - VeryHighRisk
+      type: string
+      description: The customer's CRA rating. Determined by the outcomes of your due diligence checks.
     RetailCustomerGetResponse:
       type: object
       properties:
@@ -1212,53 +1160,12 @@ components:
           $ref: '#/components/schemas/AddressHistoryGetResponse'
       additionalProperties: false
       description: The Retail Customer type response body.
-    TaxResidencyGetResponse:
-      type: object
-      properties:
-        countryOfTaxResidence:
-          $ref: '#/components/schemas/CountryCode'
-        taxIdNumber:
-          type:
-          - string
-          - 'null'
-          description: The customer's tax id number
-          example: DR123467L
-        noTaxIdReason:
-          $ref: '#/components/schemas/ReasonForNoTaxId'
-      additionalProperties: false
-      description: Customer TaxResidency.
-    UpdateIdentityDocumentRequest:
-      required:
-      - idExpiryDate
-      - idNumber
-      type: object
-      properties:
-        idNumber:
-          minLength: 1
-          type: string
-          description: Identity document number.
-          example: '684622049233'
-        idExpiryDate:
-          type: string
-          description: Expiry date of the identity document.
-          format: date
-          example: '2029-02-13'
-      additionalProperties: false
-      description: The customer's identity document.
-    UpdateTaxResidencyRequest:
-      type: object
-      properties:
-        taxIdNumber:
-          minLength: 1
-          type:
-          - string
-          - 'null'
-          description: Tax identification number. If not provided, you must specify a noTaxIdReason.
-          example: PC335577B
-        noTaxIdReason:
-          $ref: '#/components/schemas/ReasonForNoTaxId'
-      additionalProperties: false
-      description: The customer's tax residency update request.
+    AddressType:
+      enum:
+      - ResidentialAddress
+      type: string
+      example: ResidentialAddress
+      description: Represents the type of the address
     AddressGetResponse:
       type: object
       properties:
@@ -1318,6 +1225,181 @@ components:
           description: Indicates if this is the customer's current address.
       additionalProperties: false
       description: The details of the customer's address history.
+    AddressHistoryGetResponse:
+      type: object
+      properties:
+        currentAddress:
+          $ref: '#/components/schemas/AddressGetResponse'
+        previousAddresses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PreviousAddressGetResponse'
+          description: Array of the customer's previous addresses.
+      additionalProperties: false
+      description: Addresses associated with the customer.
+    CustomerSubresourceCreatedResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: The ID of the customer under which the subresource was created.
+          format: uuid
+      additionalProperties: false
+      description: Represents the response returned when a subresource is created for a customer.
+    IdentityDocumentsGetResponse:
+      type: object
+      properties:
+        idNumber:
+          type:
+          - string
+          - 'null'
+          description: The ID number of the identity document.
+          example: PC335577B
+        expiryDate:
+          type:
+          - string
+          - 'null'
+          description: The expiry date of the identity document.
+          format: date
+        countryOfIssue:
+          $ref: '#/components/schemas/CountryCode'
+        type:
+          $ref: '#/components/schemas/IdType'
+      additionalProperties: false
+      description: Customer's Identity documents
+    ReasonForNoTaxId:
+      enum:
+      - CountryDoesNotIssue
+      - UnableToObtain
+      - NotRequired
+      type: string
+      description: Supported reasons for not having a tax ID (required if no tax ID number provided).
+    PreviousAddressGetResponse:
+      type: object
+      properties:
+        addressType:
+          $ref: '#/components/schemas/AddressType'
+        buildingNameNumber:
+          type:
+          - string
+          - 'null'
+          description: The building name or number at this address.
+          example: '9'
+        streetName:
+          type:
+          - string
+          - 'null'
+          description: The customer's address' street name.
+          example: Short Road
+        county:
+          type:
+          - string
+          - 'null'
+          description: County of the customer's address.
+          example: Blueshire
+        city:
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          description: City of the customer's address.
+          example: Lilac City
+        postalCode:
+          type:
+          - string
+          - 'null'
+          description: Postal code of the customer's address. If this address is in the UK, must be a valid UK postcode and conform to the regex pattern.
+          example: LB1 7CC
+          pattern: ^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$
+        country:
+          $ref: '#/components/schemas/CountryCode'
+        validFrom:
+          type:
+          - string
+          - 'null'
+          description: The date from which the customer started living at this address.
+          format: date
+          example: '2021-02-18'
+        validTo:
+          type:
+          - string
+          - 'null'
+          description: The date at which the customer stopped living at this address.
+          format: date
+          example: '2022-05-15'
+        isCurrentAddress:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if this is the customer's current address.
+          example: false
+      additionalProperties: false
+      description: The details of the customer's address history.
+    CreatedRelatedPartyResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Unique identifier of the original customer.
+          format: uuid
+        relatedCustomerId:
+          type: string
+          description: Unique identifier of the newly linked customer.
+          format: uuid
+      additionalProperties: false
+      description: Response containing information about the created related party.
+    TaxResidencyGetResponse:
+      type: object
+      properties:
+        countryOfTaxResidence:
+          $ref: '#/components/schemas/CountryCode'
+        taxIdNumber:
+          type:
+          - string
+          - 'null'
+          description: The customer's tax id number
+          example: DR123467L
+        noTaxIdReason:
+          $ref: '#/components/schemas/ReasonForNoTaxId'
+      additionalProperties: false
+      description: Customer TaxResidency.
+    RelatedPartyGetResponse:
+      description: Response model for Related Party.
+      type: object
+      properties:
+        id:
+          type: string
+          description: The related party's unique ID.
+          format: uuid
+        type:
+          $ref: '#/components/schemas/RelatedPartyType'
+        ownershipPercentage:
+          type:
+          - integer
+          - 'null'
+          description: The related party's ownership percentage, expressed as an integer.
+          format: int32
+          example: 100
+    UpdateIdentityDocumentRequest:
+      required:
+      - idExpiryDate
+      - idNumber
+      type: object
+      properties:
+        idNumber:
+          minLength: 1
+          type: string
+          description: Identity document number.
+          example: '684622049233'
+        idExpiryDate:
+          type: string
+          description: Expiry date of the identity document.
+          format: date
+          example: '2029-02-13'
+      additionalProperties: false
+      description: The customer's identity document.
     CreateRelatedPartyRequest:
       required:
       - relatedCustomerId
@@ -1339,25 +1421,29 @@ components:
           example: 100
       additionalProperties: false
       description: A request to link one customer to another as a related party.
-    CreatedRelatedPartyResponse:
+    USPerson:
+      enum:
+      - NotAUSPerson
+      - SpecifiedUSPerson
+      - USPersonOtherThanASpecifiedUSPerson
+      type: string
+      description: Specifies the classification of a person as a U.S. person for regulatory or reporting purposes.
+    KycAmlGetResponse:
       type: object
       properties:
-        customerId:
-          type: string
-          description: Unique identifier of the original customer.
-          format: uuid
-        relatedCustomerId:
-          type: string
-          description: Unique identifier of the newly linked customer.
-          format: uuid
+        sanctions:
+          type:
+          - boolean
+          - 'null'
+          description: Indicates if the customer is under sanctions.
+        pep:
+          $ref: '#/components/schemas/PepType'
+        rca:
+          $ref: '#/components/schemas/RcaType'
+        craRating:
+          $ref: '#/components/schemas/CraRating'
       additionalProperties: false
-      description: Response containing information about the created related party.
-    AddressType:
-      enum:
-      - ResidentialAddress
-      type: string
-      example: ResidentialAddress
-      description: Represents the type of the address
+      description: KYC/AML information of the customer.
     TaxDetailsGetResponse:
       type: object
       properties:
@@ -1384,59 +1470,6 @@ components:
       - Yes_International
       type: string
       description: Indicates if the customer is a Politically Exposed Person.
-    CustomerSubresourceCreatedResponse:
-      type: object
-      properties:
-        customerId:
-          type: string
-          description: The ID of the customer under which the subresource was created.
-          format: uuid
-      additionalProperties: false
-      description: Represents the response returned when a subresource is created for a customer.
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: A URI reference [RFC3986] that identifies the problem type. This specification encourages that, when dereferenced, it provides human-readable documentation for the problem type (e.g., using HTML [W3C.REC-html5-20141028]). When this member is not present, its value is assumed to be "about:blank".
-        title:
-          type:
-          - string
-          - 'null'
-          description: A short, human-readable summary of the problem type. It SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization (e.g., using proactive content negotiation; see[RFC7231], Section 3.4).
-        status:
-          type:
-          - integer
-          - 'null'
-          description: The HTTP status code([RFC7231], Section 6) generated by the origin server for this occurrence of the problem.
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-          description: A human-readable explanation specific to this occurrence of the problem.
-        instance:
-          type:
-          - string
-          - 'null'
-          description: A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.
-      description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
-    RelatedPartyType:
-      enum:
-      - Director
-      - UBO
-      - ControllingPerson
-      type: string
-      example: UBO
-      description: Related party types.
-    CustomerStatus:
-      enum:
-      - Active
-      type: string
-      example: Active
-      description: Represents the status of a customer in the system. This will always be 'Active'.
     ValidationProblemDetails:
       type: object
       properties:
@@ -1477,36 +1510,3 @@ components:
           description: The validation errors.
       additionalProperties: {}
       description: A machine-readable format for specifying errors in HTTP API responses based on https://tools.ietf.org/html/rfc7807
-    USPerson:
-      enum:
-      - NotAUSPerson
-      - SpecifiedUSPerson
-      - USPersonOtherThanASpecifiedUSPerson
-      type: string
-      description: Specifies the classification of a person as a U.S. person for regulatory or reporting purposes.
-    SpecialStatusValue:
-      enum:
-      - Vulnerability_Health_VisualImpairmentBraille
-      - Vulnerability_Health_VisualImpairmentLargeText
-      - Vulnerability_Health_AudioImpairment
-      - Vulnerability_Health_Other
-      - Vulnerability_LifeEvents
-      - Vulnerability_Resilience
-      - Vulnerability_Capability
-      type: string
-      example: Vulnerability_LifeEvents
-      description: Supported special statuses.
-    IdType:
-      enum:
-      - Passport
-      - DrivingLicence
-      - NationalId
-      type: string
-      description: The type of ID document.
-    RcaType:
-      enum:
-      - 'No'
-      - Yes_Domestic
-      - Yes_International
-      type: string
-      description: Indicates if the customer is a Relative or Close Associate.

@@ -92,13 +92,13 @@ components:
           description: Name of the participant.
       additionalProperties: false
       description: Error body with description.
-    ErrorResponse:
+    Data:
       type: object
       properties:
-        Error:
-          $ref: '#/components/schemas/ErrorBody'
+        VerificationReport:
+          $ref: '#/components/schemas/VerificationReport'
       additionalProperties: false
-      description: Error response class.
+      description: Information about the exact name registered with the payee’s account.
     VerificationReport:
       required:
       - Matched
@@ -143,6 +143,20 @@ components:
           description: Open Banking Directory registration ID of the participant responding to the CoP request.
       additionalProperties: false
       description: Additional information, including the result of the name match.
+    CoPOutboundResponse:
+      type: object
+      properties:
+        Data:
+          $ref: '#/components/schemas/Data'
+      additionalProperties: false
+      description: Response contract
+    ErrorResponse:
+      type: object
+      properties:
+        Error:
+          $ref: '#/components/schemas/ErrorBody'
+      additionalProperties: false
+      description: Error response class.
     CoPOutboundRequest:
       required:
       - Identification
@@ -184,17 +198,3 @@ components:
           description: A unique value which can be used to identify the CoP request and then used in any subsequent payment initiations to link them to this CoP request.
       additionalProperties: false
       description: Required information to perform a CoP check
-    CoPOutboundResponse:
-      type: object
-      properties:
-        Data:
-          $ref: '#/components/schemas/Data'
-      additionalProperties: false
-      description: Response contract
-    Data:
-      type: object
-      properties:
-        VerificationReport:
-          $ref: '#/components/schemas/VerificationReport'
-      additionalProperties: false
-      description: Information about the exact name registered with the payee’s account.

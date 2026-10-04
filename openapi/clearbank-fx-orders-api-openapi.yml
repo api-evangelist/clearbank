@@ -48,57 +48,6 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
-    RequestTradeDetails:
-      required:
-      - buyCurrency
-      - fixedSide
-      - sellCurrency
-      type: object
-      properties:
-        instructedAmount:
-          type: number
-          description: Amount
-          format: double
-          example: '1000.00'
-        fixedSide:
-          minLength: 1
-          type: string
-          description: Fixed side buy or sell
-        sellCurrency:
-          minLength: 1
-          type: string
-          description: SellCurrency
-        buyCurrency:
-          minLength: 1
-          type: string
-          description: BuyCurrency
-      additionalProperties: false
-      description: Information about FX trade
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-      additionalProperties: {}
     RequestCustomerInfo:
       required:
       - attestation
@@ -127,6 +76,21 @@ components:
           $ref: '#/components/schemas/RequestTradeInfo'
       additionalProperties: false
       description: FX Trade Creation Model
+    RequestMarginInfo:
+      required:
+      - account
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
+          format: double
+          example: '0.01'
+          exclusiveMaximum: 0.0499
+        account:
+          $ref: '#/components/schemas/RequestAccountInfo'
+      additionalProperties: false
     RequestTradeInfo:
       required:
       - details
@@ -155,21 +119,6 @@ components:
           description: Free-form reference or other information
       additionalProperties: false
       description: The payment info of FX trade
-    RequestMarginInfo:
-      required:
-      - account
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
-          format: double
-          example: '0.01'
-          exclusiveMaximum: 0.0499
-        account:
-          $ref: '#/components/schemas/RequestAccountInfo'
-      additionalProperties: false
     RequestAccountInfo:
       required:
       - owner
@@ -191,3 +140,54 @@ components:
           example: GB57CLRB04040100057354
       additionalProperties: false
       description: The account information
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    RequestTradeDetails:
+      required:
+      - buyCurrency
+      - fixedSide
+      - sellCurrency
+      type: object
+      properties:
+        instructedAmount:
+          type: number
+          description: Amount
+          format: double
+          example: '1000.00'
+        fixedSide:
+          minLength: 1
+          type: string
+          description: Fixed side buy or sell
+        sellCurrency:
+          minLength: 1
+          type: string
+          description: SellCurrency
+        buyCurrency:
+          minLength: 1
+          type: string
+          description: BuyCurrency
+      additionalProperties: false
+      description: Information about FX trade

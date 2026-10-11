@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/clearbank/integrations
+- https://n8n.io/integrations/clearbank/
+- https://composio.dev/toolkits/clearbank
+- https://monid.ai/tools/clearbank
+checked:
+- https://composio.dev/toolkits/clearbank
+- https://monid.ai/tools/clearbank
+- https://n8n.io/integrations/clearbank/
+- https://zapier.com/apps/clearbank/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

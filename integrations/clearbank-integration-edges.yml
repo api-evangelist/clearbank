@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/clearbank/integrations
 - https://n8n.io/integrations/clearbank/
@@ -9,8 +9,34 @@ checked:
 - https://composio.dev/toolkits/clearbank
 - https://monid.ai/tools/clearbank
 - https://n8n.io/integrations/clearbank/
+- https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
 - https://zapier.com/apps/clearbank/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: MiCA (EU)
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
+  contract_reference:
+    register: 'ESMA interim MiCA register: crypto-asset service providers (CASPS.csv)'
+    spec_file: null
+    role: authorised-casp
+    registered_name: ClearBank Europe N.V.
+    register_id: 724500EAW1MTCM9M1X68
+    competent_authority: Netherlands Authority for the Financial Markets (AFM)
+    home_member_state: NL
+    authorised: 03/04/2026
+    services:
+    - e. execution of orders for crypto-assets on behalf of clients
+    - g. reception and transmission of orders for crypto-assets on behalf of clients
+    - j. providing transfer services for crypto-assets on behalf of clients
+    matched_domain: clear.bank
+    detected_by: sweep-crypto.py
+    detected: '2026-10-13'
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
 templates: []

@@ -15,21 +15,6 @@ checked:
 summary: null
 marketplace_apps: []
 edges:
-- partner_name: Microsoft Azure Marketplace
-  partner: microsoft-azure
-  partner_match: aggregator
-  type: marketplace
-  marketplace: azure-marketplace
-  channel: distribution
-  relationship: platform-app
-  direction: provider-built
-  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=ClearBank
-  listing_count: 1
-  apps:
-  - ClearBank Agency & Embedded Banking Solution
-  seller_name: ClearBank
-  detected_by: sweep-cloud-marketplaces.py
-  detected: '2026-10-13'
 - partner_name: MiCA (EU)
   partner: null
   type: contract
@@ -55,4 +40,19 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-crypto.py
   first_seen: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=ClearBank
+  listing_count: 1
+  apps:
+  - ClearBank Agency & Embedded Banking Solution
+  seller_name: ClearBank
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
 templates: []

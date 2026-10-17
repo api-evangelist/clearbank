@@ -73,21 +73,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ErrorBody:
+    SRDValidationResponse:
       type: object
       properties:
-        Reason:
-          type:
-          - string
-          - 'null'
-          description: The error reason.
-        ParticipantName:
-          type:
-          - string
-          - 'null'
-          description: Name of the participant.
+        Data:
+          $ref: '#/components/schemas/SRDValidationData'
       additionalProperties: false
-      description: Error body with description.
+      description: Response contract.
     SRDValidationRequest:
       required:
       - Identification
@@ -104,13 +96,21 @@ components:
           description: Payee's sort code and account number, used by an Account Servicing Payment Service Provider (ASPSP) to identify the account. In case the account number contains less than 8-digits, it can be padded with preceding zeros to make the length up to 8. The format should always be SortCodeAccountNumber   (e.g., “04040412345678”).
       additionalProperties: false
       description: Secondary reference data validation request
-    SRDValidationResponse:
+    ErrorBody:
       type: object
       properties:
-        Data:
-          $ref: '#/components/schemas/SRDValidationData'
+        Reason:
+          type:
+          - string
+          - 'null'
+          description: The error reason.
+        ParticipantName:
+          type:
+          - string
+          - 'null'
+          description: Name of the participant.
       additionalProperties: false
-      description: Response contract.
+      description: Error body with description.
     ErrorResponse:
       type: object
       properties:

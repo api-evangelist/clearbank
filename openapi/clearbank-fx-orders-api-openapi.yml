@@ -48,49 +48,6 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
-    RequestCustomerInfo:
-      required:
-      - attestation
-      - buyAccount
-      - sellAccount
-      type: object
-      properties:
-        sellAccount:
-          $ref: '#/components/schemas/RequestAccountInfo'
-        buyAccount:
-          $ref: '#/components/schemas/RequestAccountInfo'
-        attestation:
-          type: string
-          description: Confirmation accounts are owned by the same person (Must be Y)
-      additionalProperties: false
-      description: The customer info od FX trade
-    CreateFxOrderRequest:
-      required:
-      - customerInformation
-      - tradeInformation
-      type: object
-      properties:
-        customerInformation:
-          $ref: '#/components/schemas/RequestCustomerInfo'
-        tradeInformation:
-          $ref: '#/components/schemas/RequestTradeInfo'
-      additionalProperties: false
-      description: FX Trade Creation Model
-    RequestMarginInfo:
-      required:
-      - account
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
-          format: double
-          example: '0.01'
-          exclusiveMaximum: 0.0499
-        account:
-          $ref: '#/components/schemas/RequestAccountInfo'
-      additionalProperties: false
     RequestTradeInfo:
       required:
       - details
@@ -140,6 +97,49 @@ components:
           example: GB57CLRB04040100057354
       additionalProperties: false
       description: The account information
+    RequestCustomerInfo:
+      required:
+      - attestation
+      - buyAccount
+      - sellAccount
+      type: object
+      properties:
+        sellAccount:
+          $ref: '#/components/schemas/RequestAccountInfo'
+        buyAccount:
+          $ref: '#/components/schemas/RequestAccountInfo'
+        attestation:
+          type: string
+          description: Confirmation accounts are owned by the same person (Must be Y)
+      additionalProperties: false
+      description: The customer info od FX trade
+    CreateFxOrderRequest:
+      required:
+      - customerInformation
+      - tradeInformation
+      type: object
+      properties:
+        customerInformation:
+          $ref: '#/components/schemas/RequestCustomerInfo'
+        tradeInformation:
+          $ref: '#/components/schemas/RequestTradeInfo'
+      additionalProperties: false
+      description: FX Trade Creation Model
+    RequestMarginInfo:
+      required:
+      - account
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          description: The optional margin (as a percentage) from the trade to be credited to a margin account. Must be below 0.05 (for example, 0.002 = 0.2% margin).
+          format: double
+          example: '0.01'
+          exclusiveMaximum: 0.0499
+        account:
+          $ref: '#/components/schemas/RequestAccountInfo'
+      additionalProperties: false
     ProblemDetails:
       type: object
       properties:

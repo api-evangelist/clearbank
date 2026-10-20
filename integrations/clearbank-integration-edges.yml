@@ -44,7 +44,7 @@ edges:
     registered_name: ClearBank Europe N.V.
     register_id: 724500EAW1MTCM9M1X68
     competent_authority: Netherlands Authority for the Financial Markets (AFM)
-    home_member_state: NL
+    home_member_state: 'NL '
     authorised: 03/04/2026
     services:
     - e. execution of orders for crypto-assets on behalf of clients

@@ -1,4 +1,4 @@
-# ClearBank (clearbank)
+# ClearBank
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,143 +64,167 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ClearBank is a UK clearing and Banking-as-a-Service bank, founded in 2015 by Nick Ogden (founder of WorldPay) and Charles McManus and granted a banking licence in December 2016 as the first new UK clearing bank in more than 250 years. Authorised by the Prudential Regulation Authority and regulated by the FCA and PRA (FRN 754568), it is a direct participant in the UK payment schemes (Faster Payments, CHAPS, Bacs) and delivers Agency Banking, Embedded Banking, and Transaction Banking to banks, fintechs, and corporates through a single, cloud-native (Microsoft Azure) proprietary JSON REST API. Unlike the CMA9 retail banks, ClearBank is not a mandated Open Banking ASPSP and does not publish OBIE Open Data or OBIE Read/Write APIs.
+ClearBank is a UK clearing and Banking-as-a-Service bank, founded in 2015 by Nick Ogden (founder of WorldPay) and Charles McManus and granted a banking licence in December 2016 as the first new UK clearing bank in more than 250 years. ClearBank Limited is authorised by the Prudential Regulation Authority and regulated by the Financial Conduct Authority and the Prudential Regulation Authority (FRN 754568), with a European subsidiary, ClearBank Europe N.V., authorised by the European Central Bank. It is privately owned, backed by Apax Partners and PPF Group. Built cloud-native on Microsoft Azure, ClearBank is a direct participant in the UK payment schemes (Faster Payments, CHAPS, Bacs) and offers Agency Banking, Embedded Banking, and Transaction Banking to banks, fintechs, and corporates through a single proprietary JSON REST API. Unlike the CMA9 retail banks, ClearBank is not a mandated Open Banking ASPSP and does not publish the OBIE Open Data (ATMs/Branches/Products) or OBIE Read/Write (AISP/PISP/CBPII) APIs; its public developer surface is the token-authenticated, RSA-signed ClearBank Financial Institutions API covering GBP accounts and payments, multi-currency accounts, FX, SEPA, cross-border payments, Confirmation of Payee, customer due diligence (KYC), and embedded/retail banking, with a full simulation environment for onboarding.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/clearbank/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/clearbank/refs/heads/main/apis.yml)
+**Areas:** Financial Services · Banking · Banking as a Service · Embedded Banking · Payments · Clearing · Faster Payments · CHAPS · Multi-Currency · Foreign Exchange · Open Banking · United Kingdom
 
-## Tags
+## ClearBank on APIs.io
 
-- Financial Services
-- Banking
-- Banking as a Service
-- Embedded Banking
-- Payments
-- Clearing
-- Faster Payments
-- CHAPS
-- Multi-Currency
-- Foreign Exchange
-- Open Banking
-- United Kingdom
-- Fintech
+Everything profiled for ClearBank is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/clearbank/](https://apis.io/providers/clearbank/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (15)
 
-- **Created:** 2026-07-23
-- **Modified:** 2026-07-23
+- [ClearBank Accounts API](https://apis.io/apis/clearbank/clearbank-accounts-api/) — The Accounts API from ClearBank — 2 operation(s) for accounts.
+- [ClearBank Create Fx Quote Endpoint API](https://apis.io/apis/clearbank/clearbank-createfxquoteendpoint-api/) — The CreateFxQuoteEndpoint API from ClearBank — 1 operation(s) for createfxquoteendpoint.
+- [ClearBank Customer API](https://apis.io/apis/clearbank/clearbank-customer-api/) — The Customer API from ClearBank — 6 operation(s) for customer.
+- [ClearBank Customer Due Diligence API](https://apis.io/apis/clearbank/clearbank-customer-due-diligence-api/) — The Customer Due Diligence API from ClearBank — 1 operation(s) for customer due diligence.
+- [ClearBank External Cross Border Customer Payments V4 API](https://apis.io/apis/clearbank/clearbank-externalcrossbordercustomerpaymentsv4-api/) — The ExternalCrossBorderCustomerPaymentsV4 API from ClearBank — 1 operation(s) for externalcrossbordercustomerpaymentsv4.
+- [ClearBank External Customer Payments V6 API](https://apis.io/apis/clearbank/clearbank-externalcustomerpaymentsv6-api/) — The ExternalCustomerPaymentsV6 API from ClearBank — 1 operation(s) for externalcustomerpaymentsv6.
+- [ClearBank External Institution Payments V6 API](https://apis.io/apis/clearbank/clearbank-externalinstitutionpaymentsv6-api/) — The ExternalInstitutionPaymentsV6 API from ClearBank — 1 operation(s) for externalinstitutionpaymentsv6.
+- [ClearBank External Return Payments V6 API](https://apis.io/apis/clearbank/clearbank-externalreturnpaymentsv6-api/) — The ExternalReturnPaymentsV6 API from ClearBank — 1 operation(s) for externalreturnpaymentsv6.
+- [ClearBank Fps Payments API](https://apis.io/apis/clearbank/clearbank-fpspayments-api/) — The FpsPayments API from ClearBank — 2 operation(s) for fpspayments.
+- [ClearBank Fx Orders API](https://apis.io/apis/clearbank/clearbank-fx-orders-api/) — The Fx Orders API from ClearBank — 1 operation(s) for fx orders.
+- [ClearBank Payments API](https://apis.io/apis/clearbank/clearbank-payments-api/) — The Payments API from ClearBank — 3 operation(s) for payments.
+- [ClearBank Retail API](https://apis.io/apis/clearbank/clearbank-retail-api/) — The Retail API from ClearBank — 2 operation(s) for retail.
+- [ClearBank SCT Payments API](https://apis.io/apis/clearbank/clearbank-sct-payments-api/) — The SCT Payments API from ClearBank — 4 operation(s) for sct payments.
+- [ClearBank Secondary Reference Data API](https://apis.io/apis/clearbank/clearbank-secondaryreferencedata-api/) — The SecondaryReferenceData API from ClearBank — 1 operation(s) for secondaryreferencedata.
+- [ClearBank Co P API](https://apis.io/apis/clearbank/clearbank-co-p-api/) — The Co P API from ClearBank — 1 operation(s) for co p.
 
-## API Access
+### Published properties
 
-The ClearBank Financial Institutions API is available to FCA-regulated businesses, banks, corporates, and fintechs that have been onboarded with ClearBank.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Production base URL:** `https://institution-api.clearbank.co.uk`
-- **Simulation base URL:** `https://institution-api-sim.clearbank.co.uk`
-- **Authentication:** API token in the `Authorization` header, plus an RSA (SHA-256, PKCS#1 v1.5) `DigitalSignature` header over the request body and a unique `X-Request-Id` header per request.
+#### AsyncAPI (1)
 
-## APIs
+Event-driven and webhook contracts.
 
-### ClearBank GBP Accounts API
+- [Clearbank Webhooks](https://apis.io/asyncapis/clearbank/clearbank-webhooks/)
 
-Open and manage sterling accounts, retrieve account details, balances, transactions, Bacs data, and reporting.
+#### MCP servers (1)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-sterling-v4.json)
+Model Context Protocol servers that expose the API to agents.
 
-### ClearBank Faster Payments API
+- [clearbank](https://apis.io/servers/clearbank/clearbank/)
 
-Initiate and manage UK Faster Payments (FPS) and internal transfers.
+#### Agentic access (1)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-fps-initiate-payment-v3.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### ClearBank CHAPS API
+- [Clearbank Agentic Access](https://apis.io/agentic-access/clearbank/clearbank-agentic-access/)
 
-Initiate and manage high-value CHAPS RTGS payments, returns, and bank-to-bank settlement.
+#### Collections (11)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-chaps-v6.json)
+Postman and Open Collection request collections.
 
-### ClearBank Multi-Currency Accounts API
+- [ClearBank CHAPS RTGS FI API V6](https://apis.io/collections/clearbank/open-clearbank-chaps-v6/)
+- [ClearBank.CoP.Outbound.Api 1.0](https://apis.io/collections/clearbank/open-clearbank-cop-outbound-v1/)
+- [ClearBank Cross-Border Sterling FI API V4](https://apis.io/collections/clearbank/open-clearbank-cross-border-v4/)
+- [ClearBank Retail Customer V2 APIs](https://apis.io/collections/clearbank/open-clearbank-customers_v2_retail/)
+- [FI Initiation API 3.0](https://apis.io/collections/clearbank/open-clearbank-fps-initiate-payment-v3/)
+- [FX Orchestrator API](https://apis.io/collections/clearbank/open-clearbank-fx-orchestrator-rfq/)
+- [Customer Due Diligence API](https://apis.io/collections/clearbank/open-clearbank-know-your-customer-v1/)
+- [Accounts API](https://apis.io/collections/clearbank/open-clearbank-mccy-accounts-v2/)
+- [Mccy Payment Orchestrator External Api V1](https://apis.io/collections/clearbank/open-clearbank-mccy-payments-v1/)
+- [ClearBank.Sepa.Ct.Orchestrator.Api](https://apis.io/collections/clearbank/open-clearbank-sepa-ct-v1/)
+- [ClearBank Financial Institutions API](https://apis.io/collections/clearbank/open-clearbank-sterling-v4/)
 
-Create and manage multi-currency (MCCY) accounts and retrieve balances, transactions, and statements.
+#### Overlays (11)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-mccy-accounts-v2.json)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### ClearBank Multi-Currency Payments API
+- [Clearbank Chaps V6 Overlay](https://apis.io/overlays/clearbank/clearbank-chaps-v6-overlay/)
+- [Clearbank Cop Outbound V1 Overlay](https://apis.io/overlays/clearbank/clearbank-cop-outbound-v1-overlay/)
+- [Clearbank Cross Border V4 Overlay](https://apis.io/overlays/clearbank/clearbank-cross-border-v4-overlay/)
+- [Clearbank Customers_V2_Retail Overlay](https://apis.io/overlays/clearbank/clearbank-customers_v2_retail-overlay/)
+- [Clearbank Fps Initiate Payment V3 Overlay](https://apis.io/overlays/clearbank/clearbank-fps-initiate-payment-v3-overlay/)
+- [Clearbank Fx Orchestrator Rfq Overlay](https://apis.io/overlays/clearbank/clearbank-fx-orchestrator-rfq-overlay/)
+- [Clearbank Know Your Customer V1 Overlay](https://apis.io/overlays/clearbank/clearbank-know-your-customer-v1-overlay/)
+- [Clearbank Mccy Accounts V2 Overlay](https://apis.io/overlays/clearbank/clearbank-mccy-accounts-v2-overlay/)
+- [Clearbank Mccy Payments V1 Overlay](https://apis.io/overlays/clearbank/clearbank-mccy-payments-v1-overlay/)
+- [Clearbank Sepa Ct V1 Overlay](https://apis.io/overlays/clearbank/clearbank-sepa-ct-v1-overlay/)
+- [Clearbank Sterling V4 Overlay](https://apis.io/overlays/clearbank/clearbank-sterling-v4-overlay/)
 
-Orchestrate outbound and inbound multi-currency payments across supported currencies and rails.
+#### Security (3)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-mccy-payments-v1.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### ClearBank FX API
+- [Clearbank Authentication](https://apis.io/security/clearbank/clearbank-authentication/)
+- [Clearbank Domain Security](https://apis.io/security/clearbank/clearbank-domain-security/)
+- [Clearbank Vulnerability Disclosure](https://apis.io/security/clearbank/clearbank-vulnerability-disclosure/)
 
-Foreign-exchange trading orchestration supporting spot and request-for-quote (RFQ) currency conversion.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-fx-orchestrator-rfq.json)
+Published plans, tiers and prices.
 
-### ClearBank SEPA Credit Transfer API
+- [Clearbank Plans Pricing](https://apis.io/plans/clearbank/clearbank-plans-pricing/)
 
-Send and receive SEPA Credit Transfer (SCT) euro payments across the Single Euro Payments Area.
+## Where to find this API
 
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-sepa-ct-v1.json)
-
-### ClearBank Confirmation of Payee API
-
-Outbound Confirmation of Payee (CoP) name-checking to reduce misdirected payments and APP fraud.
-
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-cop-outbound-v1.json)
-
-### ClearBank Customer Due Diligence (KYC) API
-
-Know Your Customer / Customer Due Diligence checks for onboarding and verifying customers.
-
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-know-your-customer-v1.json)
-
-### ClearBank Cross-Border Sterling Payments API
-
-Cross-border sterling payment initiation and management for international transfers.
-
-- **Human URL:** [https://clearbank.github.io/uk/docs/api/](https://clearbank.github.io/uk/docs/api/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-cross-border-v4.json)
-
-### ClearBank Retail Embedded Banking Customers API
-
-Embedded Banking APIs to create and manage retail customers, hub and payment accounts, savings, and ISAs.
-
-- **Human URL:** [https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/](https://clearbank.github.io/uk/docs/embedded-banking/retail-customers/)
-- **Base URL:** `https://institution-api.clearbank.co.uk`
-- [OpenAPI](openapi/clearbank-customers_v2_retail.json)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.clear.bank/)
-- [Developer Portal](https://clearbank.github.io/)
 - [Documentation](https://clearbank.github.io/uk/docs/api/)
-- [Getting Started](https://clearbank.github.io/uk/docs/api/getting-started/)
-- [GitHub Organization](https://github.com/clearbank)
-- [LinkedIn](https://www.linkedin.com/company/clearbank)
-- [Blog / Newsroom](https://clear.bank/newsroom)
+- [Getting started](https://clearbank.github.io/uk/docs/api/getting-started/)
+- [API reference](https://clear.bank/explore-our-api)
+- [Pricing](https://clear.bank/legal/pricing-disclosure-emt-minting-and-redemption-service)
+- [Blog](https://clear.bank/newsroom)
 - [Security](https://clear.bank/security)
-- [Terms of Service](https://clear.bank/legal/terms-and-conditions)
-- [Privacy Policy](https://clear.bank/data-protection-and-privacy)
+- [Terms of service](https://clear.bank/legal/terms-and-conditions)
+- [Privacy policy](https://clear.bank/data-protection-and-privacy)
+- [GitHub](https://github.com/clearbank)
+- [Status](https://clearbank.statuspage.io/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 47.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 46.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 61.3 |
+| Access clarity | 31.6 |
+
+**Agent readiness 37.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 27.6** — Banking & Open Finance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/clearbank/](https://apis.io/providers/clearbank/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ClearBank: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/clearbank/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
